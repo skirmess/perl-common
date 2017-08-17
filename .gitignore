@@ -1,0 +1,6 @@
+*.bak
+*~
+.*.swp
+.build
+Dist-Zilla-PluginBundle-Author-SKIRMESS-*
+tmp
