@@ -165,6 +165,9 @@ sub configure {
         # Check that you're on the correct branch before release
         'Git::CheckFor::CorrectBranch',
 
+        # Check your repo for merge-conflicted files
+        'Git::CheckFor::MergeConflicts',
+
         # Ensure META includes resources
         'CheckMetaResources',
 

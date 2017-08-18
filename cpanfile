@@ -32,6 +32,7 @@ on 'develop' => sub {
   requires "Dist::Zilla::Plugin::ExecDir" => "0";
   requires "Dist::Zilla::Plugin::Git::Check" => "0";
   requires "Dist::Zilla::Plugin::Git::CheckFor::CorrectBranch" => "0";
+  requires "Dist::Zilla::Plugin::Git::CheckFor::MergeConflicts" => "0";
   requires "Dist::Zilla::Plugin::Git::Commit" => "0";
   requires "Dist::Zilla::Plugin::Git::Contributors" => "0";
   requires "Dist::Zilla::Plugin::Git::GatherDir" => "2.016";

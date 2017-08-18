@@ -2,6 +2,7 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+        - Added Git::CheckFor::MergeConflicts plugin
         - Add the CheckSelfDependency plugin
         - Plugins without arguments can be mentioned as scalar to add_plugins()
         - Removed support for FakeRelease plugin
