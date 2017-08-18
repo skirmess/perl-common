@@ -2,17 +2,17 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
-        - Added UpdateGitHub plugin
+        - Added CheckIssues plugin
+        - Added CheckSelfDependency plugin
+        - Added CheckStrictVersion plugin
+        - Added Git::CheckFor::MergeConflicts plugin
         - Added Git::Remote::Check plugin
         - Added InstallGuide plugin and therefore an INSTALL file
-        - Added CheckStrictVersion plugin
+        - Added MetaConfig plugin
+        - Added UpdateGitHub plugin
+        - Added VerifyPhases plugin
         - Added copyright_holder to dist.ini
         - Fixed a display issue in the POD
-        - Added MetaConfig plugin
-        - Added CheckIssues plugin
-        - Added VerifyPhases plugin
-        - Added Git::CheckFor::MergeConflicts plugin
-        - Added CheckSelfDependency plugin
         - Plugins without arguments can be mentioned as scalar to add_plugins()
         - Removed FakeRelease plugin
 
