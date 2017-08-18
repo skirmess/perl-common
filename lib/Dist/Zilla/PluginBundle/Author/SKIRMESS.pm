@@ -188,7 +188,7 @@ sub configure {
             'CheckStrictVersion',
             {
                 decimal_only => 1,
-            },
+            }
         ],
 
         # Support running xt tests via dzil test
