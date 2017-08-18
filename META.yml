@@ -368,6 +368,10 @@ x_Dist_Zilla:
       name: '@Author::SKIRMESS/Git::Push'
       version: '2.042'
     -
+      class: Dist::Zilla::Plugin::UpdateGitHub
+      name: '@Author::SKIRMESS/UpdateGitHub'
+      version: '0.0019'
+    -
       class: Dist::Zilla::Plugin::Prereqs
       config:
         Dist::Zilla::Plugin::Prereqs:

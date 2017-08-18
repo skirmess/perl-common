@@ -74,6 +74,7 @@
             "Dist::Zilla::Plugin::RunExtraTests" : "0",
             "Dist::Zilla::Plugin::ShareDir" : "0",
             "Dist::Zilla::Plugin::TestRelease" : "0",
+            "Dist::Zilla::Plugin::UpdateGitHub" : "0",
             "Dist::Zilla::Plugin::UploadToCPAN" : "0",
             "Dist::Zilla::Plugin::VerifyPhases" : "0",
             "Dist::Zilla::Plugin::VersionFromMainModule" : "0",
@@ -546,6 +547,11 @@
             },
             "name" : "@Author::SKIRMESS/Git::Push",
             "version" : "2.042"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::UpdateGitHub",
+            "name" : "@Author::SKIRMESS/UpdateGitHub",
+            "version" : "0.0019"
          },
          {
             "class" : "Dist::Zilla::Plugin::Prereqs",

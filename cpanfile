@@ -60,6 +60,7 @@ on 'develop' => sub {
   requires "Dist::Zilla::Plugin::RunExtraTests" => "0";
   requires "Dist::Zilla::Plugin::ShareDir" => "0";
   requires "Dist::Zilla::Plugin::TestRelease" => "0";
+  requires "Dist::Zilla::Plugin::UpdateGitHub" => "0";
   requires "Dist::Zilla::Plugin::UploadToCPAN" => "0";
   requires "Dist::Zilla::Plugin::VerifyPhases" => "0";
   requires "Dist::Zilla::Plugin::VersionFromMainModule" => "0";
