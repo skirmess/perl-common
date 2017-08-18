@@ -39,6 +39,7 @@ on 'develop' => sub {
   requires "Dist::Zilla::Plugin::Git::Contributors" => "0";
   requires "Dist::Zilla::Plugin::Git::GatherDir" => "2.016";
   requires "Dist::Zilla::Plugin::Git::Push" => "0";
+  requires "Dist::Zilla::Plugin::Git::Remote::Check" => "0";
   requires "Dist::Zilla::Plugin::Git::Tag" => "0";
   requires "Dist::Zilla::Plugin::GithubMeta" => "0";
   requires "Dist::Zilla::Plugin::InstallGuide" => "1.200007";

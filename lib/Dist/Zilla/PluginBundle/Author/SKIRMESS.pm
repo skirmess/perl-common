@@ -58,6 +58,14 @@ sub configure {
             }
         ],
 
+        # Ensure no pending commits on a remote branch before release
+        [
+            'Git::Remote::Check',
+            {
+                do_update => 0,
+            }
+        ],
+
         # Decline to build files that appear in a MANIFEST.SKIP-like file
         'ManifestSkip',
 

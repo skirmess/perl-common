@@ -53,6 +53,7 @@
             "Dist::Zilla::Plugin::Git::Contributors" : "0",
             "Dist::Zilla::Plugin::Git::GatherDir" : "2.016",
             "Dist::Zilla::Plugin::Git::Push" : "0",
+            "Dist::Zilla::Plugin::Git::Remote::Check" : "0",
             "Dist::Zilla::Plugin::Git::Tag" : "0",
             "Dist::Zilla::Plugin::GithubMeta" : "0",
             "Dist::Zilla::Plugin::InstallGuide" : "1.200007",
@@ -218,6 +219,11 @@
             },
             "name" : "@Author::SKIRMESS/Git::Check",
             "version" : "2.042"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::Git::Remote::Check",
+            "name" : "@Author::SKIRMESS/Git::Remote::Check",
+            "version" : "0.1.2"
          },
          {
             "class" : "Dist::Zilla::Plugin::ManifestSkip",

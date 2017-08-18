@@ -2,6 +2,7 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+        - Added Git::Remote::Check plugin
         - Added InstallGuide plugin and therefore an INSTALL file
         - Added CheckStrictVersion plugin
         - Added copyright_holder to dist.ini
