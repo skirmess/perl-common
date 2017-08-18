@@ -124,6 +124,9 @@ sub configure {
         # Add Dist::Zilla authordeps to META files as develop prereqs
         'Prereqs::AuthorDeps',
 
+        # Summarize Dist::Zilla configuration into distmeta
+        'MetaConfig',
+
         # Produce a META.yml
         'MetaYAML',
 
