@@ -1,7 +1,7 @@
 # SYNOPSIS
 
-\# in dist.ini
-\[@Author::SKIRMESS\]
+    # in dist.ini
+    [@Author::SKIRMESS]
 
 # USAGE
 

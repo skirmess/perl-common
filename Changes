@@ -2,6 +2,7 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+        - Fixed a display issue in the POD
         - Added MetaConfig plugin
         - Added CheckIssues plugin
         - Added VerifyPhases plugin

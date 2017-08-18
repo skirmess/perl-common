@@ -243,8 +243,8 @@ __END__
 
 =head1 SYNOPSIS
 
-# in dist.ini
-[@Author::SKIRMESS]
+  # in dist.ini
+  [@Author::SKIRMESS]
 
 =head1 USAGE
 
