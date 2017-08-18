@@ -19,7 +19,7 @@ sub configure {
     $self->add_plugins(
 
         # Add contributor names from git to your distribution
-        ['Git::Contributors'],
+        'Git::Contributors',
 
         # Gather all tracked files in a Git working directory
         [
@@ -31,7 +31,7 @@ sub configure {
         ],
 
         # Set the distribution version from your main module's $VERSION
-        ['VersionFromMainModule'],
+        'VersionFromMainModule',
 
         # Bump and reversion $VERSION on release
         [
@@ -59,7 +59,7 @@ sub configure {
         ],
 
         # Decline to build files that appear in a MANIFEST.SKIP-like file
-        ['ManifestSkip'],
+        'ManifestSkip',
 
         # automatically extract prereqs from your modules
         [
@@ -122,37 +122,37 @@ sub configure {
         ],
 
         # Add Dist::Zilla authordeps to META files as develop prereqs
-        ['Prereqs::AuthorDeps'],
+        'Prereqs::AuthorDeps',
 
         # Produce a META.yml
-        ['MetaYAML'],
+        'MetaYAML',
 
         # Produce a META.json
-        ['MetaJSON'],
+        'MetaJSON',
 
         # Produce a cpanfile prereqs file
-        ['CPANFile'],
+        'CPANFile',
 
         # Automatically convert POD to a README in any format for Dist::Zilla
         [ 'ReadmeAnyFromPod', 'ReadmeAnyFromPod/ReadmeTextInBuild' ],
 
         # Set copyright year from git
-        ['CopyrightYearFromGit'],
+        'CopyrightYearFromGit',
 
         # Output a LICENSE file
-        ['License'],
+        'License',
 
         # Install a directory's contents as executables
-        ['ExecDir'],
+        'ExecDir',
 
         # Install a directory's contents as "ShareDir" content
-        ['ShareDir'],
+        'ShareDir',
 
         # Build a Makefile.PL that uses ExtUtils::MakeMaker
-        ['MakeMaker'],
+        'MakeMaker',
 
         # Build a MANIFEST file
-        ['Manifest'],
+        'Manifest',
 
         # Copy (or move) specific files after building (for SCM inclusion, etc.)
         [
@@ -163,28 +163,28 @@ sub configure {
         ],
 
         # Check that you're on the correct branch before release
-        ['Git::CheckFor::CorrectBranch'],
+        'Git::CheckFor::CorrectBranch',
 
         # Ensure META includes resources
-        ['CheckMetaResources'],
+        'CheckMetaResources',
 
         # Prevent a release if you have prereqs not found on CPAN
-        ['CheckPrereqsIndexed'],
+        'CheckPrereqsIndexed',
 
         # Ensure Changes has content before releasing
-        ['CheckChangesHasContent'],
+        'CheckChangesHasContent',
 
         # Support running xt tests via dzil test
-        ['RunExtraTests'],
+        'RunExtraTests',
 
         # Extract archive and run tests before releasing the dist
-        ['TestRelease'],
+        'TestRelease',
 
         # Prompt for confirmation before releasing
-        ['ConfirmRelease'],
+        'ConfirmRelease',
 
         # Upload the dist to CPAN
-        [ 'UploadToCPAN' ],
+        'UploadToCPAN',
 
         # Copy files from a release (for SCM inclusion, etc.)
         [
@@ -214,7 +214,7 @@ sub configure {
         ],
 
         # Push current branch
-        ['Git::Push'],
+        'Git::Push',
 
     );
 
