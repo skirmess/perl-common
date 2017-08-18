@@ -24,6 +24,7 @@ on 'develop' => sub {
   requires "Dist::Zilla::Plugin::CheckChangesHasContent" => "0";
   requires "Dist::Zilla::Plugin::CheckMetaResources" => "0";
   requires "Dist::Zilla::Plugin::CheckPrereqsIndexed" => "0";
+  requires "Dist::Zilla::Plugin::CheckSelfDependency" => "0";
   requires "Dist::Zilla::Plugin::ConfirmRelease" => "0";
   requires "Dist::Zilla::Plugin::CopyFilesFromBuild" => "0";
   requires "Dist::Zilla::Plugin::CopyFilesFromRelease" => "0";

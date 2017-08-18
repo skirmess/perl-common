@@ -174,6 +174,9 @@ sub configure {
         # Ensure Changes has content before releasing
         'CheckChangesHasContent',
 
+        # Check if your distribution declares a dependency on itself
+        'CheckSelfDependency',
+
         # Support running xt tests via dzil test
         'RunExtraTests',
 
