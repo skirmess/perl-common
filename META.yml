@@ -23,7 +23,7 @@ no_index:
 provides:
   Dist::Zilla::PluginBundle::Author::SKIRMESS:
     file: lib/Dist/Zilla/PluginBundle/Author/SKIRMESS.pm
-    version: '0.001'
+    version: '0.002'
 requires:
   Dist::Zilla::Role::BundleDeps: '0'
   Dist::Zilla::Role::PluginBundle::Easy: '0'
@@ -36,7 +36,7 @@ resources:
   bugtracker: https://github.com/skirmess/Dist-Zilla-PluginBundle-Author-SKIRMESS/issues
   homepage: https://github.com/skirmess/Dist-Zilla-PluginBundle-Author-SKIRMESS
   repository: https://github.com/skirmess/Dist-Zilla-PluginBundle-Author-SKIRMESS.git
-version: '0.001'
+version: '0.002'
 x_Dist_Zilla:
   perl:
     version: '5.024000'
@@ -345,7 +345,7 @@ x_Dist_Zilla:
           branch: ~
           changelog: Changes
           signed: 0
-          tag: '0.001'
+          tag: '0.002'
           tag_format: '%v'
           tag_message: ''
         Dist::Zilla::Role::Git::Repo:
