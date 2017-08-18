@@ -267,6 +267,10 @@ x_Dist_Zilla:
       name: '@Author::SKIRMESS/CheckSelfDependency'
       version: '0.011'
     -
+      class: Dist::Zilla::Plugin::CheckStrictVersion
+      name: '@Author::SKIRMESS/CheckStrictVersion'
+      version: '0.001'
+    -
       class: Dist::Zilla::Plugin::RunExtraTests
       config:
         Dist::Zilla::Role::TestRunner:

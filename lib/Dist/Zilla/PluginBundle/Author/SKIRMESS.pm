@@ -183,6 +183,14 @@ sub configure {
         # Check if your distribution declares a dependency on itself
         'CheckSelfDependency',
 
+        # BeforeRelease plugin to check for a strict version number
+        [
+            'CheckStrictVersion',
+            {
+                decimal_only => 1,
+            },
+        ],
+
         # Support running xt tests via dzil test
         'RunExtraTests',
 
