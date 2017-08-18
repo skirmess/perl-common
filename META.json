@@ -36,6 +36,7 @@
             "Dist::Zilla::Plugin::Bootstrap::lib" : "0",
             "Dist::Zilla::Plugin::CPANFile" : "0",
             "Dist::Zilla::Plugin::CheckChangesHasContent" : "0",
+            "Dist::Zilla::Plugin::CheckIssues" : "0",
             "Dist::Zilla::Plugin::CheckMetaResources" : "0",
             "Dist::Zilla::Plugin::CheckPrereqsIndexed" : "0",
             "Dist::Zilla::Plugin::CheckSelfDependency" : "0",

@@ -186,6 +186,9 @@ sub configure {
         # Extract archive and run tests before releasing the dist
         'TestRelease',
 
+        # Retrieve count of outstanding RT and github issues for your distribution
+        'CheckIssues',
+
         # Prompt for confirmation before releasing
         'ConfirmRelease',
 

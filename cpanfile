@@ -22,6 +22,7 @@ on 'develop' => sub {
   requires "Dist::Zilla::Plugin::Bootstrap::lib" => "0";
   requires "Dist::Zilla::Plugin::CPANFile" => "0";
   requires "Dist::Zilla::Plugin::CheckChangesHasContent" => "0";
+  requires "Dist::Zilla::Plugin::CheckIssues" => "0";
   requires "Dist::Zilla::Plugin::CheckMetaResources" => "0";
   requires "Dist::Zilla::Plugin::CheckPrereqsIndexed" => "0";
   requires "Dist::Zilla::Plugin::CheckSelfDependency" => "0";
