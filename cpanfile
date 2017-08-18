@@ -56,6 +56,7 @@ on 'develop' => sub {
   requires "Dist::Zilla::Plugin::ShareDir" => "0";
   requires "Dist::Zilla::Plugin::TestRelease" => "0";
   requires "Dist::Zilla::Plugin::UploadToCPAN" => "0";
+  requires "Dist::Zilla::Plugin::VerifyPhases" => "0";
   requires "Dist::Zilla::Plugin::VersionFromMainModule" => "0";
   requires "Dist::Zilla::PluginBundle::Author::SKIRMESS" => "0";
   requires "Software::License::FreeBSD" => "0";

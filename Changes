@@ -2,6 +2,7 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+        - Added VerifyPhases plugin
         - Added Git::CheckFor::MergeConflicts plugin
         - Added CheckSelfDependency plugin
         - Plugins without arguments can be mentioned as scalar to add_plugins()

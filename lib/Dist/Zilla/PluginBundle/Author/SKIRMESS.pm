@@ -222,6 +222,8 @@ sub configure {
         # Push current branch
         'Git::Push',
 
+        # Compare data and files at different phases of the distribution build process
+        'VerifyPhases',
     );
 
     return;
