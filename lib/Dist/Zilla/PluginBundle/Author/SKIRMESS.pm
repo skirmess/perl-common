@@ -26,7 +26,7 @@ sub configure {
             'Git::GatherDir',
             {
                 ':version'       => '2.016',
-                exclude_filename => [qw( cpanfile dist.ini LICENSE Makefile.PL META.json META.yml README.md )],
+                exclude_filename => [qw( cpanfile dist.ini INSTALL LICENSE Makefile.PL META.json META.yml README.md )],
             }
         ],
 
@@ -145,6 +145,14 @@ sub configure {
         # Output a LICENSE file
         'License',
 
+        # Build an INSTALL file
+        [
+            'InstallGuide',
+            {
+                ':version' => '1.200007',
+            }
+        ],
+
         # Install a directory's contents as executables
         'ExecDir',
 
@@ -161,7 +169,7 @@ sub configure {
         [
             'CopyFilesFromBuild',
             {
-                copy => [qw( cpanfile LICENSE Makefile.PL META.json META.yml )],
+                copy => [qw( cpanfile INSTALL LICENSE Makefile.PL META.json META.yml )],
             }
         ],
 
@@ -219,7 +227,7 @@ sub configure {
             'Git::Commit',
             {
                 commit_msg        => '%v',
-                allow_dirty       => [qw(Changes cpanfile dist.ini LICENSE Makefile.PL META.json META.yml README.md)],
+                allow_dirty       => [qw(Changes cpanfile dist.ini INSTALL LICENSE Makefile.PL META.json META.yml README.md)],
                 allow_dirty_match => '\.pm$',
             }
         ],

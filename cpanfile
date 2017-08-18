@@ -41,6 +41,7 @@ on 'develop' => sub {
   requires "Dist::Zilla::Plugin::Git::Push" => "0";
   requires "Dist::Zilla::Plugin::Git::Tag" => "0";
   requires "Dist::Zilla::Plugin::GithubMeta" => "0";
+  requires "Dist::Zilla::Plugin::InstallGuide" => "1.200007";
   requires "Dist::Zilla::Plugin::License" => "0";
   requires "Dist::Zilla::Plugin::MakeMaker" => "0";
   requires "Dist::Zilla::Plugin::Manifest" => "0";

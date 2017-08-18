@@ -68,6 +68,7 @@ x_Dist_Zilla:
       config:
         Dist::Zilla::Plugin::GatherDir:
           exclude_filename:
+            - INSTALL
             - LICENSE
             - META.json
             - META.yml
@@ -205,6 +206,10 @@ x_Dist_Zilla:
       name: '@Author::SKIRMESS/License'
       version: '6.009'
     -
+      class: Dist::Zilla::Plugin::InstallGuide
+      name: '@Author::SKIRMESS/InstallGuide'
+      version: '1.200007'
+    -
       class: Dist::Zilla::Plugin::ExecDir
       name: '@Author::SKIRMESS/ExecDir'
       version: '6.009'
@@ -311,6 +316,7 @@ x_Dist_Zilla:
         Dist::Zilla::Role::Git::DirtyFiles:
           allow_dirty:
             - Changes
+            - INSTALL
             - LICENSE
             - META.json
             - META.yml

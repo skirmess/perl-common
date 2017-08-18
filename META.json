@@ -55,6 +55,7 @@
             "Dist::Zilla::Plugin::Git::Push" : "0",
             "Dist::Zilla::Plugin::Git::Tag" : "0",
             "Dist::Zilla::Plugin::GithubMeta" : "0",
+            "Dist::Zilla::Plugin::InstallGuide" : "1.200007",
             "Dist::Zilla::Plugin::License" : "0",
             "Dist::Zilla::Plugin::MakeMaker" : "0",
             "Dist::Zilla::Plugin::Manifest" : "0",
@@ -153,6 +154,7 @@
             "config" : {
                "Dist::Zilla::Plugin::GatherDir" : {
                   "exclude_filename" : [
+                     "INSTALL",
                      "LICENSE",
                      "META.json",
                      "META.yml",
@@ -330,6 +332,11 @@
             "version" : "6.009"
          },
          {
+            "class" : "Dist::Zilla::Plugin::InstallGuide",
+            "name" : "@Author::SKIRMESS/InstallGuide",
+            "version" : "1.200007"
+         },
+         {
             "class" : "Dist::Zilla::Plugin::ExecDir",
             "name" : "@Author::SKIRMESS/ExecDir",
             "version" : "6.009"
@@ -470,6 +477,7 @@
                "Dist::Zilla::Role::Git::DirtyFiles" : {
                   "allow_dirty" : [
                      "Changes",
+                     "INSTALL",
                      "LICENSE",
                      "META.json",
                      "META.yml",
