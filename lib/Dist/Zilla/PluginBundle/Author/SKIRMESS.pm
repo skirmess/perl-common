@@ -184,7 +184,7 @@ sub configure {
         ['ConfirmRelease'],
 
         # Upload the dist to CPAN
-        [ $ENV{FAKE_RELEASE} ? 'FakeRelease' : 'UploadToCPAN' ],
+        [ 'UploadToCPAN' ],
 
         # Copy files from a release (for SCM inclusion, etc.)
         [
