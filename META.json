@@ -4,7 +4,7 @@
       "Sven Kirmess <sven.kirmess@kzone.ch>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 6.009, CPAN::Meta::Converter version 2.150005",
+   "generated_by" : "Dist::Zilla version 6.010, CPAN::Meta::Converter version 2.150005",
    "license" : [
       "freebsd"
    ],
@@ -104,7 +104,7 @@
    "provides" : {
       "Dist::Zilla::PluginBundle::Author::SKIRMESS" : {
          "file" : "lib/Dist/Zilla/PluginBundle/Author/SKIRMESS.pm",
-         "version" : "0.002"
+         "version" : "0.003"
       }
    },
    "release_status" : "stable",
@@ -119,7 +119,7 @@
          "web" : "https://github.com/skirmess/Dist-Zilla-PluginBundle-Author-SKIRMESS"
       }
    },
-   "version" : "0.002",
+   "version" : "0.003",
    "x_Dist_Zilla" : {
       "perl" : {
          "version" : "5.024000"
@@ -154,7 +154,7 @@
                }
             },
             "name" : "@Author::SKIRMESS/stale modules, build",
-            "version" : "0.053"
+            "version" : "0.054"
          },
          {
             "class" : "Dist::Zilla::Plugin::PromptIfStale",
@@ -169,7 +169,7 @@
                }
             },
             "name" : "@Author::SKIRMESS/stale modules, release",
-            "version" : "0.053"
+            "version" : "0.054"
          },
          {
             "class" : "Dist::Zilla::Plugin::Git::Contributors",
@@ -226,7 +226,7 @@
          {
             "class" : "Dist::Zilla::Plugin::NextRelease",
             "name" : "@Author::SKIRMESS/NextRelease",
-            "version" : "6.009"
+            "version" : "6.010"
          },
          {
             "class" : "Dist::Zilla::Plugin::Git::Check",
@@ -263,17 +263,17 @@
          {
             "class" : "Dist::Zilla::Plugin::PruneCruft",
             "name" : "@Author::SKIRMESS/PruneCruft",
-            "version" : "6.009"
+            "version" : "6.010"
          },
          {
             "class" : "Dist::Zilla::Plugin::ManifestSkip",
             "name" : "@Author::SKIRMESS/ManifestSkip",
-            "version" : "6.009"
+            "version" : "6.010"
          },
          {
             "class" : "Dist::Zilla::Plugin::AutoPrereqs",
             "name" : "@Author::SKIRMESS/AutoPrereqs",
-            "version" : "6.009"
+            "version" : "6.010"
          },
          {
             "class" : "Dist::Zilla::Plugin::Authority",
@@ -288,7 +288,7 @@
          {
             "class" : "Dist::Zilla::Plugin::MetaNoIndex",
             "name" : "@Author::SKIRMESS/MetaNoIndex",
-            "version" : "6.009"
+            "version" : "6.010"
          },
          {
             "class" : "Dist::Zilla::Plugin::GithubMeta",
@@ -313,7 +313,7 @@
                      {
                         "class" : "Dist::Zilla::Plugin::FinderCode",
                         "name" : "@Author::SKIRMESS/MetaProvides::Package/AUTOVIV/:InstallModulesPM",
-                        "version" : "6.009"
+                        "version" : "6.010"
                      }
                   ],
                   "include_underscores" : 0
@@ -346,27 +346,27 @@
                }
             },
             "name" : "@Author::SKIRMESS/Prereqs",
-            "version" : "6.009"
+            "version" : "6.010"
          },
          {
             "class" : "Dist::Zilla::Plugin::MetaConfig",
             "name" : "@Author::SKIRMESS/MetaConfig",
-            "version" : "6.009"
+            "version" : "6.010"
          },
          {
             "class" : "Dist::Zilla::Plugin::MetaYAML",
             "name" : "@Author::SKIRMESS/MetaYAML",
-            "version" : "6.009"
+            "version" : "6.010"
          },
          {
             "class" : "Dist::Zilla::Plugin::MetaJSON",
             "name" : "@Author::SKIRMESS/MetaJSON",
-            "version" : "6.009"
+            "version" : "6.010"
          },
          {
             "class" : "Dist::Zilla::Plugin::CPANFile",
             "name" : "@Author::SKIRMESS/CPANFile",
-            "version" : "6.009"
+            "version" : "6.010"
          },
          {
             "class" : "Dist::Zilla::Plugin::ReadmeAnyFromPod",
@@ -386,7 +386,7 @@
          {
             "class" : "Dist::Zilla::Plugin::License",
             "name" : "@Author::SKIRMESS/License",
-            "version" : "6.009"
+            "version" : "6.010"
          },
          {
             "class" : "Dist::Zilla::Plugin::InstallGuide",
@@ -396,12 +396,12 @@
          {
             "class" : "Dist::Zilla::Plugin::ExecDir",
             "name" : "@Author::SKIRMESS/ExecDir",
-            "version" : "6.009"
+            "version" : "6.010"
          },
          {
             "class" : "Dist::Zilla::Plugin::ShareDir",
             "name" : "@Author::SKIRMESS/ShareDir",
-            "version" : "6.009"
+            "version" : "6.010"
          },
          {
             "class" : "Dist::Zilla::Plugin::MakeMaker",
@@ -411,12 +411,12 @@
                }
             },
             "name" : "@Author::SKIRMESS/MakeMaker",
-            "version" : "6.009"
+            "version" : "6.010"
          },
          {
             "class" : "Dist::Zilla::Plugin::Manifest",
             "name" : "@Author::SKIRMESS/Manifest",
-            "version" : "6.009"
+            "version" : "6.010"
          },
          {
             "class" : "Dist::Zilla::Plugin::CopyFilesFromBuild",
@@ -494,7 +494,7 @@
          {
             "class" : "Dist::Zilla::Plugin::TestRelease",
             "name" : "@Author::SKIRMESS/TestRelease",
-            "version" : "6.009"
+            "version" : "6.010"
          },
          {
             "class" : "Dist::Zilla::Plugin::CheckIssues",
@@ -504,12 +504,12 @@
          {
             "class" : "Dist::Zilla::Plugin::ConfirmRelease",
             "name" : "@Author::SKIRMESS/ConfirmRelease",
-            "version" : "6.009"
+            "version" : "6.010"
          },
          {
             "class" : "Dist::Zilla::Plugin::UploadToCPAN",
             "name" : "@Author::SKIRMESS/UploadToCPAN",
-            "version" : "6.009"
+            "version" : "6.010"
          },
          {
             "class" : "Dist::Zilla::Plugin::CopyFilesFromRelease",
@@ -566,7 +566,7 @@
                   "branch" : null,
                   "changelog" : "Changes",
                   "signed" : 0,
-                  "tag" : "0.002",
+                  "tag" : "0.003",
                   "tag_format" : "%v",
                   "tag_message" : ""
                },
@@ -607,57 +607,57 @@
                }
             },
             "name" : "@Author::SKIRMESS/::Role::BundleDeps",
-            "version" : "6.009"
+            "version" : "6.010"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
             "name" : ":InstallModules",
-            "version" : "6.009"
+            "version" : "6.010"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
             "name" : ":IncModules",
-            "version" : "6.009"
+            "version" : "6.010"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
             "name" : ":TestFiles",
-            "version" : "6.009"
+            "version" : "6.010"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
             "name" : ":ExtraTestFiles",
-            "version" : "6.009"
+            "version" : "6.010"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
             "name" : ":ExecFiles",
-            "version" : "6.009"
+            "version" : "6.010"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
             "name" : ":PerlExecFiles",
-            "version" : "6.009"
+            "version" : "6.010"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
             "name" : ":ShareFiles",
-            "version" : "6.009"
+            "version" : "6.010"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
             "name" : ":MainModule",
-            "version" : "6.009"
+            "version" : "6.010"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
             "name" : ":AllFiles",
-            "version" : "6.009"
+            "version" : "6.010"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
             "name" : ":NoFiles",
-            "version" : "6.009"
+            "version" : "6.010"
          },
          {
             "class" : "Dist::Zilla::Plugin::VerifyPhases",
@@ -667,7 +667,7 @@
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
             "name" : "@Author::SKIRMESS/MetaProvides::Package/AUTOVIV/:InstallModulesPM",
-            "version" : "6.009"
+            "version" : "6.010"
          }
       ],
       "zilla" : {
@@ -675,7 +675,7 @@
          "config" : {
             "is_trial" : "0"
          },
-         "version" : "6.009"
+         "version" : "6.010"
       }
    },
    "x_authority" : "cpan:SKIRMESS",
