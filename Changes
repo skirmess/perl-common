@@ -3,7 +3,7 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 {{$NEXT}}
 
         - Removed UpdateGitHub plugin
-	- Added PromptIfStale plugin
+        - Added PromptIfStale plugin
         - Improved abstract
 
 0.002  2017-08-18 23:45:16 UTC
