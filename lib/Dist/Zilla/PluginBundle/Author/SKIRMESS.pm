@@ -301,14 +301,62 @@ __PACKAGE__->meta->make_immutable;
 
 __END__
 
+=pod
+
+=encoding UTF-8
+
+=head1 NAME
+
+Dist::Zilla::PluginBundle::Author::SKIRMESS - Dist::Zilla configuration the way SKIRMESS does it
+
 =head1 SYNOPSIS
 
   # in dist.ini
   [@Author::SKIRMESS]
 
+=head1 DESCRIPTION
+
+This is a L<Dist::Zilla> PluginBundle.
+
 =head1 USAGE
 
 To use this PluginBundle, just add it to your dist.ini.
+
+=head1 SUPPORT
+
+=head2 Bugs / Feature Requests
+
+Please report any bugs or feature requests through the issue tracker
+at L<https://github.com/skirmess/Dist-Zilla-PluginBundle-Author-SKIRMESS/issues>.
+You will be notified automatically of any progress on your issue.
+
+=head2 Source Code
+
+This is open source software. The code repository is available for
+public review and contribution under the terms of the license.
+
+L<https://github.com/skirmess/Dist-Zilla-PluginBundle-Author-SKIRMESS>
+
+  git clone https://github.com/skirmess/Dist-Zilla-PluginBundle-Author-SKIRMESS.git
+
+=head1 AUTHOR
+
+Sven Kirmess <sven.kirmess@kzone.ch>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2017 by Sven Kirmess.
+
+This is free software, licensed under:
+
+  The (two-clause) FreeBSD License
+
+=head1 SEE ALSO
+
+L<Dist::Zilla::PluginBundle::Author::ETHER>,
+L<Dist::Zilla::PluginBundle::DAGOLDEN>,
+L<Dist::Zilla::PluginBundle::Milla>,
+L<Dist::Milla>
 
 =cut
 

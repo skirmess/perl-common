@@ -2,6 +2,7 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+        - Improved documentation
         - Added PruneCruft plugin
         - Added Prereqs plugin to add a dependency on the bundle in the used
           version
