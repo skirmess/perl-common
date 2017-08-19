@@ -2,6 +2,9 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+        - Added RemovePrereqs::Provided to dist.ini to remove the dependency
+          on ourself from this distribution
+
 0.003  2017-08-19 20:02:02 UTC
 
         - Added Prereqs plugin to add a dependency on the bundle in the used

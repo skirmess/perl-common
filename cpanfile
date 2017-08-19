@@ -59,6 +59,7 @@ on 'develop' => sub {
   requires "Dist::Zilla::Plugin::PromptIfStale" => "0";
   requires "Dist::Zilla::Plugin::PruneCruft" => "0";
   requires "Dist::Zilla::Plugin::ReadmeAnyFromPod" => "0";
+  requires "Dist::Zilla::Plugin::RemovePrereqs::Provided" => "0";
   requires "Dist::Zilla::Plugin::ReversionOnRelease" => "0";
   requires "Dist::Zilla::Plugin::RunExtraTests" => "0";
   requires "Dist::Zilla::Plugin::ShareDir" => "0";
@@ -66,6 +67,5 @@ on 'develop' => sub {
   requires "Dist::Zilla::Plugin::UploadToCPAN" => "0";
   requires "Dist::Zilla::Plugin::VerifyPhases" => "0";
   requires "Dist::Zilla::Plugin::VersionFromMainModule" => "0";
-  requires "Dist::Zilla::PluginBundle::Author::SKIRMESS" => "0.002";
   requires "Software::License::FreeBSD" => "0";
 };

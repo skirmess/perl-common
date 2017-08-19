@@ -73,6 +73,7 @@
             "Dist::Zilla::Plugin::PromptIfStale" : "0",
             "Dist::Zilla::Plugin::PruneCruft" : "0",
             "Dist::Zilla::Plugin::ReadmeAnyFromPod" : "0",
+            "Dist::Zilla::Plugin::RemovePrereqs::Provided" : "0",
             "Dist::Zilla::Plugin::ReversionOnRelease" : "0",
             "Dist::Zilla::Plugin::RunExtraTests" : "0",
             "Dist::Zilla::Plugin::ShareDir" : "0",
@@ -80,7 +81,6 @@
             "Dist::Zilla::Plugin::UploadToCPAN" : "0",
             "Dist::Zilla::Plugin::VerifyPhases" : "0",
             "Dist::Zilla::Plugin::VersionFromMainModule" : "0",
-            "Dist::Zilla::PluginBundle::Author::SKIRMESS" : "0.002",
             "Software::License::FreeBSD" : "0"
          }
       },
@@ -608,6 +608,11 @@
             },
             "name" : "@Author::SKIRMESS/::Role::BundleDeps",
             "version" : "6.010"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::RemovePrereqs::Provided",
+            "name" : "RemovePrereqs::Provided",
+            "version" : "0.001001"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
