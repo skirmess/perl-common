@@ -2,6 +2,7 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+	- Added PromptIfStale plugin
         - Improved abstract
 
 0.002  2017-08-18 23:45:16 UTC
