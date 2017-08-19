@@ -151,6 +151,15 @@ sub configure {
         # Add Dist::Zilla authordeps to META files as develop prereqs
         'Prereqs::AuthorDeps',
 
+        # List simple prerequisites
+        [
+            'Prereqs',
+            {
+                '-phase'          => 'develop',
+                $self->meta->name => $self->VERSION,
+            }
+        ],
+
         # Summarize Dist::Zilla configuration into distmeta
         'MetaConfig',
 

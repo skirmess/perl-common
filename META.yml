@@ -204,6 +204,14 @@ x_Dist_Zilla:
       name: '@Author::SKIRMESS/Prereqs::AuthorDeps'
       version: '0.006'
     -
+      class: Dist::Zilla::Plugin::Prereqs
+      config:
+        Dist::Zilla::Plugin::Prereqs:
+          phase: develop
+          type: requires
+      name: '@Author::SKIRMESS/Prereqs'
+      version: '6.009'
+    -
       class: Dist::Zilla::Plugin::MetaConfig
       name: '@Author::SKIRMESS/MetaConfig'
       version: '6.009'

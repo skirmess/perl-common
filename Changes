@@ -2,6 +2,8 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+        - Added Prereqs plugin to add a dependency on the bundle in the used
+          version
         - Removed UpdateGitHub plugin
         - Added PromptIfStale plugin
         - Improved abstract
