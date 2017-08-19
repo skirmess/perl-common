@@ -271,9 +271,6 @@ sub configure {
         # Push current branch
         'Git::Push',
 
-        # Update your github repository description from abstract on release
-        'UpdateGitHub',
-
         # Compare data and files at different phases of the distribution build process
         'VerifyPhases',
     );
