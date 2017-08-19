@@ -57,6 +57,7 @@ on 'develop' => sub {
   requires "Dist::Zilla::Plugin::Prereqs" => "0";
   requires "Dist::Zilla::Plugin::Prereqs::AuthorDeps" => "0";
   requires "Dist::Zilla::Plugin::PromptIfStale" => "0";
+  requires "Dist::Zilla::Plugin::PruneCruft" => "0";
   requires "Dist::Zilla::Plugin::ReadmeAnyFromPod" => "0";
   requires "Dist::Zilla::Plugin::ReversionOnRelease" => "0";
   requires "Dist::Zilla::Plugin::RunExtraTests" => "0";

@@ -85,6 +85,14 @@ sub configure {
             }
         ],
 
+        # Prune stuff that you probably don't mean to include
+        [
+            'PruneCruft',
+            {
+                exclude => [qw( .perltidyrc )],
+            }
+        ],
+
         # Decline to build files that appear in a MANIFEST.SKIP-like file
         'ManifestSkip',
 

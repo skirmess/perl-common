@@ -149,6 +149,10 @@ x_Dist_Zilla:
       name: '@Author::SKIRMESS/Git::Remote::Check'
       version: 0.1.2
     -
+      class: Dist::Zilla::Plugin::PruneCruft
+      name: '@Author::SKIRMESS/PruneCruft'
+      version: '6.009'
+    -
       class: Dist::Zilla::Plugin::ManifestSkip
       name: '@Author::SKIRMESS/ManifestSkip'
       version: '6.009'
