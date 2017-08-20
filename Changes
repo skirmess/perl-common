@@ -2,6 +2,7 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+        - Remove Perl 5.8 from TravisCI because some plugins depend on 5.10
         - Removed RemovePrereqs::Provided plugin from dist.ini
         - Added Prereqs::Plugins plugin to dist.ini
         - Removed Dist::Zilla::Role::BundleDeps role
