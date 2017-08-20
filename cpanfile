@@ -67,5 +67,9 @@ on 'develop' => sub {
   requires "Dist::Zilla::Plugin::UploadToCPAN" => "0";
   requires "Dist::Zilla::Plugin::VerifyPhases" => "0";
   requires "Dist::Zilla::Plugin::VersionFromMainModule" => "0";
+  requires "File::Spec" => "0";
+  requires "Perl::Critic::Utils" => "0";
   requires "Software::License::FreeBSD" => "0";
+  requires "Test::More" => "0";
+  requires "Test::Perl::Critic" => "0";
 };

@@ -81,7 +81,11 @@
             "Dist::Zilla::Plugin::UploadToCPAN" : "0",
             "Dist::Zilla::Plugin::VerifyPhases" : "0",
             "Dist::Zilla::Plugin::VersionFromMainModule" : "0",
-            "Software::License::FreeBSD" : "0"
+            "File::Spec" : "0",
+            "Perl::Critic::Utils" : "0",
+            "Software::License::FreeBSD" : "0",
+            "Test::More" : "0",
+            "Test::Perl::Critic" : "0"
          }
       },
       "runtime" : {

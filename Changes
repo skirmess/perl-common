@@ -2,6 +2,8 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+        - Added .perltidyrc
+        - Added Test::Perl::Critic author test and perlcriticrc config file
         - Added RemovePrereqs::Provided to dist.ini to remove the dependency
           on ourself from this distribution
 
