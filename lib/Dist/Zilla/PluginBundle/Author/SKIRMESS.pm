@@ -10,7 +10,6 @@ use namespace::autoclean 0.09;
 
 with qw(
   Dist::Zilla::Role::PluginBundle::Easy
-  Dist::Zilla::Role::BundleDeps
 );
 
 sub configure {
@@ -154,18 +153,6 @@ sub configure {
             'MetaProvides::Package',
             {
                 meta_noindex => 1,
-            }
-        ],
-
-        # Add Dist::Zilla authordeps to META files as develop prereqs
-        'Prereqs::AuthorDeps',
-
-        # List simple prerequisites
-        [
-            'Prereqs',
-            {
-                '-phase'          => 'develop',
-                $self->meta->name => $self->VERSION,
             }
         ],
 

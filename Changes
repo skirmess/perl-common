@@ -2,6 +2,11 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+        - Removed RemovePrereqs::Provided plugin from dist.ini
+        - Added Prereqs::Plugins plugin to dist.ini
+        - Removed Dist::Zilla::Role::BundleDeps role
+        - Removed Prereqs::AuthorDeps plugin
+        - Removed Prereqs plugin
         - Added .travis.yml
         - Fixed links in POD to specify text
         - Bugfix: .perltidyrc was not included in the distribution

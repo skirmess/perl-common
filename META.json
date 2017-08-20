@@ -30,7 +30,15 @@
       },
       "develop" : {
          "requires" : {
-            "Dist::Zilla" : "5",
+            "File::Spec" : "0",
+            "Perl::Critic::Utils" : "0",
+            "Test::More" : "0",
+            "Test::Perl::Critic" : "0"
+         }
+      },
+      "runtime" : {
+         "requires" : {
+            "Dist::Zilla" : "0",
             "Dist::Zilla::Plugin::Authority" : "1.009",
             "Dist::Zilla::Plugin::AutoPrereqs" : "0",
             "Dist::Zilla::Plugin::Bootstrap::lib" : "0",
@@ -68,12 +76,10 @@
             "Dist::Zilla::Plugin::MetaYAML" : "0",
             "Dist::Zilla::Plugin::MinimumPerl" : "1.006",
             "Dist::Zilla::Plugin::NextRelease" : "0",
-            "Dist::Zilla::Plugin::Prereqs" : "0",
-            "Dist::Zilla::Plugin::Prereqs::AuthorDeps" : "0",
+            "Dist::Zilla::Plugin::Prereqs::Plugins" : "0",
             "Dist::Zilla::Plugin::PromptIfStale" : "0",
             "Dist::Zilla::Plugin::PruneCruft" : "0",
             "Dist::Zilla::Plugin::ReadmeAnyFromPod" : "0",
-            "Dist::Zilla::Plugin::RemovePrereqs::Provided" : "0",
             "Dist::Zilla::Plugin::ReversionOnRelease" : "0",
             "Dist::Zilla::Plugin::RunExtraTests" : "0",
             "Dist::Zilla::Plugin::ShareDir" : "0",
@@ -81,16 +87,6 @@
             "Dist::Zilla::Plugin::UploadToCPAN" : "0",
             "Dist::Zilla::Plugin::VerifyPhases" : "0",
             "Dist::Zilla::Plugin::VersionFromMainModule" : "0",
-            "File::Spec" : "0",
-            "Perl::Critic::Utils" : "0",
-            "Software::License::FreeBSD" : "0",
-            "Test::More" : "0",
-            "Test::Perl::Critic" : "0"
-         }
-      },
-      "runtime" : {
-         "requires" : {
-            "Dist::Zilla::Role::BundleDeps" : "0",
             "Dist::Zilla::Role::PluginBundle::Easy" : "0",
             "Moose" : "0.99",
             "namespace::autoclean" : "0.09",
@@ -335,22 +331,6 @@
             },
             "name" : "@Author::SKIRMESS/MetaProvides::Package",
             "version" : "2.004003"
-         },
-         {
-            "class" : "Dist::Zilla::Plugin::Prereqs::AuthorDeps",
-            "name" : "@Author::SKIRMESS/Prereqs::AuthorDeps",
-            "version" : "0.006"
-         },
-         {
-            "class" : "Dist::Zilla::Plugin::Prereqs",
-            "config" : {
-               "Dist::Zilla::Plugin::Prereqs" : {
-                  "phase" : "develop",
-                  "type" : "requires"
-               }
-            },
-            "name" : "@Author::SKIRMESS/Prereqs",
-            "version" : "6.010"
          },
          {
             "class" : "Dist::Zilla::Plugin::MetaConfig",
@@ -603,20 +583,16 @@
             "version" : "2.042"
          },
          {
-            "class" : "Dist::Zilla::Plugin::Prereqs",
+            "class" : "Dist::Zilla::Plugin::Prereqs::Plugins",
             "config" : {
-               "Dist::Zilla::Plugin::Prereqs" : {
-                  "phase" : "develop",
-                  "type" : "requires"
+               "Dist::Zilla::Plugin::Prereqs::Plugins" : {
+                  "exclude" : [],
+                  "phase" : "runtime",
+                  "relation" : "requires"
                }
             },
-            "name" : "@Author::SKIRMESS/::Role::BundleDeps",
-            "version" : "6.010"
-         },
-         {
-            "class" : "Dist::Zilla::Plugin::RemovePrereqs::Provided",
-            "name" : "RemovePrereqs::Provided",
-            "version" : "0.001001"
+            "name" : "Prereqs::Plugins",
+            "version" : "1.003003"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
