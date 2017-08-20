@@ -2,6 +2,9 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+        - Added Test::Version author test
+        - Added Test::NoTabs author test
+        - Added Test::Mojibake author test
         - Added Test::MinimumVersion author test
         - Remove Perl 5.8 from TravisCI because some plugins depend on 5.10
         - Removed RemovePrereqs::Provided plugin from dist.ini

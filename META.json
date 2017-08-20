@@ -33,8 +33,11 @@
             "File::Spec" : "0",
             "Perl::Critic::Utils" : "0",
             "Test::MinimumVersion" : "0",
-            "Test::More" : "0",
-            "Test::Perl::Critic" : "0"
+            "Test::Mojibake" : "0",
+            "Test::More" : "0.88",
+            "Test::NoTabs" : "0",
+            "Test::Perl::Critic" : "0",
+            "Test::Version" : "0.04"
          }
       },
       "runtime" : {

@@ -67,6 +67,9 @@ on 'develop' => sub {
   requires "File::Spec" => "0";
   requires "Perl::Critic::Utils" => "0";
   requires "Test::MinimumVersion" => "0";
-  requires "Test::More" => "0";
+  requires "Test::Mojibake" => "0";
+  requires "Test::More" => "0.88";
+  requires "Test::NoTabs" => "0";
   requires "Test::Perl::Critic" => "0";
+  requires "Test::Version" => "0.04";
 };
