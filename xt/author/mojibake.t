@@ -10,8 +10,9 @@ BEGIN {
     }
 }
 
-use Test::MinimumVersion;
+use Test::More;
+use Test::Mojibake;
 
-all_minimum_version_ok('5.006');
+all_files_encoding_ok(qw( bin lib t xt ));
 
 # vim: ts=4 sts=4 sw=4 et: syntax=perl
