@@ -46,6 +46,7 @@ sub configure {
             {
                 ':version'       => '2.016',
                 exclude_filename => [qw( cpanfile dist.ini INSTALL LICENSE Makefile.PL META.json META.yml README.md )],
+                include_dotfiles => 1,
             }
         ],
 
@@ -89,7 +90,7 @@ sub configure {
         [
             'PruneCruft',
             {
-                exclude => [qw( .perltidyrc )],
+                except => [qw( \.perltidyrc )],
             }
         ],
 

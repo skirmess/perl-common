@@ -205,7 +205,7 @@
                   ],
                   "exclude_match" : [],
                   "follow_symlinks" : 0,
-                  "include_dotfiles" : 0,
+                  "include_dotfiles" : 1,
                   "prefix" : "",
                   "prune_directory" : [],
                   "root" : "."
