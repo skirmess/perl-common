@@ -10,8 +10,12 @@ BEGIN {
     }
 }
 
-use Test::NoTabs;
+use Test::More 0.88;
+use Test::Kwalitee 'kwalitee_ok';
 
-all_perl_files_ok( grep { -d } qw( bin lib t xt ) );
+# Module::CPANTS::Analyse does not find the LICENSE in scripts that don't end in .pl
+kwalitee_ok(qw{-has_license_in_source_file -has_abstract_in_pod});
+
+done_testing;
 
 # vim: ts=4 sts=4 sw=4 et: syntax=perl

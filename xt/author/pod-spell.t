@@ -10,8 +10,13 @@ BEGIN {
     }
 }
 
-use Test::NoTabs;
+use Test::More;
+use Test::Spelling 0.12;
+use Pod::Wordlist;
 
-all_perl_files_ok( grep { -d } qw( bin lib t xt ) );
+add_stopwords(qw(Sven Kirmess));
 
-# vim: ts=4 sts=4 sw=4 et: syntax=perl
+add_stopwords(<DATA>);
+
+all_pod_files_spelling_ok(qw( bin lib ));
+__DATA__
