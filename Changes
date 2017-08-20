@@ -1,30 +1,26 @@
 Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
-        - Added 00-load.t test
-        - Added Test::Spelling author test
-        - Added Test::Pod::No404s release test
-        - Added Test::Kwalitee release test
-        - Added Test::CPAN::Meta author test
-        - Added Test::Portability::Files author test
-        - Added Test::Pod author test
-        - Added Test::Version author test
-        - Added Test::NoTabs author test
-        - Added Test::Mojibake author test
-        - Added Test::MinimumVersion author test
-        - Remove Perl 5.8 from TravisCI because some plugins depend on 5.10
-        - Removed RemovePrereqs::Provided plugin from dist.ini
-        - Added Prereqs::Plugins plugin to dist.ini
-        - Removed Dist::Zilla::Role::BundleDeps role
-        - Removed Prereqs::AuthorDeps plugin
-        - Removed Prereqs plugin
-        - Added .travis.yml
-        - Fixed links in POD to specify text
-        - Bugfix: .perltidyrc was not included in the distribution
+
         - Added .perltidyrc
+        - Added .travis.yml
+        - Added 00-load.t test
+        - Added Prereqs::Plugins plugin to dist.ini
+        - Added Test::CPAN::Meta author test
+        - Added Test::Kwalitee release test
+        - Added Test::MinimumVersion author test
+        - Added Test::Mojibake author test
+        - Added Test::NoTabs author test
         - Added Test::Perl::Critic author test and perlcriticrc config file
-        - Added RemovePrereqs::Provided to dist.ini to remove the dependency
-          on ourself from this distribution
+        - Added Test::Pod author test
+        - Added Test::Pod::No404s release test
+        - Added Test::Portability::Files author test
+        - Added Test::Spelling author test
+        - Added Test::Version author test
+        - Fixed links in POD to specify text
+        - Removed Dist::Zilla::Role::BundleDeps role
+        - Removed Prereqs plugin
+        - Removed Prereqs::AuthorDeps plugin
 
 0.003  2017-08-19 20:02:02 UTC
 
