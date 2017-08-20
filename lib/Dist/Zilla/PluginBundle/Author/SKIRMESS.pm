@@ -3,7 +3,7 @@ package Dist::Zilla::PluginBundle::Author::SKIRMESS;
 use strict;
 use warnings;
 
-our $VERSION = '0.003';
+our $VERSION = '0.004';
 
 use Moose 0.99;
 use namespace::autoclean 0.09;
