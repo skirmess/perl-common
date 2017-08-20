@@ -10,3 +10,6 @@ perl:
   - '5.12'
   - '5.10'
   - '5.8'
+script:
+  - perl Makefile.PL && make test
+  - test -d xt && prove -lr xt
