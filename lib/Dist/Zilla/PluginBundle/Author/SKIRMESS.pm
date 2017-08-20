@@ -317,7 +317,7 @@ Dist::Zilla::PluginBundle::Author::SKIRMESS - Dist::Zilla configuration the way 
 
 =head1 DESCRIPTION
 
-This is a L<Dist::Zilla> PluginBundle.
+This is a L<Dist::Zilla|Dist::Zilla> PluginBundle.
 
 =head1 USAGE
 
@@ -354,10 +354,10 @@ This is free software, licensed under:
 
 =head1 SEE ALSO
 
-L<Dist::Zilla::PluginBundle::Author::ETHER>,
-L<Dist::Zilla::PluginBundle::DAGOLDEN>,
-L<Dist::Zilla::PluginBundle::Milla>,
-L<Dist::Milla>
+L<Dist::Zilla::PluginBundle::Author::ETHER|Dist::Zilla::PluginBundle::Author::ETHER>,
+L<Dist::Zilla::PluginBundle::DAGOLDEN|Dist::Zilla::PluginBundle::DAGOLDEN>,
+L<Dist::Zilla::PluginBundle::Milla|Dist::Zilla::PluginBundle::Milla>,
+L<Dist::Milla|Dist::Milla>
 
 =cut
 

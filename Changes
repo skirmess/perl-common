@@ -2,6 +2,7 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+        - Fixed links in POD to specify text
         - Bugfix: .perltidyrc was not included in the distribution
         - Added .perltidyrc
         - Added Test::Perl::Critic author test and perlcriticrc config file
