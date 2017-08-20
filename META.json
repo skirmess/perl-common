@@ -108,6 +108,7 @@
       },
       "test" : {
          "requires" : {
+            "Test::More" : "0",
             "perl" : "5.006"
          }
       }

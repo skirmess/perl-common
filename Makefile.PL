@@ -72,9 +72,12 @@ my %WriteMakefileArgs = (
     "strict" => 0,
     "warnings" => 0
   },
+  "TEST_REQUIRES" => {
+    "Test::More" => 0
+  },
   "VERSION" => "0.003",
   "test" => {
-    "TESTS" => ""
+    "TESTS" => "t/*.t"
   }
 );
 
@@ -131,6 +134,7 @@ my %FallbackPrereqs = (
   "Dist::Zilla::Plugin::VersionFromMainModule" => 0,
   "Dist::Zilla::Role::PluginBundle::Easy" => 0,
   "Moose" => "0.99",
+  "Test::More" => 0,
   "namespace::autoclean" => "0.09",
   "strict" => 0,
   "warnings" => 0

@@ -3,6 +3,7 @@ abstract: 'Dist::Zilla configuration the way SKIRMESS does it'
 author:
   - 'Sven Kirmess <sven.kirmess@kzone.ch>'
 build_requires:
+  Test::More: '0'
   perl: '5.006'
 configure_requires:
   ExtUtils::MakeMaker: '0'

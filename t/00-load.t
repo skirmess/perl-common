@@ -6,7 +6,7 @@ use warnings;
 use Test::More;
 
 my @modules = qw(
-  LIST_MODULES_HERE
+  Dist::Zilla::PluginBundle::Author::SKIRMESS
 );
 
 plan tests => scalar @modules;
