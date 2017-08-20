@@ -10,6 +10,8 @@ perl:
   - '5.12'
   - '5.10'
   - '5.8'
+before_install:
+  - export RELEASE_TESTING=1 AUTOMATED_TESTING=1 AUTHOR_TESTING=1
 script:
   - perl Makefile.PL && make test
   - test -d xt && prove -lr xt
