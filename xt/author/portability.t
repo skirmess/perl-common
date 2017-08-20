@@ -8,6 +8,11 @@ BEGIN {
         print "1..0 # SKIP these tests are for testing by the author\n";
         exit 0;
     }
+
+    if ( !-f 'MANIFEST' ) {
+        print "1..0 # SKIP No MANIFEST file\n";
+        exit 0;
+    }
 }
 
 use Test::More;
