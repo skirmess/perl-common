@@ -66,6 +66,7 @@ on 'configure' => sub {
 on 'develop' => sub {
   requires "File::Spec" => "0";
   requires "Perl::Critic::Utils" => "0";
+  requires "Test::MinimumVersion" => "0";
   requires "Test::More" => "0";
   requires "Test::Perl::Critic" => "0";
 };

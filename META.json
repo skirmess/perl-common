@@ -32,6 +32,7 @@
          "requires" : {
             "File::Spec" : "0",
             "Perl::Critic::Utils" : "0",
+            "Test::MinimumVersion" : "0",
             "Test::More" : "0",
             "Test::Perl::Critic" : "0"
          }
