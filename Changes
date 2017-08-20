@@ -2,6 +2,9 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+        - Added Test::CPAN::Meta author test
+        - Added Test::Portability::Files author test
+        - Added Test::Pod author test
         - Added Test::Version author test
         - Added Test::NoTabs author test
         - Added Test::Mojibake author test

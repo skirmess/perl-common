@@ -32,11 +32,14 @@
          "requires" : {
             "File::Spec" : "0",
             "Perl::Critic::Utils" : "0",
+            "Test::CPAN::Meta" : "0",
             "Test::MinimumVersion" : "0",
             "Test::Mojibake" : "0",
             "Test::More" : "0.88",
             "Test::NoTabs" : "0",
             "Test::Perl::Critic" : "0",
+            "Test::Pod" : "1.00",
+            "Test::Portability::Files" : "0",
             "Test::Version" : "0.04"
          }
       },
