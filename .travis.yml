@@ -10,9 +10,9 @@ perl:
   - '5.12'
   - '5.10'
 before_install:
-  - export RELEASE_TESTING=1 AUTOMATED_TESTING=1 AUTHOR_TESTING=1
+  - export AUTOMATED_TESTING=1 AUTHOR_TESTING=1
 install:
   - cpanm --quiet --installdeps --notest --skip-satisfied --with-develop .
 script:
   - perl Makefile.PL && make test
-  - test -d xt && prove -lr xt
+  - test -d xt/author && prove -lr xt/author
