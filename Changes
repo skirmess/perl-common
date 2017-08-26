@@ -2,6 +2,8 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+0.005  2017-08-26 18:55:22 UTC
+
   - A default Perl::Critic config file xt/author/perlcriticrc is created if
     none exists. Existing files are not changed
   - Added Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::CPAN::Meta
