@@ -1,17 +1,12 @@
 #!perl
 
+use 5.006;
 use strict;
 use warnings;
 
-BEGIN {
-    if ( !exists $ENV{AUTHOR_TESTING} ) {
-        print "1..0 # SKIP these tests are for testing by the author\n";
-        exit 0;
-    }
-}
+# this test was generated with
+# Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::MinimumVersion 0.004
 
-use Test::MinimumVersion;
+use Test::MinimumVersion 0.008;
 
-all_minimum_version_ok('5.006');
-
-# vim: ts=4 sts=4 sw=4 et: syntax=perl
+all_minimum_version_from_metayml_ok();

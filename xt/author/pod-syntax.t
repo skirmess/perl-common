@@ -1,18 +1,12 @@
 #!perl
 
+use 5.006;
 use strict;
 use warnings;
 
-BEGIN {
-    if ( !exists $ENV{AUTHOR_TESTING} ) {
-        print "1..0 # SKIP these tests are for testing by the author\n";
-        exit 0;
-    }
-}
+# this test was generated with
+# Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::Pod 0.004
 
-use Test::More;
-use Test::Pod 1.00;
+use Test::Pod 1.26;
 
-all_pod_files_ok();
-
-# vim: ts=4 sts=4 sw=4 et: syntax=perl
+all_pod_files_ok( grep { -d } qw( bin lib t xt) );

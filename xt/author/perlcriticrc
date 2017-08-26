@@ -2,10 +2,12 @@ severity = 1
 
 [-Documentation::RequirePodSections]
 
+[-InputOutput::RequireBriefOpen]
+
 [InputOutput::RequireCheckedSyscalls]
 exclude_functions = print
 
-# Broken, compalins on .t files
+# Broken, complains on .t files
 # https://rt.cpan.org/Public/Bug/Display.html?id=84135
 [-Modules::RequireVersionVar]
 

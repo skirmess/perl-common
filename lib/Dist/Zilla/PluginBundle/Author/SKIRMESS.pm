@@ -1,5 +1,6 @@
 package Dist::Zilla::PluginBundle::Author::SKIRMESS;
 
+use 5.006;
 use strict;
 use warnings;
 
@@ -10,6 +11,17 @@ use namespace::autoclean 0.09;
 
 with qw(
   Dist::Zilla::Role::PluginBundle::Easy
+);
+
+sub mvp_multivalue_args { return qw/stopwords/ }
+
+has stopwords => (
+    is      => 'ro',
+    isa     => 'Maybe[ArrayRef]',
+    lazy    => 1,
+    default => sub {
+        exists $_[0]->payload->{stopwords} ? $_[0]->payload->{stopwords} : undef;
+    },
 );
 
 sub configure {
@@ -25,6 +37,20 @@ sub configure {
                 module => [ $self->meta->name ],
             }
         ],
+
+        'Author::SKIRMESS::Test::XT::Test::CPAN::Meta',
+        'Author::SKIRMESS::Test::XT::Test::CPAN::Meta::JSON',
+        'Author::SKIRMESS::Test::XT::Test::DistManifest',
+        'Author::SKIRMESS::Test::XT::Test::Kwalitee',
+        'Author::SKIRMESS::Test::XT::Test::MinimumVersion',
+        'Author::SKIRMESS::Test::XT::Test::Mojibake',
+        'Author::SKIRMESS::Test::XT::Test::NoTabs',
+        'Author::SKIRMESS::Test::XT::Test::Perl::Critic',
+        'Author::SKIRMESS::Test::XT::Test::Pod',
+        'Author::SKIRMESS::Test::XT::Test::Pod::No404s',
+        'Author::SKIRMESS::Test::XT::Test::Portability::Files',
+        [ 'Author::SKIRMESS::Test::XT::Test::Spelling', { stopwords => $self->stopwords } ],
+        'Author::SKIRMESS::Test::XT::Test::Version',
 
         # Check at build/release time if modules are out of date
         [
