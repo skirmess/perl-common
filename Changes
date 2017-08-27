@@ -2,6 +2,7 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+  - Skip pod-no404s.t author tests during AUTOMATED_TESTING
   - Add .perltidyrc to the distribution
   - Moved xt/author/perlcriticrc to .perlcriticrc
   - No longer define a -profile for Test::Perl::Critic as the .perlcriticrc
