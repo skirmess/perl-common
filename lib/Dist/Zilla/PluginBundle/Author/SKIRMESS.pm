@@ -50,6 +50,7 @@ sub configure {
         'Author::SKIRMESS::Test::XT::Test::CPAN::Meta',
         'Author::SKIRMESS::Test::XT::Test::CPAN::Meta::JSON',
         'Author::SKIRMESS::Test::XT::Test::DistManifest',
+        'Author::SKIRMESS::Test::XT::Test::EOL',
         'Author::SKIRMESS::Test::XT::Test::Kwalitee',
         'Author::SKIRMESS::Test::XT::Test::MinimumVersion',
         'Author::SKIRMESS::Test::XT::Test::Mojibake',

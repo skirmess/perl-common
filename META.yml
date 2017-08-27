@@ -34,6 +34,9 @@ provides:
   Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::DistManifest:
     file: lib/Dist/Zilla/Plugin/Author/SKIRMESS/Test/XT/Test/DistManifest.pm
     version: '0.005'
+  Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::EOL:
+    file: lib/Dist/Zilla/Plugin/Author/SKIRMESS/Test/XT/Test/EOL.pm
+    version: '0.005'
   Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::Kwalitee:
     file: lib/Dist/Zilla/Plugin/Author/SKIRMESS/Test/XT/Test/Kwalitee.pm
     version: '0.005'
@@ -180,6 +183,10 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::DistManifest
       name: '@Author::SKIRMESS/Author::SKIRMESS::Test::XT::Test::DistManifest'
+      version: '0.005'
+    -
+      class: Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::EOL
+      name: '@Author::SKIRMESS/Author::SKIRMESS::Test::XT::Test::EOL'
       version: '0.005'
     -
       class: Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::Kwalitee

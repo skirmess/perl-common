@@ -78,6 +78,7 @@ on 'develop' => sub {
   requires "Test::CPAN::Meta" => "0.12";
   requires "Test::CPAN::Meta::JSON" => "0";
   requires "Test::DistManifest" => "1.003";
+  requires "Test::EOL" => "0";
   requires "Test::Kwalitee" => "0";
   requires "Test::MinimumVersion" => "0.008";
   requires "Test::Mojibake" => "0";

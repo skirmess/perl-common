@@ -36,6 +36,7 @@
             "Test::CPAN::Meta" : "0.12",
             "Test::CPAN::Meta::JSON" : "0",
             "Test::DistManifest" : "1.003",
+            "Test::EOL" : "0",
             "Test::Kwalitee" : "0",
             "Test::MinimumVersion" : "0.008",
             "Test::Mojibake" : "0",
@@ -137,6 +138,10 @@
       },
       "Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::DistManifest" : {
          "file" : "lib/Dist/Zilla/Plugin/Author/SKIRMESS/Test/XT/Test/DistManifest.pm",
+         "version" : "0.005"
+      },
+      "Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::EOL" : {
+         "file" : "lib/Dist/Zilla/Plugin/Author/SKIRMESS/Test/XT/Test/EOL.pm",
          "version" : "0.005"
       },
       "Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::Kwalitee" : {
@@ -254,6 +259,11 @@
          {
             "class" : "Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::DistManifest",
             "name" : "@Author::SKIRMESS/Author::SKIRMESS::Test::XT::Test::DistManifest",
+            "version" : "0.005"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::EOL",
+            "name" : "@Author::SKIRMESS/Author::SKIRMESS::Test::XT::Test::EOL",
             "version" : "0.005"
          },
          {
