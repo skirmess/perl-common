@@ -11,7 +11,7 @@ perl:
   - '5.10'
   - '5.8'
 before_install:
-  - export AUTOMATED_TESTING=1 AUTHOR_TESTING=1
+  - export AUTOMATED_TESTING=1
 install:
   - cpanm --quiet --installdeps --notest --skip-satisfied --with-develop .
 script:
