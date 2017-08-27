@@ -39,7 +39,7 @@ install:
 script:
   - perl Makefile.PL && make test
   - test -d xt/author && prove -lr xt/author
-  - rm -f xt/release/manifest.t
+  - make manifest
   - test -d xt/release && prove -lr xt/release
 TRAVIS_YML
 

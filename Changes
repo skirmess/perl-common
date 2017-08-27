@@ -2,10 +2,11 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+  - Run 'make manifest' on TravisCI before running release tests
   - No longer set AUTHOR_TESTING env variable on TravisCI because we don't
     check for that anymore
   - Add Perl 5.8 to .travis.yml
-  - Run xt/release tests on TravisCI except manifest.t which can't work
+  - Run xt/release tests on TravisCI
   - Automatically create the .travis.yml file
   - Added Dist::Zilla::Plugin::Author::SKIRMESS::TravisCI
   - Skip pod-no404s.t author tests during AUTOMATED_TESTING
