@@ -52,6 +52,8 @@ sub configure {
         [ 'Author::SKIRMESS::Test::XT::Test::Spelling', { stopwords => $self->stopwords } ],
         'Author::SKIRMESS::Test::XT::Test::Version',
 
+        'Author::SKIRMESS::TravisCI',
+
         # Check at build/release time if modules are out of date
         [
             'PromptIfStale', 'stale modules, release',

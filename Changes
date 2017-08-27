@@ -2,6 +2,10 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+  - Add Perl 5.8 to .travis.yml
+  - Run xt/release tests on TravisCI except manifest.t which can't work
+  - Automatically create the .travis.yml file
+  - Added Dist::Zilla::Plugin::Author::SKIRMESS::TravisCI
   - Skip pod-no404s.t author tests during AUTOMATED_TESTING
   - Add .perltidyrc to the distribution
   - Moved xt/author/perlcriticrc to .perlcriticrc

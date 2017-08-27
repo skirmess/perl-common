@@ -61,6 +61,9 @@ provides:
   Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::Version:
     file: lib/Dist/Zilla/Plugin/Author/SKIRMESS/Test/XT/Test/Version.pm
     version: '0.005'
+  Dist::Zilla::Plugin::Author::SKIRMESS::TravisCI:
+    file: lib/Dist/Zilla/Plugin/Author/SKIRMESS/TravisCI.pm
+    version: '0.005'
   Dist::Zilla::PluginBundle::Author::SKIRMESS:
     file: lib/Dist/Zilla/PluginBundle/Author/SKIRMESS.pm
     version: '0.005'
@@ -214,6 +217,10 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::Version
       name: '@Author::SKIRMESS/Author::SKIRMESS::Test::XT::Test::Version'
+      version: '0.005'
+    -
+      class: Dist::Zilla::Plugin::Author::SKIRMESS::TravisCI
+      name: '@Author::SKIRMESS/Author::SKIRMESS::TravisCI'
       version: '0.005'
     -
       class: Dist::Zilla::Plugin::PromptIfStale
