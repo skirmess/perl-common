@@ -2,6 +2,11 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+  - Add .perltidyrc to the distribution
+  - Moved xt/author/perlcriticrc to .perlcriticrc
+  - No longer define a -profile for Test::Perl::Critic as the .perlcriticrc
+    is now in the cwd
+
 0.005  2017-08-26 18:55:22 UTC
 
   - A default Perl::Critic config file xt/author/perlcriticrc is created if

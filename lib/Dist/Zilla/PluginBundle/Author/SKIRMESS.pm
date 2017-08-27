@@ -115,7 +115,7 @@ sub configure {
         [
             'PruneCruft',
             {
-                except => [qw( \.perltidyrc )],
+                except => [qw( \.perlcriticrc \.perltidyrc )],
             }
         ],
 
