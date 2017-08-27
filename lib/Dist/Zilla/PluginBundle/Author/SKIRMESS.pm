@@ -13,7 +13,7 @@ with qw(
   Dist::Zilla::Role::PluginBundle::Easy
 );
 
-sub mvp_multivalue_args { return qw/stopwords/ }
+sub mvp_multivalue_args { return qw(stopwords travis_ci_ignore_perl) }
 
 has stopwords => (
     is      => 'ro',
@@ -21,6 +21,15 @@ has stopwords => (
     lazy    => 1,
     default => sub {
         exists $_[0]->payload->{stopwords} ? $_[0]->payload->{stopwords} : undef;
+    },
+);
+
+has travis_ci_ignore_perl => (
+    is      => 'ro',
+    isa     => 'Maybe[ArrayRef]',
+    lazy    => 1,
+    default => sub {
+        exists $_[0]->payload->{travis_ci_ignore_perl} ? $_[0]->payload->{travis_ci_ignore_perl} : undef;
     },
 );
 
@@ -52,7 +61,12 @@ sub configure {
         [ 'Author::SKIRMESS::Test::XT::Test::Spelling', { stopwords => $self->stopwords } ],
         'Author::SKIRMESS::Test::XT::Test::Version',
 
-        'Author::SKIRMESS::TravisCI',
+        [
+            'Author::SKIRMESS::TravisCI',
+            {
+                travis_ci_ignore_perl => $self->travis_ci_ignore_perl,
+            }
+        ],
 
         'Author::SKIRMESS::Perl::Tidy::RC',
 

@@ -14,24 +14,29 @@ with qw(
 
 use Path::Tiny;
 
+sub mvp_multivalue_args { return (qw( travis_ci_ignore_perl )) }
+
+has travis_ci_ignore_perl => (
+    is      => 'ro',
+    isa     => 'Maybe[ArrayRef]',
+    default => sub { [] },
+);
+
 use namespace::autoclean;
 
 sub before_build {
     my ($self) = @_;
 
-    my $travis_yml = <<'TRAVIS_YML';
-language: perl
-perl:
-  - '5.26'
-  - '5.24'
-  - '5.22'
-  - '5.20'
-  - '5.18'
-  - '5.16'
-  - '5.14'
-  - '5.12'
-  - '5.10'
-  - '5.8'
+    my $travis_yml = "language: perl\nperl:\n";
+
+    my @perl = grep { defined && !m{ ^ \s* $ }xsm } $self->_get_perl_version_to_check_with_travis();
+    die 'no perl versions selected for TravisCI' if !@perl;
+
+    for my $perl (@perl) {
+        $travis_yml .= "  - '$perl'\n";
+    }
+
+    $travis_yml .= <<'TRAVIS_YML';
 before_install:
   - export AUTOMATED_TESTING=1
 install:
@@ -46,6 +51,26 @@ TRAVIS_YML
     path('.travis.yml')->spew($travis_yml);
 
     return;
+}
+
+sub _get_perl_version_to_check_with_travis {
+    my ($self) = @_;
+
+    my @perl_available = qw(5.26 5.24 5.22 5.20 5.18 5.16 5.14 5.12 5.10 5.8);
+
+    my %perl_to_skip;
+    for my $perl ( @{ $self->travis_ci_ignore_perl } ) {
+        $perl_to_skip{$perl} = 1;
+    }
+
+    my @perl;
+    for my $perl (@perl_available) {
+        if ( !exists $perl_to_skip{$perl} ) {
+            push @perl, $perl;
+        }
+    }
+
+    return @perl;
 }
 
 1;

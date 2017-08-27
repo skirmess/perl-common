@@ -2,12 +2,12 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+  - Allow travis_ci_ignore_perl configuration option for dist.ini
   - Added Dist::Zilla::Plugin::Author::SKIRMESS::Perl::Tidy::RC
   - Automatically create the .perltidyrc file
   - Run 'make manifest' on TravisCI before running release tests
   - No longer set AUTHOR_TESTING env variable on TravisCI because we don't
     check for that anymore
-  - Add Perl 5.8 to .travis.yml
   - Run xt/release tests on TravisCI
   - Automatically create the .travis.yml file
   - Added Dist::Zilla::Plugin::Author::SKIRMESS::TravisCI
