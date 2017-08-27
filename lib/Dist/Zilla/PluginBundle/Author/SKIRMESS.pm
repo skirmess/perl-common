@@ -54,6 +54,8 @@ sub configure {
 
         'Author::SKIRMESS::TravisCI',
 
+        'Author::SKIRMESS::Perl::Tidy::RC',
+
         # Check at build/release time if modules are out of date
         [
             'PromptIfStale', 'stale modules, release',

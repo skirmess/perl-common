@@ -123,6 +123,10 @@
       }
    },
    "provides" : {
+      "Dist::Zilla::Plugin::Author::SKIRMESS::Perl::Tidy::RC" : {
+         "file" : "lib/Dist/Zilla/Plugin/Author/SKIRMESS/Perl/Tidy/RC.pm",
+         "version" : "0.005"
+      },
       "Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::CPAN::Meta" : {
          "file" : "lib/Dist/Zilla/Plugin/Author/SKIRMESS/Test/XT/Test/CPAN/Meta.pm",
          "version" : "0.005"
@@ -305,6 +309,11 @@
          {
             "class" : "Dist::Zilla::Plugin::Author::SKIRMESS::TravisCI",
             "name" : "@Author::SKIRMESS/Author::SKIRMESS::TravisCI",
+            "version" : "0.005"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::Author::SKIRMESS::Perl::Tidy::RC",
+            "name" : "@Author::SKIRMESS/Author::SKIRMESS::Perl::Tidy::RC",
             "version" : "0.005"
          },
          {
