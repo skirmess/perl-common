@@ -12,6 +12,7 @@ with qw(
   Dist::Zilla::Role::BeforeBuild
 );
 
+use Carp;
 use Path::Tiny;
 
 sub mvp_multivalue_args { return (qw( travis_ci_ignore_perl )) }
@@ -30,7 +31,7 @@ sub before_build {
     my $travis_yml = "language: perl\nperl:\n";
 
     my @perl = grep { defined && !m{ ^ \s* $ }xsm } $self->_get_perl_version_to_check_with_travis();
-    die 'no perl versions selected for TravisCI' if !@perl;
+    croak 'no perl versions selected for TravisCI' if !@perl;
 
     for my $perl (@perl) {
         $travis_yml .= "  - '$perl'\n";
