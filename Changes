@@ -2,6 +2,9 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+  - Added
+    Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::CleanNamespaces
+  - Added Test::CleanNamespaces author test
   - Added Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::Changes
   - Added Test::CPAN::Changes release test
   - Added 'theme = core' to .perlcriticrc

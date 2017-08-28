@@ -36,6 +36,7 @@
             "Test::CPAN::Changes" : "0",
             "Test::CPAN::Meta" : "0.12",
             "Test::CPAN::Meta::JSON" : "0",
+            "Test::CleanNamespaces" : "0",
             "Test::DistManifest" : "1.003",
             "Test::EOL" : "0",
             "Test::Kwalitee" : "0",
@@ -139,6 +140,10 @@
       },
       "Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::Changes" : {
          "file" : "lib/Dist/Zilla/Plugin/Author/SKIRMESS/Test/XT/Test/Changes.pm",
+         "version" : "0.005"
+      },
+      "Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::CleanNamespaces" : {
+         "file" : "lib/Dist/Zilla/Plugin/Author/SKIRMESS/Test/XT/Test/CleanNamespaces.pm",
          "version" : "0.005"
       },
       "Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::DistManifest" : {
@@ -254,6 +259,11 @@
          {
             "class" : "Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::Changes",
             "name" : "@Author::SKIRMESS/Author::SKIRMESS::Test::XT::Test::Changes",
+            "version" : "0.005"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::CleanNamespaces",
+            "name" : "@Author::SKIRMESS/Author::SKIRMESS::Test::XT::Test::CleanNamespaces",
             "version" : "0.005"
          },
          {

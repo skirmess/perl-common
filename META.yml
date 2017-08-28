@@ -34,6 +34,9 @@ provides:
   Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::Changes:
     file: lib/Dist/Zilla/Plugin/Author/SKIRMESS/Test/XT/Test/Changes.pm
     version: '0.005'
+  Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::CleanNamespaces:
+    file: lib/Dist/Zilla/Plugin/Author/SKIRMESS/Test/XT/Test/CleanNamespaces.pm
+    version: '0.005'
   Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::DistManifest:
     file: lib/Dist/Zilla/Plugin/Author/SKIRMESS/Test/XT/Test/DistManifest.pm
     version: '0.005'
@@ -178,6 +181,10 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::Changes
       name: '@Author::SKIRMESS/Author::SKIRMESS::Test::XT::Test::Changes'
+      version: '0.005'
+    -
+      class: Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::CleanNamespaces
+      name: '@Author::SKIRMESS/Author::SKIRMESS::Test::XT::Test::CleanNamespaces'
       version: '0.005'
     -
       class: Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::CPAN::Meta

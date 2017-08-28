@@ -48,6 +48,7 @@ sub configure {
         ],
 
         'Author::SKIRMESS::Test::XT::Test::Changes',
+        'Author::SKIRMESS::Test::XT::Test::CleanNamespaces',
         'Author::SKIRMESS::Test::XT::Test::CPAN::Meta',
         'Author::SKIRMESS::Test::XT::Test::CPAN::Meta::JSON',
         'Author::SKIRMESS::Test::XT::Test::DistManifest',
