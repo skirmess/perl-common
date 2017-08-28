@@ -31,6 +31,7 @@ after 'before_build' => sub {
 
     my $perlcriticrc_content = <<'RC';
 severity = 1
+theme    = core
 
 [-Documentation::RequirePodSections]
 

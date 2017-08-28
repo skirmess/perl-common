@@ -1,4 +1,5 @@
 severity = 1
+theme    = core
 
 [-Documentation::RequirePodSections]
 
