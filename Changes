@@ -2,6 +2,8 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+  - Added Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::Changes
+  - Added Test::CPAN::Changes release test
   - Added 'theme = core' to .perlcriticrc
   - Added Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::EOL
   - Added Test::EOL release test

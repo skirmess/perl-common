@@ -75,6 +75,7 @@ on 'develop' => sub {
   requires "File::Spec" => "0";
   requires "Perl::Critic::Utils" => "0";
   requires "Pod::Wordlist" => "0";
+  requires "Test::CPAN::Changes" => "0";
   requires "Test::CPAN::Meta" => "0.12";
   requires "Test::CPAN::Meta::JSON" => "0";
   requires "Test::DistManifest" => "1.003";

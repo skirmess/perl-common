@@ -31,6 +31,9 @@ provides:
   Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::CPAN::Meta::JSON:
     file: lib/Dist/Zilla/Plugin/Author/SKIRMESS/Test/XT/Test/CPAN/Meta/JSON.pm
     version: '0.005'
+  Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::Changes:
+    file: lib/Dist/Zilla/Plugin/Author/SKIRMESS/Test/XT/Test/Changes.pm
+    version: '0.005'
   Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::DistManifest:
     file: lib/Dist/Zilla/Plugin/Author/SKIRMESS/Test/XT/Test/DistManifest.pm
     version: '0.005'
@@ -172,6 +175,10 @@ x_Dist_Zilla:
           skip: []
       name: '@Author::SKIRMESS/stale modules, build'
       version: '0.054'
+    -
+      class: Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::Changes
+      name: '@Author::SKIRMESS/Author::SKIRMESS::Test::XT::Test::Changes'
+      version: '0.005'
     -
       class: Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::CPAN::Meta
       name: '@Author::SKIRMESS/Author::SKIRMESS::Test::XT::Test::CPAN::Meta'
