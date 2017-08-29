@@ -2,29 +2,29 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+  - Add .perltidyrc to the distribution
+  - Added 'theme = core' to .perlcriticrc
+  - Added Dist::Zilla::Plugin::Author::SKIRMESS::Perl::Tidy::RC
+  - Added Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::Changes
   - Added
     Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::CleanNamespaces
-  - Added Test::CleanNamespaces author test
-  - Added Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::Changes
-  - Added Test::CPAN::Changes release test
-  - Added 'theme = core' to .perlcriticrc
   - Added Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::EOL
-  - Added Test::EOL release test
-  - Also scan files under t and xt with Test::Spelling
-  - Allow travis_ci_ignore_perl configuration option for dist.ini
-  - Added Dist::Zilla::Plugin::Author::SKIRMESS::Perl::Tidy::RC
-  - Automatically create the .perltidyrc file
-  - Run 'make manifest' on TravisCI before running release tests
-  - No longer set AUTHOR_TESTING env variable on TravisCI because we don't
-    check for that anymore
-  - Run xt/release tests on TravisCI
-  - Automatically create the .travis.yml file
   - Added Dist::Zilla::Plugin::Author::SKIRMESS::TravisCI
-  - Skip pod-no404s.t author tests during AUTOMATED_TESTING
-  - Add .perltidyrc to the distribution
+  - Added Test::CPAN::Changes release test
+  - Added Test::CleanNamespaces author test
+  - Added Test::EOL release test
+  - Allow travis_ci_ignore_perl configuration option for dist.ini
+  - Also scan files under t and xt with Test::Spelling
+  - Automatically create the .perltidyrc file
+  - Automatically create the .travis.yml file
   - Moved xt/author/perlcriticrc to .perlcriticrc
   - No longer define a -profile for Test::Perl::Critic as the .perlcriticrc
     is now in the cwd
+  - No longer set AUTHOR_TESTING env variable on TravisCI because we don't
+    check for that anymore
+  - Run 'make manifest' on TravisCI before running release tests
+  - Run xt/release tests on TravisCI
+  - Skip pod-no404s.t author tests during AUTOMATED_TESTING
 
 0.005  2017-08-26 18:55:22 UTC
 
