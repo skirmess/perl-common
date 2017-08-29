@@ -2,6 +2,8 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+0.006  2017-08-29 22:18:19 UTC
+
   - Add .perltidyrc to the distribution
   - Added 'theme = core' to .perlcriticrc
   - Added Dist::Zilla::Plugin::Author::SKIRMESS::Perl::Tidy::RC
