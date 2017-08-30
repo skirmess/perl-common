@@ -60,7 +60,7 @@ sub _get_perl_version_to_check_with_travis {
     my @perl_available = qw(5.26 5.24 5.22 5.20 5.18 5.16 5.14 5.12 5.10 5.8);
 
     my %perl_to_skip;
-    PERL:
+  PERL:
     for my $perl ( @{ $self->travis_ci_ignore_perl } ) {
         next PERL if !defined $perl;
         $perl_to_skip{$perl} = 1;
