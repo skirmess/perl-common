@@ -2,6 +2,7 @@ requires "Carp" => "0";
 requires "Dist::Zilla" => "0";
 requires "Dist::Zilla::Plugin::Authority" => "1.009";
 requires "Dist::Zilla::Plugin::AutoPrereqs" => "0";
+requires "Dist::Zilla::Plugin::AutoPrereqs::Perl::Critic" => "0";
 requires "Dist::Zilla::Plugin::Bootstrap::lib" => "0";
 requires "Dist::Zilla::Plugin::CPANFile" => "0";
 requires "Dist::Zilla::Plugin::CheckChangesHasContent" => "0";
@@ -73,6 +74,7 @@ on 'configure' => sub {
 
 on 'develop' => sub {
   requires "File::Spec" => "0";
+  requires "Perl::Critic" => "1.130";
   requires "Perl::Critic::Utils" => "0";
   requires "Pod::Wordlist" => "0";
   requires "Test::CPAN::Changes" => "0";

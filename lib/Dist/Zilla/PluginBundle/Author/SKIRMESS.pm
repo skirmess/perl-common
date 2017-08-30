@@ -151,6 +151,9 @@ sub configure {
             }
         ],
 
+        # automatically extract Perl::Critic policy prereqs
+        'AutoPrereqs::Perl::Critic',
+
         # Add the $AUTHORITY variable and metadata to your distribution
         [
             'Authority',

@@ -2,6 +2,8 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+  - Added Plugin::AutoPrereqs::Perl::Critic plugin
+
 0.006  2017-08-29 22:18:19 UTC
 
   - Add .perltidyrc to the distribution

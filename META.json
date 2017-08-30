@@ -31,6 +31,7 @@
       "develop" : {
          "requires" : {
             "File::Spec" : "0",
+            "Perl::Critic" : "1.130",
             "Perl::Critic::Utils" : "0",
             "Pod::Wordlist" : "0",
             "Test::CPAN::Changes" : "0",
@@ -58,6 +59,7 @@
             "Dist::Zilla" : "0",
             "Dist::Zilla::Plugin::Authority" : "1.009",
             "Dist::Zilla::Plugin::AutoPrereqs" : "0",
+            "Dist::Zilla::Plugin::AutoPrereqs::Perl::Critic" : "0",
             "Dist::Zilla::Plugin::Bootstrap::lib" : "0",
             "Dist::Zilla::Plugin::CPANFile" : "0",
             "Dist::Zilla::Plugin::CheckChangesHasContent" : "0",
@@ -464,6 +466,11 @@
             "class" : "Dist::Zilla::Plugin::AutoPrereqs",
             "name" : "@Author::SKIRMESS/AutoPrereqs",
             "version" : "6.010"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::AutoPrereqs::Perl::Critic",
+            "name" : "@Author::SKIRMESS/AutoPrereqs::Perl::Critic",
+            "version" : "0.002"
          },
          {
             "class" : "Dist::Zilla::Plugin::Authority",
