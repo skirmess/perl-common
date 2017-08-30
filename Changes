@@ -2,6 +2,8 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+0.007  2017-08-30 21:09:56 UTC
+
   - Added Plugin::AutoPrereqs::Perl::Critic plugin
 
 0.006  2017-08-29 22:18:19 UTC
