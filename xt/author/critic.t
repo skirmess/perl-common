@@ -5,7 +5,7 @@ use strict;
 use warnings;
 
 # this test was generated with
-# Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::Perl::Critic 0.006
+# Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::Perl::Critic 0.007
 
 use File::Spec;
 
