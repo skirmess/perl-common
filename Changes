@@ -2,6 +2,8 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+0.008  2017-08-30 21:24:52 UTC
+
   - Removed an occurrence of 'Use of uninitialized value'
 
 0.007  2017-08-30 21:09:56 UTC
