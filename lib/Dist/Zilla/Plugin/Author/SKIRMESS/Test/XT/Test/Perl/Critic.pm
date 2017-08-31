@@ -36,7 +36,7 @@ after 'before_build' => sub {
 # $myself $myversion
 
 severity = 1
-theme    = core
+theme    = core || moose
 
 [-Documentation::RequirePodSections]
 
@@ -82,6 +82,8 @@ if ( @files == 0 ) {
 all_critic_ok(@files);
 TEST_BODY
 }
+
+__PACKAGE__->meta->make_immutable;
 
 1;
 

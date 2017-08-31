@@ -2,6 +2,8 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+  - Added Perl::Critic::Moose
+  - Added "__PACKAGE__->meta->make_immutable" to all modules
   - Add a comment to .perlcriticrc that the file is automatically generated
   - Always replace an existing .perlcriticrc with a new, default one
   - Add a comment to .perltidyrc that the file is automatically generated

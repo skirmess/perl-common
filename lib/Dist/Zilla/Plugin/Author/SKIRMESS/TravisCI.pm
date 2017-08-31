@@ -78,6 +78,8 @@ sub _get_perl_version_to_check_with_travis {
     return @perl;
 }
 
+__PACKAGE__->meta->make_immutable;
+
 1;
 
 # vim: ts=4 sts=4 sw=4 et: syntax=perl

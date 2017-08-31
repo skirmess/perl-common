@@ -2,7 +2,7 @@
 # Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::Perl::Critic 0.008
 
 severity = 1
-theme    = core
+theme    = core || moose
 
 [-Documentation::RequirePodSections]
 

@@ -38,6 +38,8 @@ run_tests();
 TEST_BODY
 }
 
+__PACKAGE__->meta->make_immutable;
+
 1;
 
 # vim: ts=4 sts=4 sw=4 et: syntax=perl
