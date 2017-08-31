@@ -19,7 +19,13 @@ use namespace::autoclean;
 sub before_build {
     my ($self) = @_;
 
-    my $perltidyrc = <<'PERL_TIDY_RC';
+    my $myself = ref $self;
+    my $myversion = $self->VERSION;
+
+    my $perltidyrc = <<"PERL_TIDY_RC";
+# Automatically generated file
+# $myself $myversion
+
 --maximum-line-length=0
 --break-at-old-comma-breakpoints
 --backup-and-modify-in-place
