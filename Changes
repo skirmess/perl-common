@@ -2,6 +2,8 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+  - Add a comment to .travis.yml that the file is automatically generated
+
 0.008  2017-08-30 21:24:52 UTC
 
   - Removed an occurrence of 'Use of uninitialized value'

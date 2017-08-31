@@ -1,3 +1,6 @@
+# Automatically generated file
+# Dist::Zilla::Plugin::Author::SKIRMESS::TravisCI 0.008
+
 language: perl
 perl:
   - '5.26'

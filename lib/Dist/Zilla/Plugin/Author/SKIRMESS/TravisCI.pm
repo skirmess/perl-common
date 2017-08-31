@@ -28,7 +28,9 @@ use namespace::autoclean;
 sub before_build {
     my ($self) = @_;
 
-    my $travis_yml = "language: perl\nperl:\n";
+    my $travis_yml = "# Automatically generated file\n# ";
+    $travis_yml .= ref $self;
+    $travis_yml .= q{ } . $self->VERSION . "\n\nlanguage: perl\nperl:\n";
 
     my @perl = grep { defined && !m{ ^ \s* $ }xsm } $self->_get_perl_version_to_check_with_travis();
     croak 'no perl versions selected for TravisCI' if !@perl;
