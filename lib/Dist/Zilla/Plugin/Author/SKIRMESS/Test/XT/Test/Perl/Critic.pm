@@ -26,10 +26,15 @@ use namespace::autoclean;
 after 'before_build' => sub {
     my ($self) = @_;
 
-    my $perlcriticrc = path('.perlcriticrc');
-    return if -e $perlcriticrc;
+    my $myself    = ref $self;
+    my $myversion = $self->VERSION;
 
-    my $perlcriticrc_content = <<'RC';
+    my $perlcriticrc = path('.perlcriticrc');
+
+    my $perlcriticrc_content = <<"RC";
+# Automatically generated file
+# $myself $myversion
+
 severity = 1
 theme    = core
 

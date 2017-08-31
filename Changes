@@ -2,6 +2,8 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+  - Add a comment to .perlcriticrc that the file is automatically generated
+  - Always replace an existing .perlcriticrc with a new, default one
   - Add a comment to .perltidyrc that the file is automatically generated
   - Add a comment to .travis.yml that the file is automatically generated
 

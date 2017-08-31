@@ -1,3 +1,6 @@
+# Automatically generated file
+# Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::Perl::Critic 0.008
+
 severity = 1
 theme    = core
 
