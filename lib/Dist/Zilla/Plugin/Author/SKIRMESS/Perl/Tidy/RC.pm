@@ -19,7 +19,7 @@ use namespace::autoclean;
 sub before_build {
     my ($self) = @_;
 
-    my $myself = ref $self;
+    my $myself    = ref $self;
     my $myversion = $self->VERSION;
 
     my $perltidyrc = <<"PERL_TIDY_RC";
