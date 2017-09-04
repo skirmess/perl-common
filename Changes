@@ -2,6 +2,8 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+0.009  2017-09-04 10:48:45 UTC
+
   - Add a comment to .perlcriticrc that the file is automatically generated
   - Add a comment to .perltidyrc that the file is automatically generated
   - Add a comment to .travis.yml that the file is automatically generated
