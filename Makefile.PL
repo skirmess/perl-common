@@ -18,6 +18,7 @@ my %WriteMakefileArgs = (
   "NAME" => "Dist::Zilla::PluginBundle::Author::SKIRMESS",
   "PREREQ_PM" => {
     "Carp" => 0,
+    "Config::Std" => 0,
     "Dist::Zilla" => 0,
     "Dist::Zilla::Plugin::Authority" => "1.009",
     "Dist::Zilla::Plugin::AutoPrereqs" => 0,
@@ -92,6 +93,7 @@ my %WriteMakefileArgs = (
 
 my %FallbackPrereqs = (
   "Carp" => 0,
+  "Config::Std" => 0,
   "Dist::Zilla" => 0,
   "Dist::Zilla::Plugin::Authority" => "1.009",
   "Dist::Zilla::Plugin::AutoPrereqs" => 0,

@@ -1,4 +1,5 @@
 requires "Carp" => "0";
+requires "Config::Std" => "0";
 requires "Dist::Zilla" => "0";
 requires "Dist::Zilla::Plugin::Authority" => "1.009";
 requires "Dist::Zilla::Plugin::AutoPrereqs" => "0";

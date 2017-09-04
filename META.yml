@@ -84,6 +84,7 @@ provides:
     version: '0.008'
 requires:
   Carp: '0'
+  Config::Std: '0'
   Dist::Zilla: '0'
   Dist::Zilla::Plugin::Authority: '1.009'
   Dist::Zilla::Plugin::AutoPrereqs: '0'
