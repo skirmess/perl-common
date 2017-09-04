@@ -102,6 +102,7 @@ exclude_functions = print
 [Subroutines::ProhibitReturnSort]
 [Subroutines::ProhibitSubroutinePrototypes]
 [Subroutines::ProhibitUnusedPrivateSubroutines]
+private_name_regex = _(?!build_)\w+
 [Subroutines::ProtectPrivateSubs]
 [Subroutines::RequireArgUnpacking]
 [Subroutines::RequireFinalReturn]

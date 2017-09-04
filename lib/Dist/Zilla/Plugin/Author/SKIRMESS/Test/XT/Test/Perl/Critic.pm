@@ -250,6 +250,7 @@ only = 1
 [Subroutines::ProhibitReturnSort]
 [Subroutines::ProhibitSubroutinePrototypes]
 [Subroutines::ProhibitUnusedPrivateSubroutines]
+private_name_regex = _(?!build_)\w+
 [Subroutines::ProtectPrivateSubs]
 [Subroutines::RequireArgUnpacking]
 [Subroutines::RequireFinalReturn]
