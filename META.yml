@@ -183,75 +183,75 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::Changes
       name: '@Author::SKIRMESS/Author::SKIRMESS::Test::XT::Test::Changes'
-      version: '0.008'
+      version: '0.009'
     -
       class: Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::CleanNamespaces
       name: '@Author::SKIRMESS/Author::SKIRMESS::Test::XT::Test::CleanNamespaces'
-      version: '0.008'
+      version: '0.009'
     -
       class: Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::CPAN::Meta
       name: '@Author::SKIRMESS/Author::SKIRMESS::Test::XT::Test::CPAN::Meta'
-      version: '0.008'
+      version: '0.009'
     -
       class: Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::CPAN::Meta::JSON
       name: '@Author::SKIRMESS/Author::SKIRMESS::Test::XT::Test::CPAN::Meta::JSON'
-      version: '0.008'
+      version: '0.009'
     -
       class: Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::DistManifest
       name: '@Author::SKIRMESS/Author::SKIRMESS::Test::XT::Test::DistManifest'
-      version: '0.008'
+      version: '0.009'
     -
       class: Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::EOL
       name: '@Author::SKIRMESS/Author::SKIRMESS::Test::XT::Test::EOL'
-      version: '0.008'
+      version: '0.009'
     -
       class: Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::Kwalitee
       name: '@Author::SKIRMESS/Author::SKIRMESS::Test::XT::Test::Kwalitee'
-      version: '0.008'
+      version: '0.009'
     -
       class: Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::MinimumVersion
       name: '@Author::SKIRMESS/Author::SKIRMESS::Test::XT::Test::MinimumVersion'
-      version: '0.008'
+      version: '0.009'
     -
       class: Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::Mojibake
       name: '@Author::SKIRMESS/Author::SKIRMESS::Test::XT::Test::Mojibake'
-      version: '0.008'
+      version: '0.009'
     -
       class: Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::NoTabs
       name: '@Author::SKIRMESS/Author::SKIRMESS::Test::XT::Test::NoTabs'
-      version: '0.008'
+      version: '0.009'
     -
       class: Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::Perl::Critic
       name: '@Author::SKIRMESS/Author::SKIRMESS::Test::XT::Test::Perl::Critic'
-      version: '0.008'
+      version: '0.009'
     -
       class: Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::Pod
       name: '@Author::SKIRMESS/Author::SKIRMESS::Test::XT::Test::Pod'
-      version: '0.008'
+      version: '0.009'
     -
       class: Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::Pod::No404s
       name: '@Author::SKIRMESS/Author::SKIRMESS::Test::XT::Test::Pod::No404s'
-      version: '0.008'
+      version: '0.009'
     -
       class: Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::Portability::Files
       name: '@Author::SKIRMESS/Author::SKIRMESS::Test::XT::Test::Portability::Files'
-      version: '0.008'
+      version: '0.009'
     -
       class: Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::Spelling
       name: '@Author::SKIRMESS/Author::SKIRMESS::Test::XT::Test::Spelling'
-      version: '0.008'
+      version: '0.009'
     -
       class: Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::Version
       name: '@Author::SKIRMESS/Author::SKIRMESS::Test::XT::Test::Version'
-      version: '0.008'
+      version: '0.009'
     -
       class: Dist::Zilla::Plugin::Author::SKIRMESS::TravisCI
       name: '@Author::SKIRMESS/Author::SKIRMESS::TravisCI'
-      version: '0.008'
+      version: '0.009'
     -
       class: Dist::Zilla::Plugin::Author::SKIRMESS::Perl::Tidy::RC
       name: '@Author::SKIRMESS/Author::SKIRMESS::Perl::Tidy::RC'
-      version: '0.008'
+      version: '0.009'
     -
       class: Dist::Zilla::Plugin::PromptIfStale
       config:

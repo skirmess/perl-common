@@ -1,5 +1,5 @@
 # Automatically generated file
-# Dist::Zilla::Plugin::Author::SKIRMESS::TravisCI 0.008
+# Dist::Zilla::Plugin::Author::SKIRMESS::TravisCI 0.009
 
 language: perl
 perl:

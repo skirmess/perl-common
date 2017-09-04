@@ -5,7 +5,7 @@ use strict;
 use warnings;
 
 # this test was generated with
-# Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::NoTabs 0.008
+# Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::NoTabs 0.009
 
 use Test::NoTabs;
 
