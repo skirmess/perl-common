@@ -2,6 +2,8 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+0.010  2017-09-10 16:43:32 UTC
+
   - Added Dist::Zilla::Plugin::Author::SKIRMESS::RepositoryBase
   - All generated files are now created by
     Dist::Zilla::Plugin::Author::SKIRMESS::RepositoryBase during the
