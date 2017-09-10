@@ -8,7 +8,7 @@ our $VERSION = '0.009';
 
 use Moose 0.99;
 
-use Dist::Zilla::Plugin::Author::SKIRMESS::RepositoryBase $VERSION;
+use Dist::Zilla::Plugin::Author::SKIRMESS::RepositoryBase;
 
 use namespace::autoclean 0.09;
 
@@ -52,14 +52,6 @@ sub configure {
             }
         ],
 
-        [
-            'Author::SKIRMESS::RepositoryBase',
-            {
-                stopwords             => $self->stopwords,
-                travis_ci_ignore_perl => $self->travis_ci_ignore_perl,
-            }
-        ],
-
         # Check at build/release time if modules are out of date
         [
             'PromptIfStale', 'stale modules, release',
@@ -91,6 +83,16 @@ sub configure {
             'ReversionOnRelease',
             {
                 prompt => 1,
+            }
+        ],
+
+        # Must run after ReversionOnRelease because it adds the version of
+        # the bundle to the generated files
+        [
+            'Author::SKIRMESS::RepositoryBase',
+            {
+                stopwords             => $self->stopwords,
+                travis_ci_ignore_perl => $self->travis_ci_ignore_perl,
             }
         ],
 

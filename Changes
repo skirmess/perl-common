@@ -5,9 +5,9 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
   - Added Dist::Zilla::Plugin::Author::SKIRMESS::RepositoryBase
   - All generated files are now created by
     Dist::Zilla::Plugin::Author::SKIRMESS::RepositoryBase during the
-    "Munge Files" phase and, if the do not exist, during the "Before Build"
-    phase. Generated files will have the new version stamped in them during a
-    release build and not the old version.
+    "Before Build" phase. For release builds of the bundle itself, the
+    files are recreated again during the "Munge Files" phase to have the
+    new version stamped in them during and not the old version.
   - Removed Dist::Zilla::Plugin::Author::SKIRMESS::Perl::Tidy::RC
   - Removed Dist::Zilla::Plugin::Author::SKIRMESS::Test::XT::Test::Changes
   - Removed

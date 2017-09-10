@@ -127,10 +127,6 @@ x_Dist_Zilla:
       name: '@Author::SKIRMESS/stale modules, build'
       version: '0.054'
     -
-      class: Dist::Zilla::Plugin::Author::SKIRMESS::RepositoryBase
-      name: '@Author::SKIRMESS/Author::SKIRMESS::RepositoryBase'
-      version: '0.009'
-    -
       class: Dist::Zilla::Plugin::PromptIfStale
       config:
         Dist::Zilla::Plugin::PromptIfStale:
@@ -184,6 +180,10 @@ x_Dist_Zilla:
       class: Dist::Zilla::Plugin::ReversionOnRelease
       name: '@Author::SKIRMESS/ReversionOnRelease'
       version: '0.06'
+    -
+      class: Dist::Zilla::Plugin::Author::SKIRMESS::RepositoryBase
+      name: '@Author::SKIRMESS/Author::SKIRMESS::RepositoryBase'
+      version: '0.009'
     -
       class: Dist::Zilla::Plugin::NextRelease
       name: '@Author::SKIRMESS/NextRelease'
