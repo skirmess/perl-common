@@ -46,6 +46,7 @@ requires "Dist::Zilla::Plugin::ReadmeAnyFromPod" => "0";
 requires "Dist::Zilla::Plugin::RemovePrereqs::Provided" => "0";
 requires "Dist::Zilla::Plugin::ReversionOnRelease" => "0";
 requires "Dist::Zilla::Plugin::RunExtraTests" => "0";
+requires "Dist::Zilla::Plugin::SetScriptShebang" => "0";
 requires "Dist::Zilla::Plugin::ShareDir" => "0";
 requires "Dist::Zilla::Plugin::TestRelease" => "0";
 requires "Dist::Zilla::Plugin::UploadToCPAN" => "0";

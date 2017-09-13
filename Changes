@@ -2,6 +2,7 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+  - Added SetScriptShebang plugin
   - Update the VERSION section in all files that contain a POD VERSION section
 
 0.010  2017-09-10 16:43:32 UTC

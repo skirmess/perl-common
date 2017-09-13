@@ -145,6 +145,9 @@ sub configure {
         # automatically extract Perl::Critic policy prereqs
         'AutoPrereqs::Perl::Critic',
 
+        # Set script shebang to #!perl
+        'SetScriptShebang',
+
         # Add the $AUTHORITY variable and metadata to your distribution
         [
             'Authority',

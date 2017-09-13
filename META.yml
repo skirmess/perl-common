@@ -80,6 +80,7 @@ requires:
   Dist::Zilla::Plugin::RemovePrereqs::Provided: '0'
   Dist::Zilla::Plugin::ReversionOnRelease: '0'
   Dist::Zilla::Plugin::RunExtraTests: '0'
+  Dist::Zilla::Plugin::SetScriptShebang: '0'
   Dist::Zilla::Plugin::ShareDir: '0'
   Dist::Zilla::Plugin::TestRelease: '0'
   Dist::Zilla::Plugin::UploadToCPAN: '0'
@@ -255,6 +256,10 @@ x_Dist_Zilla:
       class: Dist::Zilla::Plugin::AutoPrereqs::Perl::Critic
       name: '@Author::SKIRMESS/AutoPrereqs::Perl::Critic'
       version: '0.002'
+    -
+      class: Dist::Zilla::Plugin::SetScriptShebang
+      name: '@Author::SKIRMESS/SetScriptShebang'
+      version: '0.01'
     -
       class: Dist::Zilla::Plugin::Authority
       name: '@Author::SKIRMESS/Authority'
