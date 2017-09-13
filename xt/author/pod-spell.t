@@ -18,4 +18,9 @@ __DATA__
 Kirmess
 SKIRMESS
 Sven
+TravisCI
 dist
+perlcriticrc
+perltidy
+perltidyrc
+travis

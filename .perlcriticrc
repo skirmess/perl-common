@@ -43,7 +43,6 @@ only = 1
 [ControlStructures::ProhibitYadaOperator]
 [Documentation::PodSpelling]
 [Documentation::RequirePackageMatchesPodName]
-[Documentation::RequirePodAtEnd]
 [Documentation::RequirePodLinksIncludeText]
 [ErrorHandling::RequireCarping]
 [ErrorHandling::RequireCheckingReturnValueOfEval]
