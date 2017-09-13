@@ -96,6 +96,8 @@ sub configure {
             }
         ],
 
+        'Author::SKIRMESS::InsertVersion',
+
         # Update the next release number in your changelog
         [
             'NextRelease',
@@ -335,7 +337,7 @@ __END__
 =head1 NAME
 
 Dist::Zilla::PluginBundle::Author::SKIRMESS - Dist::Zilla configuration the way SKIRMESS does it
-
+=head1 VERSION
 =head1 SYNOPSIS
 
   # in dist.ini

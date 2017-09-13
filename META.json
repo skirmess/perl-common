@@ -135,6 +135,10 @@
       }
    },
    "provides" : {
+      "Dist::Zilla::Plugin::Author::SKIRMESS::InsertVersion" : {
+         "file" : "lib/Dist/Zilla/Plugin/Author/SKIRMESS/InsertVersion.pm",
+         "version" : "0.010"
+      },
       "Dist::Zilla::Plugin::Author::SKIRMESS::RepositoryBase" : {
          "file" : "lib/Dist/Zilla/Plugin/Author/SKIRMESS/RepositoryBase.pm",
          "version" : "0.010"
@@ -263,6 +267,11 @@
          {
             "class" : "Dist::Zilla::Plugin::Author::SKIRMESS::RepositoryBase",
             "name" : "@Author::SKIRMESS/Author::SKIRMESS::RepositoryBase",
+            "version" : "0.010"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::Author::SKIRMESS::InsertVersion",
+            "name" : "@Author::SKIRMESS/Author::SKIRMESS::InsertVersion",
             "version" : "0.010"
          },
          {

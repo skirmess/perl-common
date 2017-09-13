@@ -2,6 +2,10 @@
 
 Dist::Zilla::PluginBundle::Author::SKIRMESS - Dist::Zilla configuration the way SKIRMESS does it
 
+# VERSION
+
+Version 0.010
+
 # SYNOPSIS
 
     # in dist.ini
