@@ -88,12 +88,15 @@ sub munge_files {
     # because it calls _build_version which is going to fail the build.
     # Besides that, VersionFromMainModule is run during the "munge files"
     # phase and before that we can't even know the new version of the bundle.
-    #
-    ## no critic (ValuesAndExpressions::RequireConstantVersion)
-    $VERSION = $self->zilla->version;
 
-    # re-write all generated files
-    $self->_write_files();
+    {
+        ## no critic (ValuesAndExpressions::RequireConstantVersion)
+        ## no critic (Variables::ProhibitLocalVars)
+        local $VERSION = $self->zilla->version;
+
+        # re-write all generated files
+        $self->_write_files();
+    }
 
     return;
 }
