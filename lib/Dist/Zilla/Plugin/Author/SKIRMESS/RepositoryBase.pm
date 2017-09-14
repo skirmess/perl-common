@@ -505,7 +505,12 @@ L<Test::CleanNamespaces|Test::CleanNamespaces> author test.
 =cut
 
     $file{q{xt/author/clean-namespaces.t}} = $test_header . <<'XT_AUTHOR_CLEAN_NAMESPACES_T';
+use Test::More;
 use Test::CleanNamespaces;
+
+if ( !Test::CleanNamespaces->find_modules() ) {
+    plan skip_all => 'No files found to test.';
+}
 
 all_namespaces_clean();
 XT_AUTHOR_CLEAN_NAMESPACES_T
