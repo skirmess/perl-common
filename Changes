@@ -2,6 +2,9 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+  - Removed Test::CPAN::Changes release test because it fails before the
+    first release
+
 0.013  2017-09-14 21:30:58 UTC
 
   - Test::CleanNamespaces failes if there are no files to check

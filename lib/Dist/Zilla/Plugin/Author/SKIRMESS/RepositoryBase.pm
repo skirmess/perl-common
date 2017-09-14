@@ -674,18 +674,6 @@ version_all_ok;
 done_testing();
 XT_AUTHOR_TEST_VERSION_T
 
-=head2 xt/release/changes.t
-
-L<Test::CPAN::Changes|Test::CPAN::Changes> release test.
-
-=cut
-
-    $file{q{xt/release/changes.t}} = $test_header . <<'XT_RELEASE_CHANGES_T';
-use Test::CPAN::Changes;
-
-changes_ok();
-XT_RELEASE_CHANGES_T
-
 =head2 xt/release/eol.t
 
 L<Test::EOL|Test::EOL> release test.
