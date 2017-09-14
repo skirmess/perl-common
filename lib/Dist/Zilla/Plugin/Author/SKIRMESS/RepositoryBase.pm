@@ -4,7 +4,7 @@ use 5.006;
 use strict;
 use warnings;
 
-our $VERSION = '0.010';
+our $VERSION = '0.011';
 
 use Moose;
 
@@ -137,6 +137,8 @@ sub _write_files {
 Dist::Zilla::Plugin::Author::SKIRMESS::RepositoryBase - Automatically create and update files
 
 =head1 VERSION
+
+Version 0.010
 
 =head1 SYNOPSIS
 

@@ -2,6 +2,8 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+0.011  2017-09-14 18:51:34 UTC
+
   - Added MetaData::BuiltWith plugin
   - Added SetScriptShebang plugin
   - Added documentation to the Author::SKIRMESS::RepositoryBase plugin
