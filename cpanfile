@@ -33,6 +33,7 @@ requires "Dist::Zilla::Plugin::MakeMaker" => "0";
 requires "Dist::Zilla::Plugin::Manifest" => "0";
 requires "Dist::Zilla::Plugin::ManifestSkip" => "0";
 requires "Dist::Zilla::Plugin::MetaConfig" => "0";
+requires "Dist::Zilla::Plugin::MetaData::BuiltWith" => "0";
 requires "Dist::Zilla::Plugin::MetaJSON" => "0";
 requires "Dist::Zilla::Plugin::MetaNoIndex" => "0";
 requires "Dist::Zilla::Plugin::MetaProvides::Package" => "0";

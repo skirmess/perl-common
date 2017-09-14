@@ -2,6 +2,7 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+  - Added MetaData::BuiltWith plugin
   - Added documentation to the Author::SKIRMESS::RepositoryBase plugin
   - Added SetScriptShebang plugin
   - Update the VERSION section in all files that contain a POD VERSION section

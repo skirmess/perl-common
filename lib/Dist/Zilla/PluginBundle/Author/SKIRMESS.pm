@@ -203,6 +203,15 @@ sub configure {
         # Summarize Dist::Zilla configuration into distmeta
         'MetaConfig',
 
+        # Report what versions of things your distribution was built against
+        [
+            'MetaData::BuiltWith',
+            {
+                show_config => 1,
+                show_uname  => 1,
+            }
+        ],
+
         # Produce a META.yml
         'MetaYAML',
 

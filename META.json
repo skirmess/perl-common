@@ -96,6 +96,7 @@
             "Dist::Zilla::Plugin::Manifest" : "0",
             "Dist::Zilla::Plugin::ManifestSkip" : "0",
             "Dist::Zilla::Plugin::MetaConfig" : "0",
+            "Dist::Zilla::Plugin::MetaData::BuiltWith" : "0",
             "Dist::Zilla::Plugin::MetaJSON" : "0",
             "Dist::Zilla::Plugin::MetaNoIndex" : "0",
             "Dist::Zilla::Plugin::MetaProvides::Package" : "0",
@@ -162,6 +163,119 @@
       }
    },
    "version" : "0.010",
+   "x_BuiltWith" : {
+      "modules" : {
+         "Carp" : "1.40",
+         "Config::Std" : "0.901",
+         "Dist::Zilla" : "6.010",
+         "Dist::Zilla::Plugin::Authority" : "1.009",
+         "Dist::Zilla::Plugin::AutoPrereqs" : "6.010",
+         "Dist::Zilla::Plugin::AutoPrereqs::Perl::Critic" : "0.002",
+         "Dist::Zilla::Plugin::Bootstrap::lib" : "1.001002",
+         "Dist::Zilla::Plugin::CPANFile" : "6.010",
+         "Dist::Zilla::Plugin::CheckChangesHasContent" : "0.010",
+         "Dist::Zilla::Plugin::CheckIssues" : "0.010",
+         "Dist::Zilla::Plugin::CheckMetaResources" : "0.001",
+         "Dist::Zilla::Plugin::CheckPrereqsIndexed" : "0.020",
+         "Dist::Zilla::Plugin::CheckSelfDependency" : "0.011",
+         "Dist::Zilla::Plugin::CheckStrictVersion" : "0.001",
+         "Dist::Zilla::Plugin::ConfirmRelease" : "6.010",
+         "Dist::Zilla::Plugin::CopyFilesFromBuild" : "0.170880",
+         "Dist::Zilla::Plugin::CopyFilesFromRelease" : "0.006",
+         "Dist::Zilla::Plugin::CopyrightYearFromGit" : "0.003",
+         "Dist::Zilla::Plugin::ExecDir" : "6.010",
+         "Dist::Zilla::Plugin::Git::Check" : "2.042",
+         "Dist::Zilla::Plugin::Git::CheckFor::CorrectBranch" : "0.014",
+         "Dist::Zilla::Plugin::Git::CheckFor::MergeConflicts" : "0.014",
+         "Dist::Zilla::Plugin::Git::Commit" : "2.042",
+         "Dist::Zilla::Plugin::Git::Contributors" : "0.030",
+         "Dist::Zilla::Plugin::Git::GatherDir" : "2.042",
+         "Dist::Zilla::Plugin::Git::Push" : "2.042",
+         "Dist::Zilla::Plugin::Git::Remote::Check" : "0.1.2",
+         "Dist::Zilla::Plugin::Git::Tag" : "2.042",
+         "Dist::Zilla::Plugin::GithubMeta" : "0.54",
+         "Dist::Zilla::Plugin::InstallGuide" : "1.200007",
+         "Dist::Zilla::Plugin::License" : "6.010",
+         "Dist::Zilla::Plugin::MakeMaker" : "6.010",
+         "Dist::Zilla::Plugin::Manifest" : "6.010",
+         "Dist::Zilla::Plugin::ManifestSkip" : "6.010",
+         "Dist::Zilla::Plugin::MetaConfig" : "6.010",
+         "Dist::Zilla::Plugin::MetaData::BuiltWith" : "1.004005",
+         "Dist::Zilla::Plugin::MetaJSON" : "6.010",
+         "Dist::Zilla::Plugin::MetaNoIndex" : "6.010",
+         "Dist::Zilla::Plugin::MetaProvides::Package" : "2.004003",
+         "Dist::Zilla::Plugin::MetaYAML" : "6.010",
+         "Dist::Zilla::Plugin::MinimumPerl" : "1.006",
+         "Dist::Zilla::Plugin::NextRelease" : "6.010",
+         "Dist::Zilla::Plugin::Prereqs::Plugins" : "1.003003",
+         "Dist::Zilla::Plugin::PromptIfStale" : "0.054",
+         "Dist::Zilla::Plugin::PruneCruft" : "6.010",
+         "Dist::Zilla::Plugin::ReadmeAnyFromPod" : "0.163250",
+         "Dist::Zilla::Plugin::RemovePrereqs::Provided" : "0.001001",
+         "Dist::Zilla::Plugin::ReversionOnRelease" : "0.06",
+         "Dist::Zilla::Plugin::RunExtraTests" : "0.029",
+         "Dist::Zilla::Plugin::SetScriptShebang" : "0.01",
+         "Dist::Zilla::Plugin::ShareDir" : "6.010",
+         "Dist::Zilla::Plugin::TestRelease" : "6.010",
+         "Dist::Zilla::Plugin::UploadToCPAN" : "6.010",
+         "Dist::Zilla::Plugin::VerifyPhases" : "0.016",
+         "Dist::Zilla::Plugin::VersionFromMainModule" : "0.03",
+         "Dist::Zilla::Role::BeforeBuild" : "6.010",
+         "Dist::Zilla::Role::FileMunger" : "6.010",
+         "Dist::Zilla::Role::PluginBundle::Easy" : "6.010",
+         "Dist::Zilla::Role::TextTemplate" : "6.010",
+         "ExtUtils::MakeMaker" : "7.30",
+         "File::Spec" : "3.63",
+         "List::MoreUtils" : "0.425",
+         "Moose" : "2.2006",
+         "Path::Tiny" : "0.104",
+         "Perl::Critic" : "1.130",
+         "Perl::Critic::Policy::Moose::ProhibitDESTROYMethod" : "1.05",
+         "Perl::Critic::Policy::Moose::ProhibitLazyBuild" : "1.05",
+         "Perl::Critic::Policy::Moose::ProhibitMultipleWiths" : "1.05",
+         "Perl::Critic::Policy::Moose::ProhibitNewMethod" : "1.05",
+         "Perl::Critic::Policy::Moose::RequireCleanNamespace" : "1.05",
+         "Perl::Critic::Policy::Moose::RequireMakeImmutable" : "1.05",
+         "Perl::Critic::Utils" : "1.130",
+         "Pod::Wordlist" : "1.20",
+         "Test::CPAN::Changes" : "0.400002",
+         "Test::CPAN::Meta" : "0.25",
+         "Test::CPAN::Meta::JSON" : "0.16",
+         "Test::CleanNamespaces" : "0.22",
+         "Test::DistManifest" : "1.014",
+         "Test::EOL" : "2.00",
+         "Test::Kwalitee" : "1.26",
+         "Test::MinimumVersion" : "0.101082",
+         "Test::Mojibake" : "1.3",
+         "Test::More" : "1.302086",
+         "Test::NoTabs" : "2.00",
+         "Test::Perl::Critic" : "1.03",
+         "Test::Pod" : "1.51",
+         "Test::Pod::No404s" : "0.02",
+         "Test::Portability::Files" : "0.07",
+         "Test::Spelling" : "0.20",
+         "Test::Version" : "2.05",
+         "namespace::autoclean" : "0.28",
+         "strict" : "1.11",
+         "warnings" : "1.36"
+      },
+      "perl" : {
+         "original" : "v5.24.0",
+         "qv" : 1,
+         "version" : [
+            5,
+            24,
+            0
+         ]
+      },
+      "perl-config" : {
+         "gccversion" : "4.9.4",
+         "myarchname" : "i86pc-solaris",
+         "osname" : "solaris"
+      },
+      "platform" : "solaris",
+      "uname" : "SunOS pernaia 5.11 joyent_20170330T015208Z i86pc i386 i86pc Solaris"
+   },
    "x_Dist_Zilla" : {
       "perl" : {
          "version" : "5.024000"
@@ -417,6 +531,27 @@
             "class" : "Dist::Zilla::Plugin::MetaConfig",
             "name" : "@Author::SKIRMESS/MetaConfig",
             "version" : "6.010"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::MetaData::BuiltWith",
+            "config" : {
+               "Dist::Zilla::Plugin::MetaData::BuiltWith" : {
+                  "$Module::Metadata::VERSION" : "1.000031",
+                  "_stash_key" : "x_BuiltWith",
+                  "external_file_name" : "misc/built_with.json",
+                  "show_config" : "1",
+                  "show_uname" : "1",
+                  "uname" : {
+                     "uname_args" : [
+                        "-a"
+                     ],
+                     "uname_call" : "uname"
+                  },
+                  "use_external_file" : null
+               }
+            },
+            "name" : "@Author::SKIRMESS/MetaData::BuiltWith",
+            "version" : "1.004005"
          },
          {
             "class" : "Dist::Zilla::Plugin::MetaYAML",
@@ -771,4 +906,3 @@
    "x_authority" : "cpan:SKIRMESS",
    "x_serialization_backend" : "Cpanel::JSON::XS version 3.0231"
 }
-
