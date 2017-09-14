@@ -37,7 +37,7 @@ sub munge_file {
     }
 
     # Replace the existing VERSION section with the current version
-    my $version_section = "\n\n=head1 VERSION\n\nVersion " . $self->VERSION . "\n\n";
+    my $version_section = "\n\n=head1 VERSION\n\nVersion " . $self->zilla->version . "\n\n";
     if (
         $content !~ s{
             [\s\n]*

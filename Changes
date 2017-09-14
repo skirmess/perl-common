@@ -2,6 +2,9 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+  - The VERSION in the pod must be the version of the project, not of the
+    Author::SKIRMESS::InsertVersion plugin
+
 0.011  2017-09-14 18:51:34 UTC
 
   - Added MetaData::BuiltWith plugin
