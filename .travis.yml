@@ -19,5 +19,3 @@ install:
 script:
   - perl Makefile.PL && make test
   - test -d xt/author && prove -lr xt/author
-  - make manifest
-  - test -d xt/release && prove -lr xt/release

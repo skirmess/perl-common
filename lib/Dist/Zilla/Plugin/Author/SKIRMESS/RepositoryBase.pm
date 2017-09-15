@@ -478,8 +478,6 @@ install:
 script:
   - perl Makefile.PL && make test
   - test -d xt/author && prove -lr xt/author
-  - make manifest
-  - test -d xt/release && prove -lr xt/release
 TRAVIS_YML
 
         return $travis_yml;
@@ -673,6 +671,18 @@ use Test::Version 0.04 qw( version_all_ok ), {
 version_all_ok;
 done_testing();
 XT_AUTHOR_TEST_VERSION_T
+
+=head2 xt/release/changes.t
+
+L<Test::CPAN::Changes|Test::CPAN::Changes> release test.
+
+=cut
+
+    $file{q{xt/release/changes.t}} = $test_header . <<'XT_RELEASE_CHANGES_T';
+use Test::CPAN::Changes;
+
+changes_ok();
+XT_RELEASE_CHANGES_T
 
 =head2 xt/release/eol.t
 
