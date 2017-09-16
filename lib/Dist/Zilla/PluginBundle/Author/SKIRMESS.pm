@@ -18,6 +18,15 @@ with qw(
 
 sub mvp_multivalue_args { return qw(stopwords travis_ci_ignore_perl) }
 
+has set_script_shebang => (
+    is      => 'ro',
+    isa     => 'Bool',
+    lazy    => 1,
+    default => sub {
+        exists $_[0]->payload->{set_script_shebang} ? $_[0]->payload->{set_script_shebang} : 1;
+    },
+);
+
 has stopwords => (
     is      => 'ro',
     isa     => 'Maybe[ArrayRef]',
@@ -146,7 +155,7 @@ sub configure {
         'AutoPrereqs::Perl::Critic',
 
         # Set script shebang to #!perl
-        'SetScriptShebang',
+        ( $self->set_script_shebang ? 'SetScriptShebang' : () ),
 
         # Add the $AUTHORITY variable and metadata to your distribution
         [
@@ -365,7 +374,24 @@ This is a L<Dist::Zilla|Dist::Zilla> PluginBundle.
 
 =head1 USAGE
 
-To use this PluginBundle, just add it to your dist.ini.
+To use this PluginBundle, just add it to your dist.ini. You can provide the
+following options:
+
+=over 4
+
+=item *
+
+C<set_script_shebang> - this indicates whether C<SetScriptShebang> should be used or not
+
+=item *
+
+C<stopwords> - passed through to the C<Author::SKIRMESS::RepositoryBase> plugin
+
+=item *
+
+C<travis_ci_ignore_perl> - passed through to the C<Author::SKIRMESS::RepositoryBase> plugin
+
+=back
 
 =head1 SUPPORT
 

@@ -17,7 +17,12 @@ This is a [Dist::Zilla](https://metacpan.org/pod/Dist::Zilla) PluginBundle.
 
 # USAGE
 
-To use this PluginBundle, just add it to your dist.ini.
+To use this PluginBundle, just add it to your dist.ini. You can provide the
+following options:
+
+- `set_script_shebang` - this indicates whether `SetScriptShebang` should be used or not
+- `stopwords` - passed through to the `Author::SKIRMESS::RepositoryBase` plugin
+- `travis_ci_ignore_perl` - passed through to the `Author::SKIRMESS::RepositoryBase` plugin
 
 # SUPPORT
 
