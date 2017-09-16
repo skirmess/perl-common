@@ -24,13 +24,13 @@ no_index:
 provides:
   Dist::Zilla::Plugin::Author::SKIRMESS::InsertVersion:
     file: lib/Dist/Zilla/Plugin/Author/SKIRMESS/InsertVersion.pm
-    version: '0.015'
+    version: '0.016'
   Dist::Zilla::Plugin::Author::SKIRMESS::RepositoryBase:
     file: lib/Dist/Zilla/Plugin/Author/SKIRMESS/RepositoryBase.pm
-    version: '0.015'
+    version: '0.016'
   Dist::Zilla::PluginBundle::Author::SKIRMESS:
     file: lib/Dist/Zilla/PluginBundle/Author/SKIRMESS.pm
-    version: '0.015'
+    version: '0.016'
 requires:
   Carp: '0'
   Config::Std: '0'
@@ -102,7 +102,7 @@ resources:
   bugtracker: https://github.com/skirmess/Dist-Zilla-PluginBundle-Author-SKIRMESS/issues
   homepage: https://github.com/skirmess/Dist-Zilla-PluginBundle-Author-SKIRMESS
   repository: https://github.com/skirmess/Dist-Zilla-PluginBundle-Author-SKIRMESS.git
-version: '0.015'
+version: '0.016'
 x_BuiltWith:
   modules:
     Carp: '1.40'
@@ -296,11 +296,11 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::Author::SKIRMESS::RepositoryBase
       name: '@Author::SKIRMESS/Author::SKIRMESS::RepositoryBase'
-      version: '0.014'
+      version: '0.015'
     -
       class: Dist::Zilla::Plugin::Author::SKIRMESS::InsertVersion
       name: '@Author::SKIRMESS/Author::SKIRMESS::InsertVersion'
-      version: '0.014'
+      version: '0.015'
     -
       class: Dist::Zilla::Plugin::NextRelease
       name: '@Author::SKIRMESS/NextRelease'
@@ -614,7 +614,7 @@ x_Dist_Zilla:
           branch: ~
           changelog: Changes
           signed: '0'
-          tag: '0.015'
+          tag: '0.016'
           tag_format: '%v'
           tag_message: ''
         Dist::Zilla::Role::Git::Repo:
