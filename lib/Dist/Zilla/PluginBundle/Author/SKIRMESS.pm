@@ -324,7 +324,7 @@ sub configure {
         [
             'CopyFilesFromRelease',
             {
-                match => [qw( .pm$ )],
+                match => [qw( .pm$ ^bin/ )],
             }
         ],
 

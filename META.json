@@ -747,7 +747,8 @@
                "Dist::Zilla::Plugin::CopyFilesFromRelease" : {
                   "filename" : [],
                   "match" : [
-                     ".pm$"
+                     "[.]pm$",
+                     "^bin/"
                   ]
                }
             },

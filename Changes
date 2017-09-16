@@ -2,6 +2,8 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+  - Also copy files from bin/ with CopyFilesFromRelease
+
 0.017  2017-09-16 16:14:27 UTC
 
   - Added another invocation of MetaProvides::Package with :ExecFiles as

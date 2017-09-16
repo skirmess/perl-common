@@ -580,7 +580,8 @@ x_Dist_Zilla:
         Dist::Zilla::Plugin::CopyFilesFromRelease:
           filename: []
           match:
-            - .pm$
+            - '[.]pm$'
+            - ^bin/
       name: '@Author::SKIRMESS/CopyFilesFromRelease'
       version: '0.006'
     -
