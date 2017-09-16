@@ -209,6 +209,18 @@ sub configure {
             }
         ],
 
+        # Extract namespaces/version from traditional packages for provides
+        #
+        # This adds packages found in scripts under bin which are skipped
+        # by the default finder of MetaProvides::Package above.
+        [
+            'MetaProvides::Package', 'MetaProvides::Package/ExecFiles',
+            {
+                meta_noindex => 1,
+                finder       => ':ExecFiles',
+            }
+        ],
+
         # Summarize Dist::Zilla configuration into distmeta
         'MetaConfig',
 
