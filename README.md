@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::SKIRMESS - Dist::Zilla configuration the way 
 
 # VERSION
 
-Version 0.017
+Version 0.018
 
 # SYNOPSIS
 
