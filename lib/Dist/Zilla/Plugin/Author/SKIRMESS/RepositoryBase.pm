@@ -684,6 +684,18 @@ use Test::CPAN::Changes;
 changes_ok();
 XT_RELEASE_CHANGES_T
 
+=head2 xt/release/distmeta.t
+
+L<Test::CPAN::Meta|Test::CPAN::Meta> release test.
+
+=cut
+
+    $file{q{xt/release/distmeta.t}} = $test_header . <<'XT_RELEASE_DISTMETA_T';
+use Test::CPAN::Meta;
+
+meta_yaml_ok();
+XT_RELEASE_DISTMETA_T
+
 =head2 xt/release/eol.t
 
 L<Test::EOL|Test::EOL> release test.
