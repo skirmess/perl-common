@@ -18,7 +18,7 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 0.016  2017-09-16 13:57:29 UTC
 
-  - Added a new option 'sec_script_shebang' which can be used to disable the
+  - Added new option 'set_script_shebang' which can be used to disable the
     SetScriptShebang plugin, defaults to enable
   - Documented all configureation options in pod
 
