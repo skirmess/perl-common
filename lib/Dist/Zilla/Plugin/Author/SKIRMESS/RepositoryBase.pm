@@ -461,7 +461,9 @@ TRAVIS_YML_1
 
         my %perl;
         @perl{ @{ $self->_travis_available_perl } } = ();
-        delete @perl{ @{ $self->travis_ci_ignore_perl } };
+        if ( @{ $self->travis_ci_ignore_perl } ) {
+            delete @perl{ @{ $self->travis_ci_ignore_perl } };
+        }
         my @perl = reverse sort keys %perl;
 
         croak "No perl versions selected for TravisCI\n" if !@perl;
