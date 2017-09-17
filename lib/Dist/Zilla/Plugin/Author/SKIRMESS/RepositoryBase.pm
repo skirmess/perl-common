@@ -14,7 +14,13 @@ with qw(
   Dist::Zilla::Role::TextTemplate
 );
 
-sub mvp_multivalue_args { return (qw( stopwords travis_ci_ignore_perl )) }
+sub mvp_multivalue_args { return (qw( skip_file stopwords travis_ci_ignore_perl )) }
+
+has skip_file => (
+    is      => 'ro',
+    isa     => 'Maybe[ArrayRef]',
+    default => sub { [] },
+);
 
 has stopwords => (
     is      => 'ro',
@@ -104,8 +110,14 @@ sub munge_files {
 sub _write_files {
     my ($self) = @_;
 
+    my %file_to_skip = map { $_ => 1 } grep { defined && !m{ ^ \s* $ }xsm } @{ $self->skip_file };
+
   FILE:
     for my $file ( map { path($_) } sort $self->files() ) {
+        if ( exists $file_to_skip{$file} ) {
+            next FILE;
+        }
+
         if ( -e $file ) {
             $file->remove();
         }
@@ -772,6 +784,10 @@ __END__
 =head1 USAGE
 
 The following configuration options are supported:
+
+=head2 skip_file
+
+Defines files to be skipped (not generated).
 
 =head2 stopwords
 
