@@ -2,7 +2,6 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
-  - Added Test::Pod::LinkCheck author test
   - Added Test::CPAN::Meta release test
 
 0.018  2017-09-16 18:14:53 UTC
