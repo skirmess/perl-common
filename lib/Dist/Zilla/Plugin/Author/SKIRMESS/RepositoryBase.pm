@@ -577,6 +577,19 @@ use Test::NoTabs;
 all_perl_files_ok( grep { -d } qw( bin lib t xt ) );
 XT_AUTHOR_NO_TABS_T
 
+=head2 xt/author/pod-linkcheck.t
+
+L<Test::Pod::LinkCheck|Test::Pod::LinkCheck> author test.
+
+=cut
+
+    $file{q{xt/author/pod-linkcheck.t}} = $test_header . <<'XT_AUTHOR_POD_LINKCHECK_T';
+use Test::More;
+use Test::Pod::LinkCheck;
+
+Test::Pod::LinkCheck->new()->all_pod_ok();
+XT_AUTHOR_POD_LINKCHECK_T
+
 =head2 xt/author/pod-no404s.t
 
 L<Test::Pod::No404s|Test::Pod::No404s> author test.

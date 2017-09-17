@@ -191,6 +191,7 @@ x_BuiltWith:
     Test::NoTabs: '2.00'
     Test::Perl::Critic: '1.03'
     Test::Pod: '1.51'
+    Test::Pod::LinkCheck: '0.008'
     Test::Pod::No404s: '0.02'
     Test::Portability::Files: '0.07'
     Test::Spelling: '0.20'
@@ -327,6 +328,7 @@ x_Dist_Zilla:
             - xt/author/minimum_version.t
             - xt/author/mojibake.t
             - xt/author/no-tabs.t
+            - xt/author/pod-linkcheck.t
             - xt/author/pod-no404s.t
             - xt/author/pod-spell.t
             - xt/author/pod-syntax.t
@@ -610,6 +612,7 @@ x_Dist_Zilla:
             - xt/author/minimum_version.t
             - xt/author/mojibake.t
             - xt/author/no-tabs.t
+            - xt/author/pod-linkcheck.t
             - xt/author/pod-no404s.t
             - xt/author/pod-spell.t
             - xt/author/pod-syntax.t

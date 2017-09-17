@@ -99,6 +99,7 @@ on 'develop' => sub {
   requires "Test::NoTabs" => "0";
   requires "Test::Perl::Critic" => "0";
   requires "Test::Pod" => "1.26";
+  requires "Test::Pod::LinkCheck" => "0";
   requires "Test::Pod::No404s" => "0";
   requires "Test::Portability::Files" => "0";
   requires "Test::Spelling" => "0.12";
