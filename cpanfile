@@ -55,6 +55,7 @@ requires "Dist::Zilla::Plugin::VerifyPhases" => "0";
 requires "Dist::Zilla::Plugin::VersionFromMainModule" => "0";
 requires "Dist::Zilla::Role::BeforeBuild" => "0";
 requires "Dist::Zilla::Role::FileMunger" => "0";
+requires "Dist::Zilla::Role::PluginBundle::Config::Slicer" => "0";
 requires "Dist::Zilla::Role::PluginBundle::Easy" => "0";
 requires "Dist::Zilla::Role::TextTemplate" => "0";
 requires "List::MoreUtils" => "0";

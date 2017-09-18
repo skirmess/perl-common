@@ -118,6 +118,7 @@
             "Dist::Zilla::Plugin::VersionFromMainModule" : "0",
             "Dist::Zilla::Role::BeforeBuild" : "0",
             "Dist::Zilla::Role::FileMunger" : "0",
+            "Dist::Zilla::Role::PluginBundle::Config::Slicer" : "0",
             "Dist::Zilla::Role::PluginBundle::Easy" : "0",
             "Dist::Zilla::Role::TextTemplate" : "0",
             "List::MoreUtils" : "0",
@@ -222,6 +223,7 @@
          "Dist::Zilla::Plugin::VersionFromMainModule" : "0.03",
          "Dist::Zilla::Role::BeforeBuild" : "6.010",
          "Dist::Zilla::Role::FileMunger" : "6.010",
+         "Dist::Zilla::Role::PluginBundle::Config::Slicer" : "0.201",
          "Dist::Zilla::Role::PluginBundle::Easy" : "6.010",
          "Dist::Zilla::Role::TextTemplate" : "6.010",
          "ExtUtils::MakeMaker" : "7.30",
@@ -382,12 +384,12 @@
          {
             "class" : "Dist::Zilla::Plugin::Author::SKIRMESS::RepositoryBase",
             "name" : "@Author::SKIRMESS/Author::SKIRMESS::RepositoryBase",
-            "version" : "0.018"
+            "version" : "0.019"
          },
          {
             "class" : "Dist::Zilla::Plugin::Author::SKIRMESS::InsertVersion",
             "name" : "@Author::SKIRMESS/Author::SKIRMESS::InsertVersion",
-            "version" : "0.018"
+            "version" : "0.019"
          },
          {
             "class" : "Dist::Zilla::Plugin::NextRelease",

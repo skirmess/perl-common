@@ -14,9 +14,8 @@ use namespace::autoclean 0.09;
 
 with qw(
   Dist::Zilla::Role::PluginBundle::Easy
+  Dist::Zilla::Role::PluginBundle::Config::Slicer
 );
-
-sub mvp_multivalue_args { return qw(skip_file stopwords travis_ci_ignore_perl) }
 
 has set_script_shebang => (
     is      => 'ro',
@@ -24,33 +23,6 @@ has set_script_shebang => (
     lazy    => 1,
     default => sub {
         exists $_[0]->payload->{set_script_shebang} ? $_[0]->payload->{set_script_shebang} : 1;
-    },
-);
-
-has skip_file => (
-    is      => 'ro',
-    isa     => 'Maybe[ArrayRef]',
-    lazy    => 1,
-    default => sub {
-        exists $_[0]->payload->{skip_file} ? $_[0]->payload->{skip_file} : undef;
-    },
-);
-
-has stopwords => (
-    is      => 'ro',
-    isa     => 'Maybe[ArrayRef]',
-    lazy    => 1,
-    default => sub {
-        exists $_[0]->payload->{stopwords} ? $_[0]->payload->{stopwords} : undef;
-    },
-);
-
-has travis_ci_ignore_perl => (
-    is      => 'ro',
-    isa     => 'Maybe[ArrayRef]',
-    lazy    => 1,
-    default => sub {
-        exists $_[0]->payload->{travis_ci_ignore_perl} ? $_[0]->payload->{travis_ci_ignore_perl} : undef;
     },
 );
 
@@ -106,14 +78,7 @@ sub configure {
 
         # Must run after ReversionOnRelease because it adds the version of
         # the bundle to the generated files
-        [
-            'Author::SKIRMESS::RepositoryBase',
-            {
-                stopwords             => $self->stopwords,
-                travis_ci_ignore_perl => $self->travis_ci_ignore_perl,
-                skip_file             => $self->skip_file,
-            }
-        ],
+        'Author::SKIRMESS::RepositoryBase',
 
         'Author::SKIRMESS::InsertVersion',
 
@@ -404,18 +369,6 @@ following options:
 =item *
 
 C<set_script_shebang> - this indicates whether C<SetScriptShebang> should be used or not
-
-=item *
-
-C<skip_file> - passed through to the C<Author::SKIRMESS::RepositoryBase> plugin
-
-=item *
-
-C<stopwords> - passed through to the C<Author::SKIRMESS::RepositoryBase> plugin
-
-=item *
-
-C<travis_ci_ignore_perl> - passed through to the C<Author::SKIRMESS::RepositoryBase> plugin
 
 =back
 

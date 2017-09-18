@@ -785,19 +785,23 @@ __END__
 
 The following configuration options are supported:
 
-=head2 skip_file
+=over 4
 
-Defines files to be skipped (not generated).
+=item *
 
-=head2 stopwords
+C<skip_file> - Defines files to be skipped (not generated).
 
-Defines stopwords for the spell checker.
+=item *
 
-=head2 travis_ci_ignore_perl
+C<stopwords> - Defines stopwords for the spell checker.
 
-By default, the generated F<.travis.yml> file runs on all Perl version known
-to exist on TravisCI. Use the B<travis_ci_ignore_perl> option to define Perl
-versions to not check.
+=item *
+
+C<travis_ci_ignore_perl> - By default, the generated F<.travis.yml> file
+runs on all Perl version known to exist on TravisCI. Use the
+C<travis_ci_ignore_perl> option to define Perl versions to not check.
+
+=back
 
 =head1 SUPPORT
 
