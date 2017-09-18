@@ -2,6 +2,8 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+0.020  2017-09-18 19:24:11 UTC
+
   - Add the Dist::Zilla::Role::PluginBundle::Config::Slicer role
 
 0.019  2017-09-17 19:50:55 UTC
