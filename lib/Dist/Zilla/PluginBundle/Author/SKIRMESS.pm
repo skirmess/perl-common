@@ -299,7 +299,7 @@ sub configure {
         [
             'CopyFilesFromRelease',
             {
-                match => [qw( .pm$ ^bin/ )],
+                match => [qw( \.pm$ ^bin/ )],
             }
         ],
 
@@ -309,7 +309,7 @@ sub configure {
             {
                 commit_msg        => '%v',
                 allow_dirty       => [ qw(Changes cpanfile dist.ini INSTALL LICENSE Makefile.PL META.json META.yml README.md), @generated_files ],
-                allow_dirty_match => '\.pm$',
+                allow_dirty_match => [qw( \.pm$ ^bin/ )],
             }
         ],
 

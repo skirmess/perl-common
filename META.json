@@ -750,7 +750,7 @@
                "Dist::Zilla::Plugin::CopyFilesFromRelease" : {
                   "filename" : [],
                   "match" : [
-                     ".pm$",
+                     "\\.pm$",
                      "^bin/"
                   ]
                }
@@ -798,7 +798,8 @@
                      "xt/release/meta-yaml.t"
                   ],
                   "allow_dirty_match" : [
-                     "(?^:\\.pm$)"
+                     "(?^:\\.pm$)",
+                     "(?^:^bin/)"
                   ],
                   "changelog" : "Changes"
                },
