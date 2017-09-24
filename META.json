@@ -142,15 +142,15 @@
    "provides" : {
       "Dist::Zilla::Plugin::Author::SKIRMESS::InsertVersion" : {
          "file" : "lib/Dist/Zilla/Plugin/Author/SKIRMESS/InsertVersion.pm",
-         "version" : "0.022"
+         "version" : "0.023"
       },
       "Dist::Zilla::Plugin::Author::SKIRMESS::RepositoryBase" : {
          "file" : "lib/Dist/Zilla/Plugin/Author/SKIRMESS/RepositoryBase.pm",
-         "version" : "0.022"
+         "version" : "0.023"
       },
       "Dist::Zilla::PluginBundle::Author::SKIRMESS" : {
          "file" : "lib/Dist/Zilla/PluginBundle/Author/SKIRMESS.pm",
-         "version" : "0.022"
+         "version" : "0.023"
       }
    },
    "release_status" : "stable",
@@ -165,7 +165,7 @@
          "web" : "https://github.com/skirmess/Dist-Zilla-PluginBundle-Author-SKIRMESS"
       }
    },
-   "version" : "0.022",
+   "version" : "0.023",
    "x_BuiltWith" : {
       "modules" : {
          "Carp" : "1.40",
@@ -173,7 +173,7 @@
          "Dist::Zilla" : "6.010",
          "Dist::Zilla::Plugin::Authority" : "1.009",
          "Dist::Zilla::Plugin::AutoPrereqs" : "6.010",
-         "Dist::Zilla::Plugin::AutoPrereqs::Perl::Critic" : "0.003",
+         "Dist::Zilla::Plugin::AutoPrereqs::Perl::Critic" : "0.004",
          "Dist::Zilla::Plugin::Bootstrap::lib" : "1.001002",
          "Dist::Zilla::Plugin::CPANFile" : "6.010",
          "Dist::Zilla::Plugin::CheckChangesHasContent" : "0.010",
@@ -471,7 +471,7 @@
          {
             "class" : "Dist::Zilla::Plugin::AutoPrereqs::Perl::Critic",
             "name" : "@Author::SKIRMESS/AutoPrereqs::Perl::Critic",
-            "version" : "0.003"
+            "version" : "0.004"
          },
          {
             "class" : "Dist::Zilla::Plugin::SetScriptShebang",
@@ -827,7 +827,7 @@
                   "branch" : null,
                   "changelog" : "Changes",
                   "signed" : 0,
-                  "tag" : "0.022",
+                  "tag" : "0.023",
                   "tag_format" : "%v",
                   "tag_message" : ""
                },
