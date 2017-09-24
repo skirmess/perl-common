@@ -73,19 +73,6 @@ sub munge_files {
     my ($self) = @_;
 
     # Files are already generated in the before build phase.
-    #
-    # But for a release build, the $VERSION of this module changes during the
-    # "munge files" phase. We have to recreate the files during the "munge
-    # files" phase to add the correct version to the generated files.
-    if ( !exists $ENV{DZIL_RELEASING} ) {
-
-        # We always have to write t/00-load.t during the munge files phase
-        # because this file is not created correctly during the before
-        # build phase because the FileFinderUser isn't initialized that
-        # early
-        $self->_write_file('t/00-load.t');
-        return;
-    }
 
     # This module is part of the Author::SKIRMESS plugin bundle. The bundle
     # is either used to release itself, but also to release other
@@ -100,29 +87,38 @@ sub munge_files {
     # If __FILE__ is inside lib of the cwd we are run with Bootstrap::lib
     # which means we are building the bundle. Otherwise we use the bundle to
     # build another distribution.
-    return if !path('lib')->realpath->subsumes( path(__FILE__)->realpath() );
+    if ( exists $ENV{DZIL_RELEASING} && path('lib')->realpath->subsumes( path(__FILE__)->realpath() ) ) {
 
-    # Ok, we are releasing the bundle itself. That means that $VERSION of
-    # this module is not set correctly as the module was require'd before
-    # the $VERSION was adjusted in the file (during the "munge files" phase).
-    # We have to fix this now to write the correct version to the generated
-    # files.
+        # Ok, we are releasing the bundle itself. That means that $VERSION of
+        # this module is not set correctly as the module was require'd before
+        # the $VERSION was adjusted in the file (during the "munge files"
+        # phase). We have to fix this now to write the correct version to the
+        # generated files.
 
-    # NOTE: Just a reminder if someone wants to refactor this module.
-    # $self->zilla->version() must not be called in the "before build" phase
-    # because it calls _build_version which is going to fail the build.
-    # Besides that, VersionFromMainModule is run during the "munge files"
-    # phase and before that we can't even know the new version of the bundle.
+        # NOTE: Just a reminder if someone wants to refactor this module.
+        # $self->zilla->version() must not be called in the "before build"
+        # phase because it calls _build_version which is going to fail the
+        # build. Besides that, VersionFromMainModule is run during the
+        # "munge files" phase and before that we can't even know the new
+        # version of the bundle.
 
-    {
         ## no critic (ValuesAndExpressions::RequireConstantVersion)
         ## no critic (Variables::ProhibitLocalVars)
         local $VERSION = $self->zilla->version;
 
         # re-write all generated files
         $self->_write_files();
+
+        return;
     }
 
+    # We are building, or releasing something else - not the bundle itself.
+
+    # We always have to write t/00-load.t during the munge files phase
+    # because this file is not created correctly during the before
+    # build phase because the FileFinderUser isn't initialized that
+    # early
+    $self->_write_file('t/00-load.t');
     return;
 }
 
