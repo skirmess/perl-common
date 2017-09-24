@@ -4,6 +4,7 @@ author:
   - 'Sven Kirmess <sven.kirmess@kzone.ch>'
 build_requires:
   Test::More: '0'
+  lib: '0'
   perl: '5.006'
 configure_requires:
   ExtUtils::MakeMaker: '0'
@@ -88,10 +89,12 @@ requires:
   Dist::Zilla::Plugin::VerifyPhases: '0'
   Dist::Zilla::Plugin::VersionFromMainModule: '0'
   Dist::Zilla::Role::BeforeBuild: '0'
+  Dist::Zilla::Role::FileFinderUser: '0'
   Dist::Zilla::Role::FileMunger: '0'
   Dist::Zilla::Role::PluginBundle::Config::Slicer: '0'
   Dist::Zilla::Role::PluginBundle::Easy: '0'
   Dist::Zilla::Role::TextTemplate: '0'
+  File::Spec: '0'
   List::MoreUtils: '0'
   Moose: '0.99'
   Path::Tiny: '0'
@@ -162,6 +165,7 @@ x_BuiltWith:
     Dist::Zilla::Plugin::VerifyPhases: '0.016'
     Dist::Zilla::Plugin::VersionFromMainModule: '0.03'
     Dist::Zilla::Role::BeforeBuild: '6.010'
+    Dist::Zilla::Role::FileFinderUser: '6.010'
     Dist::Zilla::Role::FileMunger: '6.010'
     Dist::Zilla::Role::PluginBundle::Config::Slicer: '0.202'
     Dist::Zilla::Role::PluginBundle::Easy: '6.010'
@@ -197,6 +201,7 @@ x_BuiltWith:
     Test::Portability::Files: '0.07'
     Test::Spelling: '0.20'
     Test::Version: '2.05'
+    lib: '0.63'
     namespace::autoclean: '0.28'
     strict: '1.11'
     warnings: '1.36'
@@ -298,11 +303,11 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::Author::SKIRMESS::RepositoryBase
       name: '@Author::SKIRMESS/Author::SKIRMESS::RepositoryBase'
-      version: '0.021'
+      version: '0.022'
     -
       class: Dist::Zilla::Plugin::Author::SKIRMESS::InsertVersion
       name: '@Author::SKIRMESS/Author::SKIRMESS::InsertVersion'
-      version: '0.021'
+      version: '0.022'
     -
       class: Dist::Zilla::Plugin::NextRelease
       name: '@Author::SKIRMESS/NextRelease'
@@ -324,6 +329,7 @@ x_Dist_Zilla:
             - README.md
             - cpanfile
             - dist.ini
+            - t/00-load.t
             - xt/author/clean-namespaces.t
             - xt/author/critic.t
             - xt/author/minimum_version.t
@@ -607,6 +613,7 @@ x_Dist_Zilla:
             - README.md
             - cpanfile
             - dist.ini
+            - t/00-load.t
             - xt/author/clean-namespaces.t
             - xt/author/critic.t
             - xt/author/minimum_version.t

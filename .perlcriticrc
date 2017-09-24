@@ -68,7 +68,6 @@ exclude_functions = print
 [Modules::ProhibitAutomaticExportation]
 [Modules::ProhibitConditionalUseStatements]
 [Modules::ProhibitEvilModules]
-[Modules::ProhibitExcessMainComplexity]
 [Modules::ProhibitMultiplePackages]
 [Modules::RequireBarewordIncludes]
 [Modules::RequireEndWithOne]
