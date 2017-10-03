@@ -54,7 +54,7 @@ has _travis_available_perl => (
 use Carp;
 use Config::Std { def_sep => q{=} };
 use File::Spec;
-use List::MoreUtils qw(uniq);
+use List::SomeUtils qw(uniq);
 use Path::Tiny;
 
 use namespace::autoclean;
@@ -393,6 +393,29 @@ allow = $! $/
 [Moose::ProhibitNewMethod]
 [Moose::RequireCleanNamespace]
 [Moose::RequireMakeImmutable]
+
+[Freenode::AmpersandSubCalls]
+[Freenode::ArrayAssignAref]
+[Freenode::BarewordFilehandles]
+[Freenode::ConditionalDeclarations]
+[Freenode::ConditionalImplicitReturn]
+[Freenode::DeprecatedFeatures]
+[Freenode::DiscouragedModules]
+[Freenode::DollarAB]
+[Freenode::Each]
+[Freenode::EmptyReturn]
+[Freenode::IndirectObjectNotation]
+[Freenode::ModPerl]
+[Freenode::OpenArgs]
+[Freenode::OverloadOptions]
+[Freenode::PackageMatchesFilename]
+[Freenode::POSIXImports]
+[Freenode::Prototypes]
+[Freenode::StrictWarnings]
+[Freenode::Threads]
+[Freenode::Wantarray]
+[Freenode::WarningsSwitch]
+[Freenode::WhileDiamondDefaultAssignment]
 PERLCRITICRC_TEMPLATE
 
         # Conig::Std will not preserve a comment on the last line, therefore

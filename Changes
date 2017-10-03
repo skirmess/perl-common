@@ -2,6 +2,9 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+  - Added Perl::Critic::Freenode policies
+  - Replaced List::MoreUtils with List::SomeUtils
+
 0.024  2017-09-24 17:32:56 UTC
 
   - Always create the 00-load.t test in the munge file phase
