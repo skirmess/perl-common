@@ -403,7 +403,6 @@ allow = $! $/
 [Freenode::DiscouragedModules]
 [Freenode::DollarAB]
 [Freenode::Each]
-[Freenode::EmptyReturn]
 [Freenode::IndirectObjectNotation]
 [Freenode::ModPerl]
 [Freenode::OpenArgs]
