@@ -40,7 +40,6 @@
             "Perl::Critic::Policy::Freenode::DiscouragedModules" : "0.024",
             "Perl::Critic::Policy::Freenode::DollarAB" : "0.024",
             "Perl::Critic::Policy::Freenode::Each" : "0.024",
-            "Perl::Critic::Policy::Freenode::EmptyReturn" : "0.024",
             "Perl::Critic::Policy::Freenode::IndirectObjectNotation" : "0.024",
             "Perl::Critic::Policy::Freenode::ModPerl" : "0.024",
             "Perl::Critic::Policy::Freenode::OpenArgs" : "0.024",
@@ -266,7 +265,6 @@
          "Perl::Critic::Policy::Freenode::DiscouragedModules" : "0.024",
          "Perl::Critic::Policy::Freenode::DollarAB" : "0.024",
          "Perl::Critic::Policy::Freenode::Each" : "0.024",
-         "Perl::Critic::Policy::Freenode::EmptyReturn" : "0.024",
          "Perl::Critic::Policy::Freenode::IndirectObjectNotation" : "0.024",
          "Perl::Critic::Policy::Freenode::ModPerl" : "0.024",
          "Perl::Critic::Policy::Freenode::OpenArgs" : "0.024",
@@ -432,12 +430,12 @@
          {
             "class" : "Dist::Zilla::Plugin::Author::SKIRMESS::RepositoryBase",
             "name" : "@Author::SKIRMESS/Author::SKIRMESS::RepositoryBase",
-            "version" : "0.023"
+            "version" : "0.024"
          },
          {
             "class" : "Dist::Zilla::Plugin::Author::SKIRMESS::InsertVersion",
             "name" : "@Author::SKIRMESS/Author::SKIRMESS::InsertVersion",
-            "version" : "0.023"
+            "version" : "0.024"
          },
          {
             "class" : "Dist::Zilla::Plugin::NextRelease",

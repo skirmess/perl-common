@@ -2,6 +2,7 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+  - Add disabled policies to generated .perlcriticrc
   - Added Perl::Critic::Freenode policies
   - Replaced List::MoreUtils with List::SomeUtils
 

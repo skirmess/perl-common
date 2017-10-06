@@ -90,7 +90,6 @@ on 'develop' => sub {
   requires "Perl::Critic::Policy::Freenode::DiscouragedModules" => "0.024";
   requires "Perl::Critic::Policy::Freenode::DollarAB" => "0.024";
   requires "Perl::Critic::Policy::Freenode::Each" => "0.024";
-  requires "Perl::Critic::Policy::Freenode::EmptyReturn" => "0.024";
   requires "Perl::Critic::Policy::Freenode::IndirectObjectNotation" => "0.024";
   requires "Perl::Critic::Policy::Freenode::ModPerl" => "0.024";
   requires "Perl::Critic::Policy::Freenode::OpenArgs" => "0.024";
