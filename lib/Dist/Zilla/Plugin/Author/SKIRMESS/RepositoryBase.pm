@@ -391,6 +391,7 @@ allow = $! $/
 [Variables::RequireLocalizedPunctuationVars]
 [Variables::RequireNegativeIndices]
 
+### Perl::Critic::Moose
 [Moose::ProhibitDESTROYMethod]
 [Moose::ProhibitLazyBuild]
 [Moose::ProhibitMultipleWiths]
@@ -398,6 +399,7 @@ allow = $! $/
 [Moose::RequireCleanNamespace]
 [Moose::RequireMakeImmutable]
 
+### Perl::Critic::Freenode
 [Freenode::AmpersandSubCalls]
 [Freenode::ArrayAssignAref]
 [Freenode::BarewordFilehandles]
@@ -420,6 +422,16 @@ allow = $! $/
 [Freenode::Wantarray]
 [Freenode::WarningsSwitch]
 [Freenode::WhileDiamondDefaultAssignment]
+
+### Perl::Critic::More
+#[CodeLayout::RequireASCII]
+#[Editor::RequireEmacsFileVariables]
+#[ErrorHandling::RequireUseOfExceptions]
+[Modules::PerlMinimumVersion]
+[Modules::RequirePerlVersion]
+#[ValuesAndExpressions::RequireConstantOnLeftSideOfEquality]
+#[ValuesAndExpressions::RestrictLongStrings]
+
 PERLCRITICRC_TEMPLATE
 
         # Conig::Std will not preserve a comment on the last line, therefore

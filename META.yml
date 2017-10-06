@@ -197,6 +197,8 @@ x_BuiltWith:
     Perl::Critic::Policy::Freenode::Wantarray: '0.024'
     Perl::Critic::Policy::Freenode::WarningsSwitch: '0.024'
     Perl::Critic::Policy::Freenode::WhileDiamondDefaultAssignment: '0.024'
+    Perl::Critic::Policy::Modules::PerlMinimumVersion: '1.003'
+    Perl::Critic::Policy::Modules::RequirePerlVersion: '1.003'
     Perl::Critic::Policy::Moose::ProhibitDESTROYMethod: '1.05'
     Perl::Critic::Policy::Moose::ProhibitLazyBuild: '1.05'
     Perl::Critic::Policy::Moose::ProhibitMultipleWiths: '1.05'

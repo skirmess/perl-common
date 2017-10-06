@@ -2,6 +2,8 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+  - Added Modules::PerlMinimumVersion and Modules::RequirePerlVersion from
+    Perl::Critic::More
   - Add disabled policies to generated .perlcriticrc
   - Added Perl::Critic::Freenode policies
   - Replaced List::MoreUtils with List::SomeUtils
