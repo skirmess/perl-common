@@ -472,6 +472,10 @@ allow = $! $/
 [ValuesAndExpressions::ProhibitUnknownBackslash]
 [ValuesAndExpressions::RequireNumericVersion]
 [ValuesAndExpressions::UnexpandedSpecialLiteral]
+
+### Perl::Critic::Policy::Variables::ProhibitUnusedVarsStricter
+[Variables::ProhibitUnusedVarsStricter]
+allow_unused_subroutine_arguments = 1
 PERLCRITICRC_TEMPLATE
 
         # Conig::Std will not preserve a comment on the last line, therefore
@@ -500,7 +504,6 @@ PERLCRITICRC_TEMPLATE
                 }
 
                 my $policy_name = $policy =~ m{ ^ - (.+) }xsm ? $1 : $policy;
-                my $disable     = $policy =~ m{ ^ - . }xsm    ? 1  : 0;
 
                 if ( exists $local_seen{$policy_name} ) {
                     $self->log_fatal("There are multiple entries for policy '$policy_name' in '$perlcriticrc_local'.");

@@ -2,6 +2,7 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+  - Added Variables::ProhibitUnusedVarsStricter policies
   - Added Perl::Critic::Pulp policies
   - Added Modules::PerlMinimumVersion and Modules::RequirePerlVersion from
     Perl::Critic::More

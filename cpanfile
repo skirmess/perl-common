@@ -146,6 +146,7 @@ on 'develop' => sub {
   requires "Perl::Critic::Policy::ValuesAndExpressions::ProhibitUnknownBackslash" => "94";
   requires "Perl::Critic::Policy::ValuesAndExpressions::RequireNumericVersion" => "94";
   requires "Perl::Critic::Policy::ValuesAndExpressions::UnexpandedSpecialLiteral" => "94";
+  requires "Perl::Critic::Policy::Variables::ProhibitUnusedVarsStricter" => "0.100";
   requires "Perl::Critic::Utils" => "0";
   requires "Pod::Wordlist" => "0";
   requires "Test::CPAN::Changes" => "0";
