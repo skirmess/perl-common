@@ -15,7 +15,7 @@ use Test::Perl::Critic;
 
 my @dirs = qw(bin lib t xt);
 
-my @ignores = ();
+my @ignores;
 my %file;
 @file{ all_perl_files(@dirs) } = ();
 delete @file{@ignores};

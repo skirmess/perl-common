@@ -27,7 +27,7 @@ has set_script_shebang => (
 );
 
 sub configure {
-    my $self = shift;
+    my ($self) = @_;
 
     my @generated_files = Dist::Zilla::Plugin::Author::SKIRMESS::RepositoryBase->files();
 
@@ -39,7 +39,7 @@ sub configure {
             {
                 phase  => 'build',
                 module => [ $self->meta->name ],
-            }
+            },
         ],
 
         # Check at build/release time if modules are out of date
@@ -49,7 +49,7 @@ sub configure {
                 phase             => 'release',
                 check_all_plugins => 1,
                 check_all_prereqs => 1,
-            }
+            },
         ],
 
         # Add contributor names from git to your distribution
@@ -62,7 +62,7 @@ sub configure {
                 ':version'       => '2.016',
                 exclude_filename => [qw( cpanfile dist.ini INSTALL LICENSE Makefile.PL META.json META.yml README.md )],
                 include_dotfiles => 1,
-            }
+            },
         ],
 
         # Set the distribution version from your main module's $VERSION
@@ -73,7 +73,7 @@ sub configure {
             'ReversionOnRelease',
             {
                 prompt => 1,
-            }
+            },
         ],
 
         # Must run after ReversionOnRelease because it adds the version of
@@ -88,7 +88,7 @@ sub configure {
             {
                 format    => '%v  %{yyyy-MM-dd HH:mm:ss VVV}d',
                 time_zone => 'UTC',
-            }
+            },
         ],
 
         # Check your git repository before releasing
@@ -96,7 +96,7 @@ sub configure {
             'Git::Check',
             {
                 allow_dirty => [ qw( Changes cpanfile dist.ini Makefile.PL META.json META.yml README.md ), @generated_files ],
-            }
+            },
         ],
 
         # Ensure no pending commits on a remote branch before release
@@ -104,7 +104,7 @@ sub configure {
             'Git::Remote::Check',
             {
                 do_update => 0,
-            }
+            },
         ],
 
         # Prune stuff that you probably don't mean to include
@@ -112,7 +112,7 @@ sub configure {
             'PruneCruft',
             {
                 except => [qw( \.perlcriticrc \.perltidyrc )],
-            }
+            },
         ],
 
         # Decline to build files that appear in a MANIFEST.SKIP-like file
@@ -123,7 +123,7 @@ sub configure {
             'AutoPrereqs',
             {
                 skip => [qw( ^t::lib )],
-            }
+            },
         ],
 
         # automatically extract Perl::Critic policy prereqs
@@ -139,7 +139,7 @@ sub configure {
                 ':version' => '1.009',
                 authority  => 'cpan:SKIRMESS',
                 do_munging => '0',
-            }
+            },
         ],
 
         # Detects the minimum version of Perl required for your dist
@@ -147,7 +147,7 @@ sub configure {
             'MinimumPerl',
             {
                 ':version' => '1.006',
-            }
+            },
         ],
 
         # Stop CPAN from indexing stuff
@@ -155,7 +155,7 @@ sub configure {
             'MetaNoIndex',
             {
                 directory => [qw( corpus examples t xt )],
-            }
+            },
         ],
 
         # Automatically include GitHub meta information in META.yml
@@ -163,7 +163,7 @@ sub configure {
             'GithubMeta',
             {
                 issues => 1,
-            }
+            },
         ],
 
         # Automatically convert POD to a README in any format for Dist::Zilla
@@ -173,7 +173,7 @@ sub configure {
                 type     => 'markdown',
                 filename => 'README.md',
                 location => 'root',
-            }
+            },
         ],
 
         # Extract namespaces/version from traditional packages for provides
@@ -181,7 +181,7 @@ sub configure {
             'MetaProvides::Package',
             {
                 meta_noindex => 1,
-            }
+            },
         ],
 
         # Extract namespaces/version from traditional packages for provides
@@ -193,7 +193,7 @@ sub configure {
             {
                 meta_noindex => 1,
                 finder       => ':ExecFiles',
-            }
+            },
         ],
 
         # Summarize Dist::Zilla configuration into distmeta
@@ -205,7 +205,7 @@ sub configure {
             {
                 show_config => 1,
                 show_uname  => 1,
-            }
+            },
         ],
 
         # Produce a META.yml
@@ -231,7 +231,7 @@ sub configure {
             'InstallGuide',
             {
                 ':version' => '1.200007',
-            }
+            },
         ],
 
         # Install a directory's contents as executables
@@ -251,7 +251,7 @@ sub configure {
             'CopyFilesFromBuild',
             {
                 copy => [qw( cpanfile INSTALL LICENSE Makefile.PL META.json META.yml )],
-            }
+            },
         ],
 
         # Check that you're on the correct branch before release
@@ -277,7 +277,7 @@ sub configure {
             'CheckStrictVersion',
             {
                 decimal_only => 1,
-            }
+            },
         ],
 
         # Support running xt tests via dzil test
@@ -300,7 +300,7 @@ sub configure {
             'CopyFilesFromRelease',
             {
                 match => [qw( \.pm$ ^bin/ )],
-            }
+            },
         ],
 
         # Commit dirty files
@@ -310,7 +310,7 @@ sub configure {
                 commit_msg        => '%v',
                 allow_dirty       => [ qw(Changes cpanfile dist.ini INSTALL LICENSE Makefile.PL META.json META.yml README.md), @generated_files ],
                 allow_dirty_match => [qw( \.pm$ ^bin/ )],
-            }
+            },
         ],
 
         # Tag the new version
@@ -319,7 +319,7 @@ sub configure {
             {
                 tag_format  => '%v',
                 tag_message => q{},
-            }
+            },
         ],
 
         # Push current branch

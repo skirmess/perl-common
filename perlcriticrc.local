@@ -1,4 +1,5 @@
-[InputOutput::RequireCheckedSyscalls]
-exclude_functions = print
-
 [-Documentation::RequirePodAtEnd]
+
+[-ValuesAndExpressions::RequireConstantVersion]
+
+[-Variables::ProhibitLocalVars]

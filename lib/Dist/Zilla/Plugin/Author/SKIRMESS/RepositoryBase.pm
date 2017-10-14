@@ -102,8 +102,6 @@ sub munge_files {
         # "munge files" phase and before that we can't even know the new
         # version of the bundle.
 
-        ## no critic (ValuesAndExpressions::RequireConstantVersion)
-        ## no critic (Variables::ProhibitLocalVars)
         local $VERSION = $self->zilla->version;
 
         # re-write all generated files
@@ -222,7 +220,7 @@ The following files are created in the repository and in the distribution:
             $file_content,
             {
                 plugin => \$self,
-            }
+            },
         );
     }
 
@@ -241,8 +239,9 @@ F<perlcriticrc.local>.
 # Automatically generated file
 # {{ ref $plugin }} {{ $plugin->VERSION() }}
 
-severity = 1
 only = 1
+severity = 1
+verbose = [%p] %m at %f line %l, near '%r'\n
 
 [BuiltinFunctions::ProhibitBooleanGrep]
 [BuiltinFunctions::ProhibitComplexMappings]
@@ -281,12 +280,15 @@ only = 1
 [ControlStructures::ProhibitUnreachableCode]
 [ControlStructures::ProhibitUntilBlocks]
 [ControlStructures::ProhibitYadaOperator]
-[Documentation::PodSpelling]
+#[Documentation::PodSpelling]
 [Documentation::RequirePackageMatchesPodName]
 [Documentation::RequirePodAtEnd]
 [Documentation::RequirePodLinksIncludeText]
 #[Documentation::RequirePodSections]
+
 [ErrorHandling::RequireCarping]
+allow_in_main_unless_in_subroutine = 1
+
 [ErrorHandling::RequireCheckingReturnValueOfEval]
 [InputOutput::ProhibitBacktickOperators]
 [InputOutput::ProhibitBarewordFileHandles]
@@ -300,7 +302,11 @@ only = 1
 #[InputOutput::RequireBriefOpen]
 [InputOutput::RequireCheckedClose]
 [InputOutput::RequireCheckedOpen]
+
 [InputOutput::RequireCheckedSyscalls]
+functions = :builtins
+exclude_functions = print say sleep
+
 [InputOutput::RequireEncodingWithUTF8Layer]
 [Miscellanea::ProhibitFormats]
 [Miscellanea::ProhibitTies]
@@ -308,7 +314,10 @@ only = 1
 [Miscellanea::ProhibitUselessNoCritic]
 [Modules::ProhibitAutomaticExportation]
 [Modules::ProhibitConditionalUseStatements]
+
 [Modules::ProhibitEvilModules]
+modules = Class::ISA {Found use of Class::ISA. This module is deprecated by the Perl 5 Porters.} Pod::Plainer {Found use of Pod::Plainer. This module is deprecated by the Perl 5 Porters.} Shell {Found use of Shell. This module is deprecated by the Perl 5 Porters.} Switch {Found use of Switch. This module is deprecated by the Perl 5 Porters.} Readonly {Found use of Readonly. Please use constant.pm or Const::Fast.} base {Found use of base. Please use parent instead.} File::Slurp {Found use of File::Slurp. Please use Path::Tiny instead.} common::sense {Found use of common::sense. Please use strict and warnings instead.} Class::Load {Found use of Class::Load. Please use Module::Runtime instead.} Any::Moose {Found use of Any::Moose. Please use Moo instead.} Error {Found use of Error.pm. Please use Throwable.pm instead.} Getopt::Std {Found use of Getopt::Std. Please use Getopt::Long instead.} HTML::Template {Found use of HTML::Template. Please use Template::Toolkit.} IO::Socket::INET6 {Found use of IO::Socket::INET6. Please use IO::Socket::IP.} JSON {Found use of JSON. Please use JSON::MaybeXS or Cpanel::JSON::XS.} JSON::Any {Found use of JSON::Any. Please use JSON::MaybeXS.} List::MoreUtils {Found use of List::MoreUtils. Please use List::Util or List::UtilsBy.} Mouse {Found use of Mouse. Please use Moo.} Net::IRC {Found use of Net::IRC. Please use POE::Component::IRC, Net::Async::IRC, or Mojo::IRC.} XML::Simple {Found use of XML::Simple. Please use XML::LibXML, XML::TreeBuilder, XML::Twig, or Mojo::DOM.} Sub::Infix {Found use of Sub::Infix. Please do not use it.}
+
 #[Modules::ProhibitExcessMainComplexity]
 [Modules::ProhibitMultiplePackages]
 [Modules::RequireBarewordIncludes]
@@ -342,8 +351,10 @@ only = 1
 [Subroutines::ProhibitNestedSubs]
 [Subroutines::ProhibitReturnSort]
 [Subroutines::ProhibitSubroutinePrototypes]
+
 [Subroutines::ProhibitUnusedPrivateSubroutines]
 private_name_regex = _(?!build_)\w+
+
 [Subroutines::ProtectPrivateSubs]
 [Subroutines::RequireArgUnpacking]
 [Subroutines::RequireFinalReturn]
@@ -354,7 +365,10 @@ private_name_regex = _(?!build_)\w+
 [TestingAndDebugging::RequireUseStrict]
 [TestingAndDebugging::RequireUseWarnings]
 [ValuesAndExpressions::ProhibitCommaSeparatedStatements]
+
 [ValuesAndExpressions::ProhibitComplexVersion]
+forbid_use_version = 1
+
 [ValuesAndExpressions::ProhibitConstantPragma]
 [ValuesAndExpressions::ProhibitEmptyQuotes]
 [ValuesAndExpressions::ProhibitEscapedCharacters]
@@ -381,8 +395,10 @@ private_name_regex = _(?!build_)\w+
 [Variables::ProhibitMatchVars]
 [Variables::ProhibitPackageVars]
 [Variables::ProhibitPerl4PackageNames]
+
 [Variables::ProhibitPunctuationVars]
-allow = $! $/
+allow = $@ $! $/ $0
+
 [Variables::ProhibitReusedNames]
 [Variables::ProhibitUnusedVariables]
 [Variables::ProtectPrivateVars]
@@ -391,11 +407,30 @@ allow = $! $/
 [Variables::RequireLocalizedPunctuationVars]
 [Variables::RequireNegativeIndices]
 
+### Perl::Critic::Bangs
+[Bangs::ProhibitBitwiseOperators]
+#[Bangs::ProhibitCommentedOutCode]
+[Bangs::ProhibitDebuggingModules]
+[Bangs::ProhibitFlagComments]
+#[Bangs::ProhibitNoPlan]
+[Bangs::ProhibitNumberedNames]
+[Bangs::ProhibitRefProtoOrProto]
+[Bangs::ProhibitUselessRegexModifiers]
+#[Bangs::ProhibitVagueNames]
+
 ### Perl::Critic::Moose
 [Moose::ProhibitDESTROYMethod]
+equivalent_modules = Moo Moo::Role
+
 [Moose::ProhibitLazyBuild]
+equivalent_modules = Moo Moo::Role
+
 [Moose::ProhibitMultipleWiths]
+equivalent_modules = Moo Moo::Role
+
 [Moose::ProhibitNewMethod]
+equivalent_modules = Moo Moo::Role
+
 [Moose::RequireCleanNamespace]
 [Moose::RequireMakeImmutable]
 
@@ -423,6 +458,21 @@ allow = $! $/
 [Freenode::WarningsSwitch]
 [Freenode::WhileDiamondDefaultAssignment]
 
+### Perl::Critic::Policy::HTTPCookies
+[HTTPCookies]
+
+### Perl::Critic::Itch
+#[CodeLayout::ProhibitHashBarewords]
+
+### Perl::Critic::Lax
+[Lax::ProhibitComplexMappings::LinesNotStatements]
+#[Lax::ProhibitEmptyQuotes::ExceptAsFallback]
+#[Lax::ProhibitLeadingZeros::ExceptChmod]
+#[Lax::ProhibitStringyEval::ExceptForRequire]
+#[Lax::RequireConstantOnLeftSideOfEquality::ExceptEq]
+#[Lax::RequireEndWithTrueConst]
+#[Lax::RequireExplicitPackage::ExceptForPragmata]
+
 ### Perl::Critic::More
 #[CodeLayout::RequireASCII]
 #[Editor::RequireEmacsFileVariables]
@@ -432,21 +482,52 @@ allow = $! $/
 #[ValuesAndExpressions::RequireConstantOnLeftSideOfEquality]
 #[ValuesAndExpressions::RestrictLongStrings]
 
+# Perl::Critic::PetPeeves::JTRAMMELL
+[Variables::ProhibitUselessInitialization]
+
+### Perl::Critic::Policy::BuiltinFunctions::ProhibitDeleteOnArrays
+[BuiltinFunctions::ProhibitDeleteOnArrays]
+
+### Perl::Critic::Policy::BuiltinFunctions::ProhibitReturnOr
+[BuiltinFunctions::ProhibitReturnOr]
+
+### Perl::Critic::Policy::Moo::ProhibitMakeImmutable
+[Moo::ProhibitMakeImmutable]
+
+### Perl::Critic::Policy::ValuesAndExpressions::ProhibitSingleArgArraySlice
+[ValuesAndExpressions::ProhibitSingleArgArraySlice]
+
+### Perl::Critic::Policy::Perlsecret
+[Perlsecret]
+
+### Perl::Critic::Policy::TryTiny::RequireBlockTermination
+[TryTiny::RequireBlockTermination]
+
+### Perl::Critic::Policy::TryTiny::RequireUse
+[TryTiny::RequireUse]
+
+### Perl::Critic::Policy::ValuesAndExpressions::PreventSQLInjection
+[ValuesAndExpressions::PreventSQLInjection]
+
+### Perl::Critic::Policy::Variables::ProhibitUnusedVarsStricter
+[Variables::ProhibitUnusedVarsStricter]
+allow_unused_subroutine_arguments = 1
+
 ### Perl::Critic::Pulp
 [CodeLayout::ProhibitFatCommaNewline]
-[CodeLayout::ProhibitIfIfSameLine]
+#[CodeLayout::ProhibitIfIfSameLine]
 [CodeLayout::RequireFinalSemicolon]
-#[CodeLayout::RequireTrailingCommaAtNewline]
+[CodeLayout::RequireTrailingCommaAtNewline]
 [Compatibility::ConstantLeadingUnderscore]
 [Compatibility::ConstantPragmaHash]
-[Compatibility::Gtk2Constants]
+#[Compatibility::Gtk2Constants]
 [Compatibility::PerlMinimumVersionAndWhy]
 #[Compatibility::PodMinimumVersion]
 [Compatibility::ProhibitUnixDevNull]
 [Documentation::ProhibitAdjacentLinks]
 [Documentation::ProhibitBadAproposMarkup]
 [Documentation::ProhibitDuplicateHeadings]
-[Documentation::ProhibitDuplicateSeeAlso]
+#[Documentation::ProhibitDuplicateSeeAlso]
 [Documentation::ProhibitLinkToSelf]
 [Documentation::ProhibitParagraphEndComma]
 [Documentation::ProhibitParagraphTwoDots]
@@ -454,10 +535,10 @@ allow = $! $/
 [Documentation::ProhibitVerbatimMarkup]
 [Documentation::RequireEndBeforeLastPod]
 [Documentation::RequireFilenameMarkup]
-[Documentation::RequireFinalCut]
+#[Documentation::RequireFinalCut]
 [Documentation::RequireLinkedURLs]
-[Miscellanea::TextDomainPlaceholders]
-[Miscellanea::TextDomainUnused]
+#[Miscellanea::TextDomainPlaceholders]
+#[Miscellanea::TextDomainUnused]
 [Modules::ProhibitModuleShebang]
 [Modules::ProhibitPOSIXimport]
 [Modules::ProhibitUseQuotedVersion]
@@ -473,9 +554,17 @@ allow = $! $/
 [ValuesAndExpressions::RequireNumericVersion]
 [ValuesAndExpressions::UnexpandedSpecialLiteral]
 
-### Perl::Critic::Policy::Variables::ProhibitUnusedVarsStricter
-[Variables::ProhibitUnusedVarsStricter]
-allow_unused_subroutine_arguments = 1
+### Perl::Critic::StricterSubs
+[Modules::RequireExplicitInclusion]
+#[Subroutines::ProhibitCallsToUndeclaredSubs]
+#[Subroutines::ProhibitCallsToUnexportedSubs]
+[Subroutines::ProhibitExportingUndeclaredSubs]
+[Subroutines::ProhibitQualifiedSubDeclarations]
+
+### Perl::Critic::Tics
+#[Tics::ProhibitLongLines]
+[Tics::ProhibitManyArrows]
+[Tics::ProhibitUseBase]
 PERLCRITICRC_TEMPLATE
 
         # Conig::Std will not preserve a comment on the last line, therefore
@@ -491,7 +580,7 @@ PERLCRITICRC_TEMPLATE
 
             read_config $perlcriticrc_local, my %perlcriticrc_local;
 
-            my %local_seen = ();
+            my %local_seen;
 
           POLICY:
             for my $policy ( keys %perlcriticrc_local ) {
@@ -728,7 +817,7 @@ use Test::Perl::Critic;
 
 my @dirs = qw(bin lib t xt);
 
-my @ignores = ();
+my @ignores;
 my %file;
 @file{ all_perl_files(@dirs) } = ();
 delete @file{@ignores};
