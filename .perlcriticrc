@@ -254,7 +254,8 @@ equivalent_modules = Moo Moo::Role
 [Moo::ProhibitMakeImmutable]
 
 ### Perl::Critic::Policy::ValuesAndExpressions::ProhibitSingleArgArraySlice
-[ValuesAndExpressions::ProhibitSingleArgArraySlice]
+# requires Perl 5.12
+#[ValuesAndExpressions::ProhibitSingleArgArraySlice]
 
 ### Perl::Critic::Policy::Perlsecret
 [Perlsecret]

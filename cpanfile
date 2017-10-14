@@ -158,7 +158,6 @@ on 'develop' => sub {
   requires "Perl::Critic::Policy::ValuesAndExpressions::ProhibitDuplicateHashKeys" => "95";
   requires "Perl::Critic::Policy::ValuesAndExpressions::ProhibitEmptyCommas" => "95";
   requires "Perl::Critic::Policy::ValuesAndExpressions::ProhibitNullStatements" => "95";
-  requires "Perl::Critic::Policy::ValuesAndExpressions::ProhibitSingleArgArraySlice" => "0.004";
   requires "Perl::Critic::Policy::ValuesAndExpressions::ProhibitUnknownBackslash" => "95";
   requires "Perl::Critic::Policy::ValuesAndExpressions::RequireNumericVersion" => "95";
   requires "Perl::Critic::Policy::ValuesAndExpressions::UnexpandedSpecialLiteral" => "95";

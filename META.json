@@ -108,7 +108,6 @@
             "Perl::Critic::Policy::ValuesAndExpressions::ProhibitDuplicateHashKeys" : "95",
             "Perl::Critic::Policy::ValuesAndExpressions::ProhibitEmptyCommas" : "95",
             "Perl::Critic::Policy::ValuesAndExpressions::ProhibitNullStatements" : "95",
-            "Perl::Critic::Policy::ValuesAndExpressions::ProhibitSingleArgArraySlice" : "0.004",
             "Perl::Critic::Policy::ValuesAndExpressions::ProhibitUnknownBackslash" : "95",
             "Perl::Critic::Policy::ValuesAndExpressions::RequireNumericVersion" : "95",
             "Perl::Critic::Policy::ValuesAndExpressions::UnexpandedSpecialLiteral" : "95",
@@ -389,7 +388,6 @@
          "Perl::Critic::Policy::ValuesAndExpressions::ProhibitDuplicateHashKeys" : "95",
          "Perl::Critic::Policy::ValuesAndExpressions::ProhibitEmptyCommas" : "95",
          "Perl::Critic::Policy::ValuesAndExpressions::ProhibitNullStatements" : "95",
-         "Perl::Critic::Policy::ValuesAndExpressions::ProhibitSingleArgArraySlice" : "0.004",
          "Perl::Critic::Policy::ValuesAndExpressions::ProhibitUnknownBackslash" : "95",
          "Perl::Critic::Policy::ValuesAndExpressions::RequireNumericVersion" : "95",
          "Perl::Critic::Policy::ValuesAndExpressions::UnexpandedSpecialLiteral" : "95",
@@ -542,12 +540,12 @@
          {
             "class" : "Dist::Zilla::Plugin::Author::SKIRMESS::RepositoryBase",
             "name" : "@Author::SKIRMESS/Author::SKIRMESS::RepositoryBase",
-            "version" : "0.024"
+            "version" : "0.025"
          },
          {
             "class" : "Dist::Zilla::Plugin::Author::SKIRMESS::InsertVersion",
             "name" : "@Author::SKIRMESS/Author::SKIRMESS::InsertVersion",
-            "version" : "0.024"
+            "version" : "0.025"
          },
          {
             "class" : "Dist::Zilla::Plugin::NextRelease",
