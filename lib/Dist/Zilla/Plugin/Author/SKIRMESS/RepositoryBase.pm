@@ -224,6 +224,34 @@ The following files are created in the repository and in the distribution:
         );
     }
 
+=head2 .appveyor.yml
+
+The configuration file for AppVeyor.
+
+=cut
+
+    $file{q{.appveyor.yml}} = <<'APPVEYOR_YML';
+# Automatically generated file
+# {{ ref $plugin }} {{ $plugin->VERSION() }}
+
+skip_tags: true
+
+cache:
+  - C:\strawberry -> appveyor.yml
+
+install:
+  - if not exist "C:\strawberry" cinst strawberryperl
+  - set PATH=C:\strawberry\perl\bin;C:\strawberry\perl\site\bin;C:\strawberry\c\bin;%PATH%
+  - cd C:\projects\%APPVEYOR_PROJECT_NAME%
+  - cpanm --quiet --installdeps --notest --skip-satisfied --with-develop .
+
+build_script:
+  - perl Makefile.PL
+  - set AUTOMATED_TESTING=1
+  - gmake test
+  - prove -lr xt/author
+APPVEYOR_YML
+
 =head2 .perlcriticrc
 
 The configuration for L<Perl::Critic|Perl::Critic>. This file is created from

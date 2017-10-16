@@ -574,6 +574,7 @@
                },
                "Dist::Zilla::Role::Git::DirtyFiles" : {
                   "allow_dirty" : [
+                     ".appveyor.yml",
                      ".perlcriticrc",
                      ".perltidyrc",
                      ".travis.yml",
@@ -938,6 +939,7 @@
                },
                "Dist::Zilla::Role::Git::DirtyFiles" : {
                   "allow_dirty" : [
+                     ".appveyor.yml",
                      ".perlcriticrc",
                      ".perltidyrc",
                      ".travis.yml",

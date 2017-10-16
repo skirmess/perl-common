@@ -407,6 +407,7 @@ x_Dist_Zilla:
           untracked_files: die
         Dist::Zilla::Role::Git::DirtyFiles:
           allow_dirty:
+            - .appveyor.yml
             - .perlcriticrc
             - .perltidyrc
             - .travis.yml
@@ -689,6 +690,7 @@ x_Dist_Zilla:
           commit_msg: '%v'
         Dist::Zilla::Role::Git::DirtyFiles:
           allow_dirty:
+            - .appveyor.yml
             - .perlcriticrc
             - .perltidyrc
             - .travis.yml

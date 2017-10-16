@@ -2,6 +2,7 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+  - Automatically create the .appveyor.yml file
   - Added plugin Git::FilePermissions
   - Added plugin Git::RequireUnixEOL
 
