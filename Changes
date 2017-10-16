@@ -2,6 +2,9 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+  - Added plugin Git::FilePermissions
+  - Added plugin Git::RequireUnixEOL
+
 0.026  2017-10-14 21:26:47 UTC
 
   - Disable ValuesAndExpressions::ProhibitSingleArgArraySlice because

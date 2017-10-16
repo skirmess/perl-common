@@ -82,6 +82,10 @@ sub configure {
 
         'Author::SKIRMESS::InsertVersion',
 
+        'Git::FilePermissions',
+
+        'Git::RequireUnixEOL',
+
         # Update the next release number in your changelog
         [
             'NextRelease',
