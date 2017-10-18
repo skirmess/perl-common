@@ -2,6 +2,11 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+  - Add a cache directory to the TravisCI config
+  - Add OSX support to TravisCI config
+  - Use a matrix config for TravisCI to selectively disable author tests for
+    specific Perl versions
+
 0.027  2017-10-16 22:10:39 UTC
 
   - Automatically create the .appveyor.yml file

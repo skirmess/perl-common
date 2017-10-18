@@ -24,7 +24,7 @@ with(
     'Dist::Zilla::Role::TextTemplate',
 );
 
-sub mvp_multivalue_args { return (qw( skip stopwords travis_ci_ignore_perl )) }
+sub mvp_multivalue_args { return (qw( skip stopwords travis_ci_ignore_perl travis_ci_no_author_testing_perl travis_ci_osx_perl )) }
 
 has skip => (
     is      => 'ro',
@@ -44,10 +44,22 @@ has travis_ci_ignore_perl => (
     default => sub { [] },
 );
 
+has travis_ci_no_author_testing_perl => (
+    is      => 'ro',
+    isa     => 'Maybe[ArrayRef]',
+    default => sub { [] },
+);
+
+has travis_ci_osx_perl => (
+    is      => 'ro',
+    isa     => 'ArrayRef[Str]',
+    default => sub { [qw(5.18)] },
+);
+
 has _travis_available_perl => (
     is      => 'ro',
     isa     => 'ArrayRef[Str]',
-    default => sub { [qw(5.26 5.24 5.22 5.20 5.18 5.16 5.14 5.12 5.10 5.8)] },
+    default => sub { [qw( 5.8 5.10 5.12 5.14 5.16 5.18 5.20 5.22 5.24 5.26)] },
     traits  => ['Array'],
 );
 
@@ -682,6 +694,13 @@ PERLTIDYRC
 The configuration file for TravisCI. All known supported Perl versions are
 enabled unless disabled with B<travis_ci_ignore_perl>.
 
+With B<travis_ci_osx_perl> you can specify one or multiple Perl versions to
+be tested on OSX, in addition to on Linux. If omitted it defaults to one
+single version.
+
+Use the B<travis_ci_no_author_testing_perl> option to disable author tests on
+some Perl versions.
+
 =cut
 
     $file{q{.travis.yml}} = sub {
@@ -692,30 +711,60 @@ enabled unless disabled with B<travis_ci_ignore_perl>.
 # {{ ref $plugin }} {{ $plugin->VERSION() }}
 
 language: perl
-perl:
+
+cache:
+  directories:
+    - ~/perl5
+
+env:
+  global:
+    - AUTOMATED_TESTING=1
+
+matrix:
+  include:
 TRAVIS_YML_1
 
-        my %perl;
-        @perl{ @{ $self->_travis_available_perl } } = ();
-        if ( @{ $self->travis_ci_ignore_perl } ) {
-            delete @perl{ @{ $self->travis_ci_ignore_perl } };
-        }
-        my @perl = reverse sort keys %perl;
+        my %ignore_perl;
+        @ignore_perl{ @{ $self->travis_ci_ignore_perl } } = ();
 
-        croak "No perl versions selected for TravisCI\n" if !@perl;
+        my %no_auth;
+        @no_auth{ @{ $self->travis_ci_no_author_testing_perl } } = ();
 
-        for my $perl (@perl) {
-            $travis_yml .= "  - '$perl'\n";
+        my %osx_perl;
+        @osx_perl{ @{ $self->travis_ci_osx_perl } } = ();
+
+      PERL:
+        for my $perl ( @{ $self->_travis_available_perl } ) {
+            next PERL if exists $ignore_perl{$perl};
+
+            my @os = (undef);
+            if ( exists $osx_perl{$perl} ) {
+                push @os, 'osx';
+            }
+
+            for my $os (@os) {
+                $travis_yml .= "    - perl: '$perl'\n";
+
+                if ( !exists $no_auth{$perl} ) {
+                    $travis_yml .= "      env: AUTHOR_TESTING=1\n";
+                }
+
+                if ( defined $os ) {
+                    $travis_yml .= "      os: $os\n";
+                }
+
+                $travis_yml .= "\n";
+            }
         }
 
         $travis_yml .= <<'TRAVIS_YML';
-before_install:
-  - export AUTOMATED_TESTING=1
 install:
-  - cpanm --quiet --installdeps --notest --skip-satisfied --with-develop .
+  - if [ -n "$AUTHOR_TESTING" ]; then cpanm --quiet --installdeps --notest --skip-satisfied --with-develop .; fi
+  - if [ -z "$AUTHOR_TESTING" ]; then cpanm --quiet --installdeps --notest --skip-satisfied .; fi
+
 script:
   - perl Makefile.PL && make test
-  - test -d xt/author && prove -lr xt/author
+  - if [ -n "$AUTHOR_TESTING" ]; then prove -lr xt/author; fi
 TRAVIS_YML
 
         return $travis_yml;
