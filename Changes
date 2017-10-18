@@ -2,6 +2,8 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+  - By default skip author tests on Perl 5.8
+
 0.028  2017-10-18 22:12:09 UTC
 
   - Add a cache directory to the TravisCI config

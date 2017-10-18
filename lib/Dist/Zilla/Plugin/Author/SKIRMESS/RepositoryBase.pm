@@ -47,7 +47,7 @@ has travis_ci_ignore_perl => (
 has travis_ci_no_author_testing_perl => (
     is      => 'ro',
     isa     => 'Maybe[ArrayRef]',
-    default => sub { [] },
+    default => sub { [qw(5.8)] },
 );
 
 has travis_ci_osx_perl => (
