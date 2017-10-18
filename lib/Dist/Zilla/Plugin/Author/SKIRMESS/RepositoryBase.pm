@@ -4,7 +4,7 @@ use 5.006;
 use strict;
 use warnings;
 
-our $VERSION = '0.028';
+our $VERSION = '0.029';
 
 use Moose;
 
@@ -185,7 +185,7 @@ Dist::Zilla::Plugin::Author::SKIRMESS::RepositoryBase - Automatically create and
 
 =head1 VERSION
 
-Version 0.028
+Version 0.029
 
 =head1 SYNOPSIS
 
