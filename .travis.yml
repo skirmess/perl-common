@@ -13,8 +13,6 @@ env:
 
 matrix:
   include:
-    - perl: '5.8'
-
     - perl: '5.10'
       env: AUTHOR_TESTING=1
 
