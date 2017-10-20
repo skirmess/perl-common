@@ -2,6 +2,8 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+0.030  2017-10-20 20:20:56 UTC
+
   - Make it actually work on OSX with TravisCI
 
 0.029  2017-10-18 22:21:18 UTC
