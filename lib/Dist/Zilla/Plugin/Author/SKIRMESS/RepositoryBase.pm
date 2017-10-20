@@ -980,12 +980,12 @@ L<Test::Pod::No404s|Test::Pod::No404s> author test.
 =cut
 
     $file{q{xt/author/pod-no404s.t}} = $test_header . <<'XT_AUTHOR_POD_NO404S_T';
+use Test::Pod::No404s;
+
 if ( exists $ENV{AUTOMATED_TESTING} ) {
     print "1..0 # SKIP these tests during AUTOMATED_TESTING\n";
     exit 0;
 }
-
-use Test::Pod::No404s;
 
 all_pod_files_ok();
 XT_AUTHOR_POD_NO404S_T
@@ -1002,6 +1002,11 @@ L<Test::Spelling|Test::Spelling> author test. B<stopwords> are added as stopword
         my $content = $test_header . <<'XT_AUTHOR_POD_SPELL_T';
 use Test::Spelling 0.12;
 use Pod::Wordlist;
+
+if ( exists $ENV{AUTOMATED_TESTING} ) {
+    print "1..0 # SKIP these tests during AUTOMATED_TESTING\n";
+    exit 0;
+}
 
 add_stopwords(<DATA>);
 

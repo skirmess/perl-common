@@ -2,6 +2,8 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+  - Do not run xt/author/pod-spell.t if AUTOMATED_TESTING env variable is set
+
 0.030  2017-10-20 20:20:56 UTC
 
   - Make it actually work on OSX with TravisCI
