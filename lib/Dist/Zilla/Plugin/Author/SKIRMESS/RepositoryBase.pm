@@ -283,6 +283,10 @@ only = 1
 severity = 1
 verbose = [%p] %m at %f line %l, near '%r'\n
 
+# ----------------------------------------------------------
+# Core policies
+# ----------------------------------------------------------
+
 [BuiltinFunctions::ProhibitBooleanGrep]
 [BuiltinFunctions::ProhibitComplexMappings]
 [BuiltinFunctions::ProhibitLvalueSubstr]
@@ -447,7 +451,10 @@ allow = $@ $! $/ $0
 [Variables::RequireLocalizedPunctuationVars]
 [Variables::RequireNegativeIndices]
 
-### Perl::Critic::Bangs
+# ----------------------------------------------------------
+# Perl::Critic::Bangs
+# ----------------------------------------------------------
+
 [Bangs::ProhibitBitwiseOperators]
 #[Bangs::ProhibitCommentedOutCode]
 [Bangs::ProhibitDebuggingModules]
@@ -458,7 +465,10 @@ allow = $@ $! $/ $0
 [Bangs::ProhibitUselessRegexModifiers]
 #[Bangs::ProhibitVagueNames]
 
-### Perl::Critic::Moose
+# ----------------------------------------------------------
+# Perl::Critic::Moose
+# ----------------------------------------------------------
+
 [Moose::ProhibitDESTROYMethod]
 equivalent_modules = Moo Moo::Role
 
@@ -474,7 +484,10 @@ equivalent_modules = Moo Moo::Role
 [Moose::RequireCleanNamespace]
 [Moose::RequireMakeImmutable]
 
-### Perl::Critic::Freenode
+# ----------------------------------------------------------
+# Perl::Critic::Freenode
+# ----------------------------------------------------------
+
 [Freenode::AmpersandSubCalls]
 [Freenode::ArrayAssignAref]
 [Freenode::BarewordFilehandles]
@@ -498,13 +511,22 @@ equivalent_modules = Moo Moo::Role
 [Freenode::WarningsSwitch]
 [Freenode::WhileDiamondDefaultAssignment]
 
-### Perl::Critic::Policy::HTTPCookies
+# ----------------------------------------------------------
+# Perl::Critic::Policy::HTTPCookies
+# ----------------------------------------------------------
+
 [HTTPCookies]
 
-### Perl::Critic::Itch
+# ----------------------------------------------------------
+# Perl::Critic::Itch
+# ----------------------------------------------------------
+
 #[CodeLayout::ProhibitHashBarewords]
 
-### Perl::Critic::Lax
+# ----------------------------------------------------------
+# Perl::Critic::Lax
+# ----------------------------------------------------------
+
 [Lax::ProhibitComplexMappings::LinesNotStatements]
 #[Lax::ProhibitEmptyQuotes::ExceptAsFallback]
 #[Lax::ProhibitLeadingZeros::ExceptChmod]
@@ -513,7 +535,10 @@ equivalent_modules = Moo Moo::Role
 #[Lax::RequireEndWithTrueConst]
 #[Lax::RequireExplicitPackage::ExceptForPragmata]
 
-### Perl::Critic::More
+# ----------------------------------------------------------
+# Perl::Critic::More
+# ----------------------------------------------------------
+
 #[CodeLayout::RequireASCII]
 #[Editor::RequireEmacsFileVariables]
 #[ErrorHandling::RequireUseOfExceptions]
@@ -522,39 +547,72 @@ equivalent_modules = Moo Moo::Role
 #[ValuesAndExpressions::RequireConstantOnLeftSideOfEquality]
 #[ValuesAndExpressions::RestrictLongStrings]
 
+# ----------------------------------------------------------
 # Perl::Critic::PetPeeves::JTRAMMELL
+# ----------------------------------------------------------
+
 [Variables::ProhibitUselessInitialization]
 
-### Perl::Critic::Policy::BuiltinFunctions::ProhibitDeleteOnArrays
+# ----------------------------------------------------------
+# Perl::Critic::Policy::BuiltinFunctions::ProhibitDeleteOnArrays
+# ----------------------------------------------------------
+
 [BuiltinFunctions::ProhibitDeleteOnArrays]
 
-### Perl::Critic::Policy::BuiltinFunctions::ProhibitReturnOr
+# ----------------------------------------------------------
+# Perl::Critic::Policy::BuiltinFunctions::ProhibitReturnOr
+# ----------------------------------------------------------
+
 [BuiltinFunctions::ProhibitReturnOr]
 
-### Perl::Critic::Policy::Moo::ProhibitMakeImmutable
+# ----------------------------------------------------------
+# Perl::Critic::Policy::Moo::ProhibitMakeImmutable
+# ----------------------------------------------------------
+
 [Moo::ProhibitMakeImmutable]
 
-### Perl::Critic::Policy::ValuesAndExpressions::ProhibitSingleArgArraySlice
+# ----------------------------------------------------------
+# Perl::Critic::Policy::ValuesAndExpressions::ProhibitSingleArgArraySlice
 # requires Perl 5.12
+# ----------------------------------------------------------
+
 #[ValuesAndExpressions::ProhibitSingleArgArraySlice]
 
-### Perl::Critic::Policy::Perlsecret
+# ----------------------------------------------------------
+# Perl::Critic::Policy::Perlsecret
+# ----------------------------------------------------------
+
 [Perlsecret]
 
-### Perl::Critic::Policy::TryTiny::RequireBlockTermination
+# ----------------------------------------------------------
+# Perl::Critic::Policy::TryTiny::RequireBlockTermination
+# ----------------------------------------------------------
+
 [TryTiny::RequireBlockTermination]
 
-### Perl::Critic::Policy::TryTiny::RequireUse
+# ----------------------------------------------------------
+# Perl::Critic::Policy::TryTiny::RequireUse
+# ----------------------------------------------------------
+
 [TryTiny::RequireUse]
 
-### Perl::Critic::Policy::ValuesAndExpressions::PreventSQLInjection
+# ----------------------------------------------------------
+# Perl::Critic::Policy::ValuesAndExpressions::PreventSQLInjection
+# ----------------------------------------------------------
+
 [ValuesAndExpressions::PreventSQLInjection]
 
-### Perl::Critic::Policy::Variables::ProhibitUnusedVarsStricter
+# ----------------------------------------------------------
+# Perl::Critic::Policy::Variables::ProhibitUnusedVarsStricter
+# ----------------------------------------------------------
+
 [Variables::ProhibitUnusedVarsStricter]
 allow_unused_subroutine_arguments = 1
 
-### Perl::Critic::Pulp
+# ----------------------------------------------------------
+# Perl::Critic::Pulp
+# ----------------------------------------------------------
+
 [CodeLayout::ProhibitFatCommaNewline]
 #[CodeLayout::ProhibitIfIfSameLine]
 [CodeLayout::RequireFinalSemicolon]
@@ -595,14 +653,20 @@ allow_unused_subroutine_arguments = 1
 [ValuesAndExpressions::RequireNumericVersion]
 [ValuesAndExpressions::UnexpandedSpecialLiteral]
 
-### Perl::Critic::StricterSubs
+# ----------------------------------------------------------
+# Perl::Critic::StricterSubs
+# ----------------------------------------------------------
+
 [Modules::RequireExplicitInclusion]
 #[Subroutines::ProhibitCallsToUndeclaredSubs]
 #[Subroutines::ProhibitCallsToUnexportedSubs]
 [Subroutines::ProhibitExportingUndeclaredSubs]
 [Subroutines::ProhibitQualifiedSubDeclarations]
 
-### Perl::Critic::Tics
+# ----------------------------------------------------------
+# Perl::Critic::Tics
+# ----------------------------------------------------------
+
 #[Tics::ProhibitLongLines]
 [Tics::ProhibitManyArrows]
 [Tics::ProhibitUseBase]
