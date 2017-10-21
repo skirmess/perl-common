@@ -2,5 +2,6 @@
 *~
 .*.swp
 .build
+.perlcritic_package.yml
 Dist-Zilla-PluginBundle-Author-SKIRMESS-*
 tmp
