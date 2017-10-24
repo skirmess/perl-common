@@ -254,11 +254,14 @@ cache:
 install:
   - if not exist "C:\strawberry" cinst strawberryperl
   - set PATH=C:\strawberry\perl\bin;C:\strawberry\perl\site\bin;C:\strawberry\c\bin;%PATH%
-  - cd C:\projects\%APPVEYOR_PROJECT_NAME%
+  - cd %APPVEYOR_BUILD_FOLDER%
   - cpanm --quiet --installdeps --notest --skip-satisfied --with-develop .
 
 build_script:
   - perl Makefile.PL
+  - gmake
+
+test_script:
   - set AUTOMATED_TESTING=1
   - gmake test
   - prove -lr xt/author
