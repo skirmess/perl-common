@@ -2,6 +2,7 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+  - Removed CopyrightYearFromGit
   - Enabled the has_abstract_in_pod kwalitee check
   - Do not run xt/author/pod-spell.t if AUTOMATED_TESTING env variable is set
 

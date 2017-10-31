@@ -224,9 +224,6 @@ sub configure {
         # Automatically convert POD to a README in any format for Dist::Zilla
         [ 'ReadmeAnyFromPod', 'ReadmeAnyFromPod/ReadmeTextInBuild' ],
 
-        # Set copyright year from git
-        'CopyrightYearFromGit',
-
         # Output a LICENSE file
         'License',
 
