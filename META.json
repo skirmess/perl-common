@@ -221,15 +221,15 @@
    "provides" : {
       "Dist::Zilla::Plugin::Author::SKIRMESS::InsertVersion" : {
          "file" : "lib/Dist/Zilla/Plugin/Author/SKIRMESS/InsertVersion.pm",
-         "version" : "0.031"
+         "version" : "0.032"
       },
       "Dist::Zilla::Plugin::Author::SKIRMESS::RepositoryBase" : {
          "file" : "lib/Dist/Zilla/Plugin/Author/SKIRMESS/RepositoryBase.pm",
-         "version" : "0.031"
+         "version" : "0.032"
       },
       "Dist::Zilla::PluginBundle::Author::SKIRMESS" : {
          "file" : "lib/Dist/Zilla/PluginBundle/Author/SKIRMESS.pm",
-         "version" : "0.031"
+         "version" : "0.032"
       }
    },
    "release_status" : "stable",
@@ -244,7 +244,7 @@
          "web" : "https://github.com/skirmess/Dist-Zilla-PluginBundle-Author-SKIRMESS"
       }
    },
-   "version" : "0.031",
+   "version" : "0.032",
    "x_BuiltWith" : {
       "modules" : {
          "CPAN::Meta::YAML" : "0.018",
@@ -1001,7 +1001,7 @@
                   "branch" : null,
                   "changelog" : "Changes",
                   "signed" : 0,
-                  "tag" : "0.031",
+                  "tag" : "0.032",
                   "tag_format" : "%v",
                   "tag_message" : ""
                },
