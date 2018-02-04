@@ -2,8 +2,8 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
-  - Added 2018 to copyright year
   - .perlcriticrc file replaced with xt/author/perlcriticrc-code and xt/author/perlcriticrc-tests
+  - Added 2018 to copyright year
   - perlcriticrc.local replaced with perlcriticrc-code.local and perlcriticrc-tests.local
   - xt/author/critic.t test replaced with xt/author/perlcritic-code.t and xt/author/perlcritic-tests.t
 
