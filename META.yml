@@ -33,6 +33,7 @@ provides:
     file: lib/Dist/Zilla/PluginBundle/Author/SKIRMESS.pm
     version: '0.031'
 requires:
+  CPAN::Meta::YAML: '0'
   Carp: '0'
   Config::Std: '0'
   Dist::Zilla: '0'
@@ -96,6 +97,8 @@ requires:
   Dist::Zilla::Role::PluginBundle::Easy: '0'
   Dist::Zilla::Role::TextTemplate: '0'
   File::Spec: '0'
+  HTTP::Cache::Transparent: '0'
+  LWP::Simple: '0'
   List::SomeUtils: '0'
   Moose: '0.99'
   Path::Tiny: '0'
@@ -110,6 +113,7 @@ resources:
 version: '0.031'
 x_BuiltWith:
   modules:
+    CPAN::Meta::YAML: '0.018'
     Carp: '1.40'
     Config::Std: '0.903'
     Dist::Zilla: '6.010'
@@ -174,6 +178,8 @@ x_BuiltWith:
     Dist::Zilla::Role::TextTemplate: '6.010'
     ExtUtils::MakeMaker: '7.30'
     File::Spec: '3.63'
+    HTTP::Cache::Transparent: '1.4'
+    LWP::Simple: '6.24'
     List::SomeUtils: '0.56'
     Moose: '2.2006'
     Path::Tiny: '0.104'
@@ -260,7 +266,6 @@ x_BuiltWith:
     Perl::Critic::Policy::ValuesAndExpressions::UnexpandedSpecialLiteral: '95'
     Perl::Critic::Policy::Variables::ProhibitUnusedVarsStricter: '0.100'
     Perl::Critic::Policy::Variables::ProhibitUselessInitialization: '0.02'
-    Perl::Critic::Utils: '1.130'
     Pod::Wordlist: '1.20'
     Test::CPAN::Changes: '0.400002'
     Test::CPAN::Meta: '0.25'
@@ -381,11 +386,11 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::Author::SKIRMESS::RepositoryBase
       name: '@Author::SKIRMESS/Author::SKIRMESS::RepositoryBase'
-      version: '0.030'
+      version: '0.031'
     -
       class: Dist::Zilla::Plugin::Author::SKIRMESS::InsertVersion
       name: '@Author::SKIRMESS/Author::SKIRMESS::InsertVersion'
-      version: '0.030'
+      version: '0.031'
     -
       class: Dist::Zilla::Plugin::Git::FilePermissions
       name: '@Author::SKIRMESS/Git::FilePermissions'
@@ -406,7 +411,6 @@ x_Dist_Zilla:
         Dist::Zilla::Role::Git::DirtyFiles:
           allow_dirty:
             - .appveyor.yml
-            - .perlcriticrc
             - .perltidyrc
             - .travis.yml
             - Changes
@@ -418,10 +422,13 @@ x_Dist_Zilla:
             - dist.ini
             - t/00-load.t
             - xt/author/clean-namespaces.t
-            - xt/author/critic.t
             - xt/author/minimum_version.t
             - xt/author/mojibake.t
             - xt/author/no-tabs.t
+            - xt/author/perlcritic-code.t
+            - xt/author/perlcritic-tests.t
+            - xt/author/perlcriticrc-code
+            - xt/author/perlcriticrc-tests
             - xt/author/pod-no404s.t
             - xt/author/pod-spell.t
             - xt/author/pod-syntax.t
@@ -459,7 +466,11 @@ x_Dist_Zilla:
       version: '6.010'
     -
       class: Dist::Zilla::Plugin::AutoPrereqs::Perl::Critic
-      name: '@Author::SKIRMESS/AutoPrereqs::Perl::Critic'
+      name: '@Author::SKIRMESS/AutoPrereqs::Perl::Critic / code'
+      version: '0.005'
+    -
+      class: Dist::Zilla::Plugin::AutoPrereqs::Perl::Critic
+      name: '@Author::SKIRMESS/AutoPrereqs::Perl::Critic / tests'
       version: '0.005'
     -
       class: Dist::Zilla::Plugin::SetScriptShebang
@@ -685,7 +696,6 @@ x_Dist_Zilla:
         Dist::Zilla::Role::Git::DirtyFiles:
           allow_dirty:
             - .appveyor.yml
-            - .perlcriticrc
             - .perltidyrc
             - .travis.yml
             - Changes
@@ -699,10 +709,13 @@ x_Dist_Zilla:
             - dist.ini
             - t/00-load.t
             - xt/author/clean-namespaces.t
-            - xt/author/critic.t
             - xt/author/minimum_version.t
             - xt/author/mojibake.t
             - xt/author/no-tabs.t
+            - xt/author/perlcritic-code.t
+            - xt/author/perlcritic-tests.t
+            - xt/author/perlcriticrc-code
+            - xt/author/perlcriticrc-tests
             - xt/author/pod-no404s.t
             - xt/author/pod-spell.t
             - xt/author/pod-syntax.t

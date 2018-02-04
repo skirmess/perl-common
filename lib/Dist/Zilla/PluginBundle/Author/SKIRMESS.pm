@@ -131,7 +131,19 @@ sub configure {
         ],
 
         # automatically extract Perl::Critic policy prereqs
-        'AutoPrereqs::Perl::Critic',
+        [
+            'AutoPrereqs::Perl::Critic', 'AutoPrereqs::Perl::Critic / code',
+            {
+                critic_config => 'xt/author/perlcriticrc-code',
+            },
+        ],
+
+        [
+            'AutoPrereqs::Perl::Critic', 'AutoPrereqs::Perl::Critic / tests',
+            {
+                critic_config => 'xt/author/perlcriticrc-tests',
+            },
+        ],
 
         # Set script shebang to #!perl
         ( $self->set_script_shebang ? 'SetScriptShebang' : () ),
