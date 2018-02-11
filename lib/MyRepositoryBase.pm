@@ -737,6 +737,9 @@ env:
   global:
     - AUTOMATED_TESTING=1
 
+git:
+  submodules: false
+
 matrix:
   include:
 TRAVIS_YML_1
