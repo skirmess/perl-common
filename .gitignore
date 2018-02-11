@@ -4,5 +4,5 @@
 .build
 .cache
 .perlcritic_package.yml
-Dist-Zilla-PluginBundle-Author-SKIRMESS-*
+dzil-inc-*
 tmp

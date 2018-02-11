@@ -2,6 +2,10 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+  - Increased version to 0.033
+  - Imported modules from Dist-Zilla-Config-Slicer-0.202 to inc/lib, fixed a bug to make Dist::Zilla::Config::Slicer work with plugins in inc and bumped version to 0.202001
+  - Renamed Github repository to https://github.com/skirmess/dzil-inc
+
   - Skip TravisCI for perl < 5.14 (Dist::Zilla 6.0 needs Perl 5.14)
 
 0.032  2018-02-04 20:06:17 UTC

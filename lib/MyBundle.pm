@@ -1,14 +1,17 @@
-package Dist::Zilla::PluginBundle::Author::SKIRMESS;
+package MyBundle;
 
 use 5.006;
 use strict;
 use warnings;
 
-our $VERSION = '0.032';
+our $VERSION = '0.033';
+
+# This is needed to load patched modules from Dist-Zilla-Config-Slicer
+use lib 'inc/lib';
 
 use Moose 0.99;
 
-use Dist::Zilla::Plugin::Author::SKIRMESS::RepositoryBase;
+use MyRepositoryBase;
 
 use namespace::autoclean 0.09;
 
@@ -29,7 +32,7 @@ has set_script_shebang => (
 sub configure {
     my ($self) = @_;
 
-    my @generated_files = Dist::Zilla::Plugin::Author::SKIRMESS::RepositoryBase->files();
+    my @generated_files = MyRepositoryBase->files();
 
     $self->add_plugins(
 
@@ -78,9 +81,9 @@ sub configure {
 
         # Must run after ReversionOnRelease because it adds the version of
         # the bundle to the generated files
-        'Author::SKIRMESS::RepositoryBase',
+        '=MyRepositoryBase',
 
-        'Author::SKIRMESS::InsertVersion',
+        '=MyInsertVersion',
 
         'Git::FilePermissions',
 
@@ -170,7 +173,7 @@ sub configure {
         [
             'MetaNoIndex',
             {
-                directory => [qw( corpus examples t xt )],
+                directory => [qw( corpus dzil-inc examples inc t xt )],
             },
         ],
 
@@ -357,11 +360,11 @@ __END__
 
 =head1 NAME
 
-Dist::Zilla::PluginBundle::Author::SKIRMESS - Dist::Zilla configuration the way SKIRMESS does it
+MyBundle - Dist::Zilla configuration the way SKIRMESS does it
 
 =head1 VERSION
 
-Version 0.032
+Version 0.033
 
 =head1 SYNOPSIS
 
@@ -390,7 +393,7 @@ C<set_script_shebang> - this indicates whether C<SetScriptShebang> should be use
 =head2 Bugs / Feature Requests
 
 Please report any bugs or feature requests through the issue tracker
-at L<https://github.com/skirmess/Dist-Zilla-PluginBundle-Author-SKIRMESS/issues>.
+at L<https://github.com/skirmess/dzil-inc/issues>.
 You will be notified automatically of any progress on your issue.
 
 =head2 Source Code
@@ -398,9 +401,9 @@ You will be notified automatically of any progress on your issue.
 This is open source software. The code repository is available for
 public review and contribution under the terms of the license.
 
-L<https://github.com/skirmess/Dist-Zilla-PluginBundle-Author-SKIRMESS>
+L<https://github.com/skirmess/dzil-inc>
 
-  git clone https://github.com/skirmess/Dist-Zilla-PluginBundle-Author-SKIRMESS.git
+  git clone https://github.com/skirmess/dzil-inc.git
 
 =head1 AUTHOR
 

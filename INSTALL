@@ -1,12 +1,12 @@
-This is the Perl distribution Dist-Zilla-PluginBundle-Author-SKIRMESS.
+This is the Perl distribution dzil-inc.
 
-Installing Dist-Zilla-PluginBundle-Author-SKIRMESS is straightforward.
+Installing dzil-inc is straightforward.
 
 ## Installation with cpanm
 
 If you have cpanm, you only need one line:
 
-    % cpanm Dist::Zilla::PluginBundle::Author::SKIRMESS
+    % cpanm dzil::inc
 
 If it does not have permission to install modules to the current perl, cpanm
 will automatically set up and install to a local::lib in your home directory.
@@ -17,7 +17,7 @@ details on enabling it in your environment.
 
 Alternatively, if your CPAN shell is set up, you should just be able to do:
 
-    % cpan Dist::Zilla::PluginBundle::Author::SKIRMESS
+    % cpan dzil::inc
 
 ## Manual installation
 
@@ -37,7 +37,7 @@ https://metacpan.org/pod/local::lib
 
 ## Documentation
 
-Dist-Zilla-PluginBundle-Author-SKIRMESS documentation is available as POD.
+dzil-inc documentation is available as POD.
 You can run perldoc from a shell to read the documentation:
 
-    % perldoc Dist::Zilla::PluginBundle::Author::SKIRMESS
+    % perldoc dzil::inc

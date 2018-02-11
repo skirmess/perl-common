@@ -1,10 +1,10 @@
-package Dist::Zilla::Plugin::Author::SKIRMESS::InsertVersion;
+package MyInsertVersion;
 
 use 5.006;
 use strict;
 use warnings;
 
-our $VERSION = '0.032';
+our $VERSION = '0.033';
 
 use Moose;
 

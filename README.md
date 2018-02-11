@@ -1,10 +1,10 @@
 # NAME
 
-Dist::Zilla::PluginBundle::Author::SKIRMESS - Dist::Zilla configuration the way SKIRMESS does it
+MyBundle - Dist::Zilla configuration the way SKIRMESS does it
 
 # VERSION
 
-Version 0.032
+Version 0.033
 
 # SYNOPSIS
 
@@ -27,7 +27,7 @@ following options:
 ## Bugs / Feature Requests
 
 Please report any bugs or feature requests through the issue tracker
-at [https://github.com/skirmess/Dist-Zilla-PluginBundle-Author-SKIRMESS/issues](https://github.com/skirmess/Dist-Zilla-PluginBundle-Author-SKIRMESS/issues).
+at [https://github.com/skirmess/dzil-inc/issues](https://github.com/skirmess/dzil-inc/issues).
 You will be notified automatically of any progress on your issue.
 
 ## Source Code
@@ -35,9 +35,9 @@ You will be notified automatically of any progress on your issue.
 This is open source software. The code repository is available for
 public review and contribution under the terms of the license.
 
-[https://github.com/skirmess/Dist-Zilla-PluginBundle-Author-SKIRMESS](https://github.com/skirmess/Dist-Zilla-PluginBundle-Author-SKIRMESS)
+[https://github.com/skirmess/dzil-inc](https://github.com/skirmess/dzil-inc)
 
-    git clone https://github.com/skirmess/Dist-Zilla-PluginBundle-Author-SKIRMESS.git
+    git clone https://github.com/skirmess/dzil-inc.git
 
 # AUTHOR
 
