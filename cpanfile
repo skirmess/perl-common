@@ -17,7 +17,7 @@ requires "LWP::Simple" => "0";
 requires "List::SomeUtils" => "0";
 requires "Moose" => "0.99";
 requires "Path::Tiny" => "0";
-requires "lib" => "0";
+requires "lib::relative" => "0";
 requires "namespace::autoclean" => "0.09";
 requires "perl" => "5.006";
 requires "strict" => "0";
@@ -25,6 +25,7 @@ requires "warnings" => "0";
 
 on 'test' => sub {
   requires "Test::More" => "0";
+  requires "lib" => "0";
   requires "perl" => "5.006";
 };
 

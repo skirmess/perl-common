@@ -2,6 +2,7 @@ Revision history for Dist-Zilla-PluginBundle-Author-SKIRMESS
 
 {{$NEXT}}
 
+  - Fix @INC to load the patched Dist::Zilla::Config::Slicer
   - Increased version to 0.033
   - Imported modules from Dist-Zilla-Config-Slicer-0.202 to inc/lib, fixed a bug to make Dist::Zilla::Config::Slicer work with plugins in inc and bumped version to 0.202001
   - Renamed Github repository to https://github.com/skirmess/dzil-inc

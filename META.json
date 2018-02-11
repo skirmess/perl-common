@@ -156,7 +156,7 @@
             "List::SomeUtils" : "0",
             "Moose" : "0.99",
             "Path::Tiny" : "0",
-            "lib" : "0",
+            "lib::relative" : "0",
             "namespace::autoclean" : "0.09",
             "perl" : "5.006",
             "strict" : "0",
@@ -166,6 +166,7 @@
       "test" : {
          "requires" : {
             "Test::More" : "0",
+            "lib" : "0",
             "perl" : "5.006"
          }
       }
@@ -321,6 +322,7 @@
          "Test::Spelling" : "0.20",
          "Test::Version" : "2.05",
          "lib" : "0.63",
+         "lib::relative" : "0.002",
          "namespace::autoclean" : "0.28",
          "strict" : "1.11",
          "warnings" : "1.36"

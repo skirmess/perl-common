@@ -36,13 +36,14 @@ my %WriteMakefileArgs = (
     "List::SomeUtils" => 0,
     "Moose" => "0.99",
     "Path::Tiny" => 0,
-    "lib" => 0,
+    "lib::relative" => 0,
     "namespace::autoclean" => "0.09",
     "strict" => 0,
     "warnings" => 0
   },
   "TEST_REQUIRES" => {
-    "Test::More" => 0
+    "Test::More" => 0,
+    "lib" => 0
   },
   "VERSION" => "0.033",
   "test" => {
@@ -73,6 +74,7 @@ my %FallbackPrereqs = (
   "Path::Tiny" => 0,
   "Test::More" => 0,
   "lib" => 0,
+  "lib::relative" => 0,
   "namespace::autoclean" => "0.09",
   "strict" => 0,
   "warnings" => 0

@@ -7,7 +7,7 @@ use warnings;
 our $VERSION = '0.033';
 
 # This is needed to load patched modules from Dist-Zilla-Config-Slicer
-use lib 'inc/lib';
+use lib::relative '../inc/lib';
 
 use Moose 0.99;
 
