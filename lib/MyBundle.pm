@@ -287,9 +287,8 @@ sub configure {
             'CopyFilesFromBuild',
             {
                 copy => [
-                    'cpanfile',
+                    qw(cpanfile LICENSE Makefile.PL META.json META.yml ),
                     ( $self_build ? () : 'INSTALL' ),
-                    qw(LICENSE Makefile.PL META.json META.yml )
                 ],
             },
         ],
