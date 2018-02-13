@@ -97,7 +97,7 @@ sub configure {
 
         # Must run after ReversionOnRelease because it adds the version of
         # the bundle to the generated files
-        '=MyRepositoryBase',
+        [ '=MyRepositoryBase', { _makefile_pl_exists => !$self_build } ],
 
         '=MyInsertVersion',
 

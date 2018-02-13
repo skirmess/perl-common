@@ -70,7 +70,7 @@ install:
     fi
 
 script:
-  - perl Makefile.PL && make test
+  - prove -lr t
   - |
     if [ -n "$AUTHOR_TESTING" ]
     then
