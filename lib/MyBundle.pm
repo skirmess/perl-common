@@ -186,20 +186,28 @@ sub configure {
         ],
 
         # Stop CPAN from indexing stuff
-        [
-            'MetaNoIndex',
-            {
-                directory => [qw( corpus dzil-inc examples inc t xt )],
-            },
-        ],
+        (
+            $self_build
+            ? ()
+            : [
+                'MetaNoIndex',
+                {
+                    directory => [qw( corpus dzil-inc examples inc t xt )],
+                },
+            ]
+        ),
 
         # Automatically include GitHub meta information in META.yml
-        [
-            'GithubMeta',
-            {
-                issues => 1,
-            },
-        ],
+        (
+            $self_build
+            ? ()
+            : [
+                'GithubMeta',
+                {
+                    issues => 1,
+                },
+            ]
+        ),
 
         # Automatically convert POD to a README in any format for Dist::Zilla
         [
@@ -232,22 +240,26 @@ sub configure {
         ],
 
         # Summarize Dist::Zilla configuration into distmeta
-        'MetaConfig',
+        ( $self_build ? () : 'MetaConfig' ),
 
         # Report what versions of things your distribution was built against
-        [
-            'MetaData::BuiltWith',
-            {
-                show_config => 1,
-                show_uname  => 1,
-            },
-        ],
+        (
+            $self_build
+            ? ()
+            : [
+                'MetaData::BuiltWith',
+                {
+                    show_config => 1,
+                    show_uname  => 1,
+                },
+            ]
+        ),
 
         # Produce a META.yml
-        'MetaYAML',
+        ( $self_build ? () : 'MetaYAML' ),
 
         # Produce a META.json
-        'MetaJSON',
+        ( $self_build ? () : 'MetaJSON' ),
 
         # Produce a cpanfile prereqs file
         'CPANFile',
@@ -287,8 +299,8 @@ sub configure {
             'CopyFilesFromBuild',
             {
                 copy => [
-                    qw(cpanfile LICENSE META.json META.yml ),
-                    ( $self_build ? () : qw(INSTALL Makefile.PL) ),
+                    qw(cpanfile LICENSE),
+                    ( $self_build ? () : qw(INSTALL Makefile.PL META.json META.yml) ),
                 ],
             },
         ],
