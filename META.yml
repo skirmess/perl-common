@@ -7,7 +7,6 @@ build_requires:
   lib: '0'
   perl: '5.006'
 configure_requires:
-  ExtUtils::MakeMaker: '0'
   perl: '5.006'
 dynamic_config: '0'
 generated_by: 'Dist::Zilla version 6.010, CPAN::Meta::Converter version 2.150005'
@@ -79,7 +78,6 @@ x_BuiltWith:
     Dist::Zilla::Role::PluginBundle::Config::Slicer: '0.202001'
     Dist::Zilla::Role::PluginBundle::Easy: '6.010'
     Dist::Zilla::Role::TextTemplate: '6.010'
-    ExtUtils::MakeMaker: '7.30'
     File::Spec: '3.63'
     HTTP::Cache::Transparent: '1.4'
     LWP::Simple: '6.31'
@@ -496,13 +494,6 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::ShareDir
       name: =MyBundle/ShareDir
-      version: '6.010'
-    -
-      class: Dist::Zilla::Plugin::MakeMaker
-      config:
-        Dist::Zilla::Role::TestRunner:
-          default_jobs: '1'
-      name: =MyBundle/MakeMaker
       version: '6.010'
     -
       class: Dist::Zilla::Plugin::Manifest

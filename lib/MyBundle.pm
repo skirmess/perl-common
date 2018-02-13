@@ -277,7 +277,7 @@ sub configure {
         'ShareDir',
 
         # Build a Makefile.PL that uses ExtUtils::MakeMaker
-        'MakeMaker',
+        ( $self_build ? () : 'MakeMaker' ),
 
         # Build a MANIFEST file
         'Manifest',
@@ -287,8 +287,8 @@ sub configure {
             'CopyFilesFromBuild',
             {
                 copy => [
-                    qw(cpanfile LICENSE Makefile.PL META.json META.yml ),
-                    ( $self_build ? () : 'INSTALL' ),
+                    qw(cpanfile LICENSE META.json META.yml ),
+                    ( $self_build ? () : qw(INSTALL Makefile.PL) ),
                 ],
             },
         ],
