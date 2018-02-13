@@ -490,10 +490,6 @@ x_Dist_Zilla:
       name: =MyBundle/License
       version: '6.010'
     -
-      class: Dist::Zilla::Plugin::InstallGuide
-      name: =MyBundle/InstallGuide
-      version: '1.200007'
-    -
       class: Dist::Zilla::Plugin::ExecDir
       name: =MyBundle/ExecDir
       version: '6.010'

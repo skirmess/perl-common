@@ -13,8 +13,6 @@ use Moose 0.99;
 
 use MyRepositoryBase;
 
-use namespace::autoclean 0.09;
-
 with qw(
   Dist::Zilla::Role::PluginBundle::Easy
   Dist::Zilla::Role::PluginBundle::Config::Slicer
@@ -29,8 +27,26 @@ has set_script_shebang => (
     },
 );
 
+use Path::Tiny;
+
+use namespace::autoclean 0.09;
+
 sub configure {
     my ($self) = @_;
+
+    # The MyBundle plugin bundle is used to build other distributions with
+    # Dist::Zilla, but it is also used to build the dzil-inc repository
+    # itself. When the dzil-inc repository is built no distribution is
+    # created as this repository is only intended to be included as
+    # Git submodule by other distributions repositories.
+    #
+    # The $self_build variable is used to disable some Dist:Zilla plugins
+    # that are only used in other distribution.
+    #
+    # If __FILE__ is inside lib of the cwd we are run with Bootstrap::lib
+    # in the dzil-inc repository which means we are building the bundle.
+    # Otherwise we use the bundle to build another distribution.
+    my $self_build = path('lib')->realpath eq path(__FILE__)->realpath()->parent();
 
     my @generated_files = MyRepositoryBase->files();
 
@@ -243,12 +259,16 @@ sub configure {
         'License',
 
         # Build an INSTALL file
-        [
-            'InstallGuide',
-            {
-                ':version' => '1.200007',
-            },
-        ],
+        (
+            $self_build
+            ? ()
+            : [
+                'InstallGuide',
+                {
+                    ':version' => '1.200007',
+                },
+            ]
+        ),
 
         # Install a directory's contents as executables
         'ExecDir',
@@ -266,7 +286,11 @@ sub configure {
         [
             'CopyFilesFromBuild',
             {
-                copy => [qw( cpanfile INSTALL LICENSE Makefile.PL META.json META.yml )],
+                copy => [
+                    'cpanfile',
+                    ( $self_build ? () : 'INSTALL' ),
+                    qw(LICENSE Makefile.PL META.json META.yml )
+                ],
             },
         ],
 
