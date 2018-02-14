@@ -97,7 +97,28 @@ sub configure {
 
         # Must run after ReversionOnRelease because it adds the version of
         # the bundle to the generated files
-        [ '=MyRepositoryBase', { makefile_pl_exists => !$self_build } ],
+        [
+            '=MyRepositoryBase',
+            {
+                (
+                    $self_build
+                    ? (
+                        makefile_pl_exists => 0,
+                        skip               => [
+                            qw(
+                              xt/release/changes.t
+                              xt/release/distmeta.t
+                              xt/release/kwalitee.t
+                              xt/release/manifest.t
+                              xt/release/meta-json.t
+                              xt/release/meta-yaml.t
+                              ),
+                        ],
+                      )
+                    : ( makefile_pl_exists => 1, )
+                ),
+            },
+        ],
 
         '=MyInsertVersion',
 
