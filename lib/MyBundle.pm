@@ -106,13 +106,17 @@ sub configure {
         'Git::RequireUnixEOL',
 
         # Update the next release number in your changelog
-        [
-            'NextRelease',
-            {
-                format    => '%v  %{yyyy-MM-dd HH:mm:ss VVV}d',
-                time_zone => 'UTC',
-            },
-        ],
+        (
+            $self_build
+            ? ()
+            : [
+                'NextRelease',
+                {
+                    format    => '%v  %{yyyy-MM-dd HH:mm:ss VVV}d',
+                    time_zone => 'UTC',
+                },
+            ]
+        ),
 
         # Check your git repository before releasing
         [
