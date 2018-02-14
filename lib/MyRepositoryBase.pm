@@ -26,7 +26,7 @@ with(
 
 sub mvp_multivalue_args { return (qw( skip stopwords travis_ci_ignore_perl travis_ci_no_author_testing_perl travis_ci_osx_perl )) }
 
-has _makefile_pl_exists => (
+has makefile_pl_exists => (
     is      => 'ro',
     isa     => 'Bool',
     default => 1,
@@ -689,7 +689,7 @@ install:
 build_script:
 APPVEYOR_YML_1
 
-        $appveyor_yml .= $self->_makefile_pl_exists()
+        $appveyor_yml .= $self->makefile_pl_exists()
           ? <<'APPVEYOR_YML_2'
   - perl Makefile.PL
   - gmake
@@ -704,7 +704,7 @@ test_script:
   - set AUTOMATED_TESTING=1
 APPVEYOR_YML_4
 
-        $appveyor_yml .= $self->_makefile_pl_exists()
+        $appveyor_yml .= $self->makefile_pl_exists()
           ? <<'APPVEYOR_YML_5'
   - gmake test
 APPVEYOR_YML_5
@@ -843,7 +843,7 @@ script:
 TRAVIS_YML_2
 
         $travis_yml .=
-          $self->_makefile_pl_exists()
+          $self->makefile_pl_exists()
           ? "  - perl Makefile.PL && make test\n"
           : "  - prove -lr t\n";
 
