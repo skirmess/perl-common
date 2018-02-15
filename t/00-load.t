@@ -12,6 +12,7 @@ use lib qw(lib);
 
 my @modules = qw(
   MyBundle
+  MyCPANFile
   MyInsertVersion
   MyRepositoryBase
 );

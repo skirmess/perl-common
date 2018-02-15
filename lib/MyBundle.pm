@@ -287,7 +287,7 @@ sub configure {
         ( $self_build ? () : 'MetaJSON' ),
 
         # Produce a cpanfile prereqs file
-        'CPANFile',
+        '=MyCPANFile',
 
         # Automatically convert POD to a README in any format for Dist::Zilla
         [ 'ReadmeAnyFromPod', 'ReadmeAnyFromPod/ReadmeTextInBuild' ],
@@ -324,7 +324,7 @@ sub configure {
             'CopyFilesFromBuild',
             {
                 copy => [
-                    qw(cpanfile LICENSE),
+                    qw(LICENSE),
                     ( $self_build ? () : qw(INSTALL Makefile.PL META.json META.yml) ),
                 ],
             },
