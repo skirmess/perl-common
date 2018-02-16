@@ -192,16 +192,6 @@ sub configure {
         # Set script shebang to #!perl
         ( $self->set_script_shebang ? 'SetScriptShebang' : () ),
 
-        # Add the $AUTHORITY variable and metadata to your distribution
-        [
-            'Authority',
-            {
-                ':version' => '1.009',
-                authority  => 'cpan:SKIRMESS',
-                do_munging => '0',
-            },
-        ],
-
         # Detects the minimum version of Perl required for your dist
         [
             'MinimumPerl',
