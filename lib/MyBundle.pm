@@ -267,19 +267,6 @@ sub configure {
         # Summarize Dist::Zilla configuration into distmeta
         ( $self_build ? () : 'MetaConfig' ),
 
-        # Report what versions of things your distribution was built against
-        (
-            $self_build
-            ? ()
-            : [
-                'MetaData::BuiltWith',
-                {
-                    show_config => 1,
-                    show_uname  => 1,
-                },
-            ]
-        ),
-
         # Produce a META.yml
         ( $self_build ? () : 'MetaYAML' ),
 
