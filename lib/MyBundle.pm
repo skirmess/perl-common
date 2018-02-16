@@ -264,9 +264,6 @@ sub configure {
             },
         ],
 
-        # Summarize Dist::Zilla configuration into distmeta
-        ( $self_build ? () : 'MetaConfig' ),
-
         # Produce a META.yml
         ( $self_build ? () : 'MetaYAML' ),
 
