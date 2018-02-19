@@ -207,7 +207,7 @@ sub configure {
             : [
                 'MetaNoIndex',
                 {
-                    directory => [qw( corpus dzil-inc examples inc t xt )],
+                    directory => [ qw(t xt), grep { -d } qw(corpus demo examples fatlib inc local perl5 share ) ],
                 },
             ]
         ),
