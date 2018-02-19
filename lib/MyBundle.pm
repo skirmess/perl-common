@@ -376,6 +376,7 @@ sub configure {
         'Git::Push',
 
         # Compare data and files at different phases of the distribution build process
+        # listed last, to be sure we run at the very end of each phase
         'VerifyPhases',
     );
 
