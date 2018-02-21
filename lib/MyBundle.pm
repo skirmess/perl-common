@@ -235,12 +235,7 @@ sub configure {
         ],
 
         # Extract namespaces/version from traditional packages for provides
-        [
-            'MetaProvides::Package',
-            {
-                meta_noindex => 1,
-            },
-        ],
+        'MetaProvides::Package',
 
         # Extract namespaces/version from traditional packages for provides
         #
