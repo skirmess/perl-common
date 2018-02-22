@@ -54,9 +54,10 @@ sub configure {
 
         # Check at build/release time if modules are out of date
         [
-            'PromptIfStale', 'stale modules, release',
+            'PromptIfStale',
             {
                 phase             => 'release',
+                check_authordeps  => 1,
                 check_all_plugins => 1,
                 check_all_prereqs => 1,
             },
