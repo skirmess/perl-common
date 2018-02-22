@@ -140,12 +140,7 @@ sub configure {
         ],
 
         # Prune stuff that you probably don't mean to include
-        [
-            'PruneCruft',
-            {
-                except => [qw( \.perlcriticrc \.perltidyrc )],
-            },
-        ],
+        'PruneCruft',
 
         # Decline to build files that appear in a MANIFEST.SKIP-like file
         'ManifestSkip',
