@@ -54,15 +54,6 @@ sub configure {
 
         # Check at build/release time if modules are out of date
         [
-            'PromptIfStale', 'stale modules, build',
-            {
-                phase  => 'build',
-                module => [ $self->meta->name ],
-            },
-        ],
-
-        # Check at build/release time if modules are out of date
-        [
             'PromptIfStale', 'stale modules, release',
             {
                 phase             => 'release',
