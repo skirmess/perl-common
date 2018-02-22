@@ -147,14 +147,6 @@ sub configure {
             },
         ],
 
-        # Ensure no pending commits on a remote branch before release
-        [
-            'Git::Remote::Check',
-            {
-                do_update => 0,
-            },
-        ],
-
         # Prune stuff that you probably don't mean to include
         [
             'PruneCruft',
