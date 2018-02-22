@@ -72,7 +72,6 @@ sub configure {
             {
                 ':version'       => '2.016',
                 exclude_filename => [qw( cpanfile dist.ini INSTALL LICENSE Makefile.PL META.json META.yml README README.md )],
-                include_dotfiles => 1,
             },
         ],
 
