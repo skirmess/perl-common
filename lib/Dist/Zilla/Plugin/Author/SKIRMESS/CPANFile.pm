@@ -1,4 +1,4 @@
-package MyCPANFile;
+package Dist::Zilla::Plugin::Author::SKIRMESS::CPANFile;
 
 use 5.006;
 use strict;

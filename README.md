@@ -1,6 +1,6 @@
 # NAME
 
-MyBundle - Dist::Zilla configuration the way SKIRMESS does it
+Dist::Zilla::PluginBundle::Author::SKIRMESS - Dist::Zilla configuration the way SKIRMESS does it
 
 # VERSION
 

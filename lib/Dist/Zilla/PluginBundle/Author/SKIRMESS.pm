@@ -1,4 +1,4 @@
-package MyBundle;
+package Dist::Zilla::PluginBundle::Author::SKIRMESS;
 
 use 5.006;
 use strict;
@@ -6,12 +6,11 @@ use warnings;
 
 our $VERSION = '0.033';
 
-# This is needed to load patched modules from Dist-Zilla-Config-Slicer
-use lib::relative '../inc/lib';
+use lib::relative '../../../../../inc/lib';
 
 use Moose 0.99;
 
-use MyRepositoryBase;
+use Dist::Zilla::Plugin::Author::SKIRMESS::RepositoryBase;
 
 with qw(
   Dist::Zilla::Role::PluginBundle::Easy
@@ -34,8 +33,8 @@ use namespace::autoclean 0.09;
 sub configure {
     my ($self) = @_;
 
-    # The MyBundle plugin bundle is used to build other distributions with
-    # Dist::Zilla, but it is also used to build the dzil-inc repository
+    # The Author::SKIRMESS plugin bundle is used to build other distributions
+    # with Dist::Zilla, but it is also used to build the dzil-inc repository
     # itself. When the dzil-inc repository is built no distribution is
     # created as this repository is only intended to be included as
     # Git submodule by other distributions repositories.
@@ -46,9 +45,9 @@ sub configure {
     # If __FILE__ is inside lib of the cwd we are run with Bootstrap::lib
     # in the dzil-inc repository which means we are building the bundle.
     # Otherwise we use the bundle to build another distribution.
-    my $self_build = path('lib')->realpath eq path(__FILE__)->realpath()->parent();
+    my $self_build = path('lib')->realpath eq path(__FILE__)->parent(5)->realpath();
 
-    my @generated_files = MyRepositoryBase->files();
+    my @generated_files = Dist::Zilla::Plugin::Author::SKIRMESS::RepositoryBase->files();
 
     $self->add_plugins(
 
@@ -89,7 +88,7 @@ sub configure {
         # Must run after ReversionOnRelease because it adds the version of
         # the bundle to the generated files
         [
-            '=MyRepositoryBase',
+            'Author::SKIRMESS::RepositoryBase',
             {
                 (
                     $self_build
@@ -111,7 +110,7 @@ sub configure {
             },
         ],
 
-        '=MyInsertVersion',
+        'Author::SKIRMESS::InsertVersion',
 
         'Git::FilePermissions',
 
@@ -234,7 +233,7 @@ sub configure {
         ( $self_build ? () : 'MetaJSON' ),
 
         # Produce a cpanfile prereqs file
-        '=MyCPANFile',
+        'Author::SKIRMESS::CPANFile',
 
         # Automatically convert POD to a README in any format for Dist::Zilla
         [ 'ReadmeAnyFromPod', 'ReadmeAnyFromPod/ReadmeTextInBuild' ],
@@ -368,7 +367,7 @@ __END__
 
 =head1 NAME
 
-MyBundle - Dist::Zilla configuration the way SKIRMESS does it
+Dist::Zilla::PluginBundle::Author::SKIRMESS - Dist::Zilla configuration the way SKIRMESS does it
 
 =head1 VERSION
 

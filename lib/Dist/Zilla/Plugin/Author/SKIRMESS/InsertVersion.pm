@@ -1,4 +1,4 @@
-package MyInsertVersion;
+package Dist::Zilla::Plugin::Author::SKIRMESS::InsertVersion;
 
 use 5.006;
 use strict;

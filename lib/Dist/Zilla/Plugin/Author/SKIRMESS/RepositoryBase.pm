@@ -1,4 +1,4 @@
-package MyRepositoryBase;
+package Dist::Zilla::Plugin::Author::SKIRMESS::RepositoryBase;
 
 use 5.006;
 use strict;
@@ -190,7 +190,7 @@ sub _write_file {
 
 =head1 NAME
 
-MyRepositoryBase - Automatically create and update files
+Dist::Zilla::Plugin::Author::SKIRMESS::RepositoryBase - Automatically create and update files
 
 =head1 VERSION
 
@@ -321,6 +321,7 @@ sub _perl_critic_policy_default_enabled {
     my %disabled_policies = map { $_ => 0 } (
 
         # core policies
+        'CodeLayout::RequireTidyCode',
         'Documentation::PodSpelling',
         'Documentation::RequirePodSections',
         'InputOutput::RequireBriefOpen',
@@ -1038,7 +1039,8 @@ L<Test::Perl::Critic|Test::Perl::Critic> author test for F<bin> and F<lib>.
 =cut
 
     $file{q{xt/author/perlcritic-code.t}} = $test_header . <<'XT_AUTHOR_PERLCRITIC_CODE_T';
-use Test::Perl::Critic ( -profile => 'xt/author/perlcriticrc-code' );
+use FindBin qw($Bin);
+use Test::Perl::Critic ( -profile => "$Bin/perlcriticrc-code" );
 
 all_critic_ok(qw(bin lib));
 XT_AUTHOR_PERLCRITIC_CODE_T
@@ -1050,7 +1052,8 @@ L<Test::Perl::Critic|Test::Perl::Critic> author test for F<t> and F<xt>.
 =cut
 
     $file{q{xt/author/perlcritic-tests.t}} = $test_header . <<'XT_AUTHOR_PERLCRITIC_TESTS_T';
-use Test::Perl::Critic ( -profile => 'xt/author/perlcriticrc-tests' );
+use FindBin qw($Bin);
+use Test::Perl::Critic ( -profile => "$Bin/perlcriticrc-tests" );
 
 all_critic_ok(qw(t xt));
 XT_AUTHOR_PERLCRITIC_TESTS_T
