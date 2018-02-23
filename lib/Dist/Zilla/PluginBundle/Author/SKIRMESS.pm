@@ -42,10 +42,11 @@ sub configure {
     # The $self_build variable is used to disable some Dist:Zilla plugins
     # that are only used in other distribution.
     #
-    # If __FILE__ is inside lib of the cwd we are run with Bootstrap::lib
-    # in the dzil-inc repository which means we are building the bundle.
-    # Otherwise we use the bundle to build another distribution.
-    my $self_build = path('lib')->realpath eq path(__FILE__)->parent(5)->realpath();
+    # If __FILE__ is inside lib/Dist/Zilla/PluginBundle/Author of the cwd we
+    # are run with Bootstrap::lib in the dzil-inc repository which means we
+    # are building the bundle. Otherwise we use the bundle to build another
+    # distribution.
+    my $self_build = -d 'lib/Dist/Zilla/PluginBundle/Author' && path('lib/Dist/Zilla/PluginBundle/Author')->realpath eq path(__FILE__)->parent()->realpath();
 
     my @generated_files = Dist::Zilla::Plugin::Author::SKIRMESS::RepositoryBase->files();
 
