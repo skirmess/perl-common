@@ -261,7 +261,7 @@ sub configure {
         'ShareDir',
 
         # Build a Makefile.PL that uses ExtUtils::MakeMaker
-        ( $self_build ? () : 'MakeMaker' ),
+        'MakeMaker',
 
         # Build a MANIFEST file
         'Manifest',

@@ -26,6 +26,7 @@ requires 'strict';
 requires 'warnings';
 
 on configure => sub {
+    requires 'ExtUtils::MakeMaker';
     requires 'perl', '5.006';
 };
 
