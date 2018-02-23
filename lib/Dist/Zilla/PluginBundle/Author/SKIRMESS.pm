@@ -71,7 +71,7 @@ sub configure {
             'Git::GatherDir',
             {
                 ':version'       => '2.016',
-                exclude_filename => [qw( cpanfile dist.ini INSTALL LICENSE Makefile.PL META.json META.yml README README.md )],
+                exclude_filename => [qw( cpanfile dist.ini INSTALL LICENSE Makefile.PL META.json META.yml perlcriticrc-code.local perlcriticrc-tests.local README README.md )],
             },
         ],
 
