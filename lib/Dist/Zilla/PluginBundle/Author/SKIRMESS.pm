@@ -71,7 +71,21 @@ sub configure {
             'Git::GatherDir',
             {
                 ':version'       => '2.016',
-                exclude_filename => [qw( cpanfile dist.ini INSTALL LICENSE Makefile.PL META.json META.yml perlcriticrc-code.local perlcriticrc-tests.local README README.md )],
+                exclude_filename => [
+                    qw(
+                      cpanfile
+                      dist.ini
+                      INSTALL
+                      LICENSE
+                      Makefile.PL
+                      META.json
+                      META.yml
+                      perlcriticrc-code.local
+                      perlcriticrc-tests.local
+                      README
+                      README.md
+                      ),
+                ],
             },
         ],
 
@@ -134,7 +148,19 @@ sub configure {
         [
             'Git::Check',
             {
-                allow_dirty => [ qw( Changes cpanfile dist.ini Makefile.PL META.json META.yml README README.md ), @generated_files ],
+                allow_dirty => [
+                    qw(
+                      Changes
+                      cpanfile
+                      dist.ini
+                      Makefile.PL
+                      META.json
+                      META.yml
+                      README
+                      README.md
+                      ),
+                    @generated_files,
+                ],
             },
         ],
 
@@ -330,8 +356,21 @@ sub configure {
         [
             'Git::Commit',
             {
-                commit_msg        => '%v',
-                allow_dirty       => [ qw(Changes cpanfile dist.ini INSTALL LICENSE Makefile.PL META.json META.yml README.md), @generated_files ],
+                commit_msg  => '%v',
+                allow_dirty => [
+                    qw(
+                      Changes
+                      cpanfile
+                      dist.ini
+                      INSTALL
+                      LICENSE
+                      Makefile.PL
+                      META.json
+                      META.yml
+                      README.md
+                      ),
+                    @generated_files,
+                ],
                 allow_dirty_match => [qw( \.pm$ ^bin/ )],
             },
         ],
