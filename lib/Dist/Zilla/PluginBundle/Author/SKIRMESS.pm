@@ -253,6 +253,9 @@ sub configure {
             },
         ],
 
+        # delete the develop prereqs from the distmeta but preserve them in a stash
+        'Author::SKIRMESS::MoveDevelopPrereqsToStash',
+
         # Produce a META.yml
         ( $self_build ? () : 'MetaYAML' ),
 

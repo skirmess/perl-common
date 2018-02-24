@@ -50,6 +50,8 @@ requires 'Dist::Zilla::Role::FileFinderUser';
 requires 'Dist::Zilla::Role::FileMunger';
 requires 'Dist::Zilla::Role::PluginBundle::Config::Slicer';
 requires 'Dist::Zilla::Role::PluginBundle::Easy';
+requires 'Dist::Zilla::Role::PrereqSource';
+requires 'Dist::Zilla::Role::RegisterStash';
 requires 'Dist::Zilla::Role::TextTemplate';
 requires 'File::Spec';
 requires 'HTTP::Cache::Transparent';

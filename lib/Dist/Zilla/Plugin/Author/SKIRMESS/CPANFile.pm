@@ -19,8 +19,22 @@ sub after_build {
 
     my $zilla   = $self->zilla;
     my $prereqs = $zilla->prereqs;
+    my $pre     = $prereqs->as_string_hash;
 
-    Module::CPANfile->from_prereqs( $prereqs->as_string_hash )->save('cpanfile');
+    if ( exists $pre->{develop} ) {
+        $self->log_fatal('develop prereqs were not removed, please use Author::SKIRMESS::MoveDevelopPrereqsToStash');
+    }
+
+    # Created by Dist::Zilla::Plugin::Author::SKIRMESS::MoveDevelopPrereqsToStash
+    my $develop = $self->zilla->stash_named('%Author::SKIRMESS::develop_prereqs');
+    if ( !defined $develop ) {
+        $self->log('No develop dependencies found in stash');
+    }
+    else {
+        $pre->{develop} = $develop;
+    }
+
+    Module::CPANfile->from_prereqs($pre)->save('cpanfile');
 
     return;
 }
