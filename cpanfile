@@ -174,6 +174,7 @@ on develop => sub {
     requires 'Test::More', '0.88';
     requires 'Test::NoTabs';
     requires 'Test::Perl::Critic';
+    requires 'Test::PerlTidy';
     requires 'Test::Pod', '1.26';
     requires 'Test::Pod::No404s';
     requires 'Test::Portability::Files';
