@@ -209,6 +209,7 @@ sub configure {
             'AutoPrereqs',
             {
                 develop_finder => [ ':ExtraTestFiles', '@Author::SKIRMESS/ExtraTestFiles', ],
+                skip           => [qw( ^Local:: )],
             },
         ],
 
