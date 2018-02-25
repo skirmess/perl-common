@@ -10,6 +10,7 @@ use lib::relative '../../../../../inc/lib';
 
 use Moose 0.99;
 
+use Dist::Zilla::File::OnDisk;
 use Dist::Zilla::Plugin::Author::SKIRMESS::RepositoryBase;
 
 with qw(
@@ -29,6 +30,25 @@ has set_script_shebang => (
 use Path::Tiny;
 
 use namespace::autoclean 0.09;
+
+sub _find_files_extra_tests_files {
+    my ($self) = @_;
+
+    return if !-d 'xt';
+
+    my $it = path('xt')->iterator( { recurse => 1 } );
+
+    my @files;
+  FILE:
+    while ( defined( my $file = $it->() ) ) {
+        next FILE if !-f $file;
+        next FILE if $file !~ m{ [.] t $ }xsm;
+
+        push @files, Dist::Zilla::File::OnDisk->new( { name => $file->absolute->stringify } );
+    }
+
+    return \@files;
+}
 
 sub configure {
     my ($self) = @_;
@@ -86,6 +106,7 @@ sub configure {
                       README.md
                       ),
                 ],
+                exclude_match => ['^xt/'],
             },
         ],
 
@@ -170,11 +191,24 @@ sub configure {
         # Decline to build files that appear in a MANIFEST.SKIP-like file
         'ManifestSkip',
 
+        # :ExtraTestFiles is empty because we don't add xt test files to the
+        # distribution, that's why we have to create a new ExtraTestsFiles
+        # plugin
+        #
+        # https://github.com/rjbs/Config-MVP/issues/13
+        [
+            'FinderCode', 'ExtraTestFiles',
+            {
+                code  => [ \&_find_files_extra_tests_files ],
+                style => 'list',
+            },
+        ],
+
         # automatically extract prereqs from your modules
         [
             'AutoPrereqs',
             {
-                skip => [qw( ^t::lib )],
+                develop_finder => [ ':ExtraTestFiles', '@Author::SKIRMESS/ExtraTestFiles', ],
             },
         ],
 
@@ -292,6 +326,9 @@ sub configure {
         # Build a Makefile.PL that uses ExtUtils::MakeMaker
         'MakeMaker',
 
+        # Support running xt tests via dzil test from the repository
+        'Author::SKIRMESS::RunExtraTests::FromRepository',
+
         # Build a MANIFEST file
         'Manifest',
 
@@ -331,9 +368,6 @@ sub configure {
                 decimal_only => 1,
             },
         ],
-
-        # Support running xt tests via dzil test
-        'RunExtraTests',
 
         # Extract archive and run tests before releasing the dist
         'TestRelease',

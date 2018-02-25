@@ -8,4 +8,7 @@ use warnings;
 
 use Test::Pod 1.26;
 
-all_pod_files_ok( grep { -d } qw( bin lib t xt) );
+use lib::relative '../lib';
+use Local::TestsDirs;
+
+all_pod_files_ok( grep { -d } qw( bin lib ), Local::TestsDirs::tests_dirs() );

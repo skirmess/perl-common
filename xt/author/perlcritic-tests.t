@@ -9,4 +9,7 @@ use warnings;
 use FindBin qw($Bin);
 use Test::Perl::Critic ( -profile => "$Bin/perlcriticrc-tests" );
 
-all_critic_ok(qw(t xt));
+use lib::relative '../lib';
+use Local::TestsDirs;
+
+all_critic_ok( Local::TestsDirs::tests_dirs() );

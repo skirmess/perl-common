@@ -9,6 +9,9 @@ use warnings;
 use Test::Spelling 0.12;
 use Pod::Wordlist;
 
+use lib::relative '../lib';
+use Local::TestsDirs;
+
 if ( exists $ENV{AUTOMATED_TESTING} ) {
     print "1..0 # SKIP these tests during AUTOMATED_TESTING\n";
     exit 0;
@@ -16,7 +19,7 @@ if ( exists $ENV{AUTOMATED_TESTING} ) {
 
 add_stopwords(<DATA>);
 
-all_pod_files_spelling_ok( grep { -d } qw( bin lib t xt ) );
+all_pod_files_spelling_ok( grep { -d } qw( bin lib ), Local::TestsDirs::tests_dirs() );
 __DATA__
 <sven.kirmess@kzone.ch>
 AppVeyor
@@ -31,3 +34,4 @@ dist
 perltidy
 perltidyrc
 travis
+xt

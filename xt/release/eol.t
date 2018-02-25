@@ -8,4 +8,7 @@ use warnings;
 
 use Test::EOL;
 
-all_perl_files_ok( { trailing_whitespace => 1 }, grep { -d } qw( bin lib t xt) );
+use lib::relative '../lib';
+use Local::TestsDirs;
+
+all_perl_files_ok( { trailing_whitespace => 1 }, grep { -d } qw( bin lib ), Local::TestsDirs::tests_dirs() );
