@@ -44,6 +44,11 @@ sub test {
         $self->log_fatal("internal error: repository root '$repo' does not exist or is not a directory");
     }
 
+    # Fail if the dist hasn't been built yet
+    if ( !-d 'blib' ) {
+        $self->log_fatal(q{Distribution isn't built yet. Please ensure that you place 'RunExtraTests::FromRepository' after your other test runners (e.g. 'MakeMaker')});
+    }
+
     #
     my $xt_dir = $repo->child('xt');
     if ( !-d $xt_dir ) {
