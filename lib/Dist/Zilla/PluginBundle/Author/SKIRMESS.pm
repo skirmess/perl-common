@@ -288,8 +288,8 @@ sub configure {
             },
         ],
 
-        # delete the develop prereqs from the distmeta but preserve them in a stash
-        'Author::SKIRMESS::MoveDevelopPrereqsToStash',
+        # delete the develop prereqs from the distmeta
+        'Author::SKIRMESS::RemoveDevelopPrereqs',
 
         # Produce a META.yml
         ( $self_build ? () : 'MetaYAML' ),
@@ -298,7 +298,12 @@ sub configure {
         ( $self_build ? () : 'MetaJSON' ),
 
         # Produce a cpanfile prereqs file
-        'Author::SKIRMESS::CPANFile',
+        [
+            'Author::SKIRMESS::CPANFile',
+            {
+                develop_prereqs => '@Author::SKIRMESS/Author::SKIRMESS::RemoveDevelopPrereqs',
+            },
+        ],
 
         # Automatically convert POD to a README in any format for Dist::Zilla
         [ 'ReadmeAnyFromPod', 'ReadmeAnyFromPod/ReadmeTextInBuild' ],

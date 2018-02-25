@@ -53,7 +53,6 @@ requires 'Dist::Zilla::Role::FileMunger';
 requires 'Dist::Zilla::Role::PluginBundle::Config::Slicer';
 requires 'Dist::Zilla::Role::PluginBundle::Easy';
 requires 'Dist::Zilla::Role::PrereqSource';
-requires 'Dist::Zilla::Role::RegisterStash';
 requires 'Dist::Zilla::Role::TestRunner';
 requires 'Dist::Zilla::Role::TextTemplate';
 requires 'Dist::Zilla::Types';

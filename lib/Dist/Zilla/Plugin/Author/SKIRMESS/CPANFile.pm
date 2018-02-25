@@ -12,6 +12,12 @@ with qw(Dist::Zilla::Role::AfterBuild);
 
 use Module::CPANfile;
 
+has develop_prereqs => (
+    is       => 'ro',
+    isa      => 'Str',
+    required => 1,
+);
+
 use namespace::autoclean;
 
 sub after_build {
@@ -25,8 +31,13 @@ sub after_build {
         $self->log_fatal('develop prereqs were not removed, please use Author::SKIRMESS::MoveDevelopPrereqsToStash');
     }
 
-    # Created by Dist::Zilla::Plugin::Author::SKIRMESS::MoveDevelopPrereqsToStash
-    my $develop = $self->zilla->stash_named('%Author::SKIRMESS::develop_prereqs');
+    # Created by Dist::Zilla::Plugin::Author::SKIRMESS::RemoveDevelopPrereqs
+    my $plugin = $self->zilla->plugin_named( $self->develop_prereqs );
+    if ( !defined $plugin ) {
+        $self->log_fatal( [ q{Plugin '%s' does not exist}, $self->develop_prereqs ] );
+    }
+
+    my $develop = $plugin->develop_prereqs;
     if ( !defined $develop ) {
         $self->log('No develop dependencies found in stash');
     }

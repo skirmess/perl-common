@@ -1,4 +1,4 @@
-package Dist::Zilla::Plugin::Author::SKIRMESS::MoveDevelopPrereqsToStash;
+package Dist::Zilla::Plugin::Author::SKIRMESS::RemoveDevelopPrereqs;
 
 use 5.006;
 use strict;
@@ -8,12 +8,21 @@ our $VERSION = '0.033';
 
 use Moose;
 
-with qw(
-  Dist::Zilla::Role::PrereqSource
-  Dist::Zilla::Role::RegisterStash
+with qw(Dist::Zilla::Role::PrereqSource);
+
+# Consumed by Dist::Zilla::Plugin::Author::SKIRMESS::CPANFile
+has _develop => (
+    is  => 'rw',
+    isa => 'HashRef',
 );
 
 use namespace::autoclean;
+
+sub develop_prereqs {
+    my ($self) = @_;
+
+    return $self->_develop;
+}
 
 sub register_prereqs {
     my ($self) = @_;
@@ -24,9 +33,7 @@ sub register_prereqs {
     return if !exists $raw->{develop};
 
     my $develop = $raw->{develop};
-    if ( defined $develop ) {
-        $self->_register_stash( '%Author::SKIRMESS::develop_prereqs' => $develop );
-    }
+    $self->_develop($develop);
 
     for my $phase ( keys %{$develop} ) {
         for my $module ( keys %{ $develop->{$phase} } ) {
