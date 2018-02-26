@@ -106,7 +106,8 @@ sub configure {
                       README.md
                       ),
                 ],
-                exclude_match => ['^xt/'],
+                exclude_match    => ['^xt/'],
+                include_dotfiles => 1,
             },
         ],
 
