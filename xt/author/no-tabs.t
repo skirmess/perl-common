@@ -8,7 +8,4 @@ use warnings;
 
 use Test::NoTabs;
 
-use lib::relative '../lib';
-use Local::TestsDirs;
-
-all_perl_files_ok( grep { -d } qw( bin lib ), Local::TestsDirs::tests_dirs() );
+all_perl_files_ok( grep { -d } qw( bin lib t xt ) );

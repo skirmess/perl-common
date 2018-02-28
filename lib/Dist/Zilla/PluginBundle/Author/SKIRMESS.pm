@@ -210,7 +210,6 @@ sub configure {
             'AutoPrereqs',
             {
                 develop_finder => [ ':ExtraTestFiles', '@Author::SKIRMESS/ExtraTestFiles', ],
-                skip           => [qw( ^Local:: )],
             },
         ],
 
@@ -333,8 +332,30 @@ sub configure {
         # Build a Makefile.PL that uses ExtUtils::MakeMaker
         'MakeMaker',
 
-        # Support running xt tests via dzil test from the repository
-        'Author::SKIRMESS::RunExtraTests::FromRepository',
+        # Support running xt tests via dzil test from the project
+        [
+            'Author::SKIRMESS::RunExtraTests::FromProject',
+            {
+                skip_project => [
+                    qw(
+                      xt/author/clean-namespaces.t
+                      xt/author/minimum_version.t
+                      xt/author/perlcritic-code.t
+                      xt/author/pod-no404s.t
+                      xt/author/pod-spell.t
+                      xt/author/pod-syntax.t
+                      xt/author/portability.t
+                      xt/author/test-version.t
+                      xt/release/changes.t
+                      xt/release/distmeta.t
+                      xt/release/kwalitee.t
+                      xt/release/manifest.t
+                      xt/release/meta-json.t
+                      xt/release/meta-yaml.t
+                      ),
+                ],
+            },
+        ],
 
         # Build a MANIFEST file
         'Manifest',

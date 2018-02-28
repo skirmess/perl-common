@@ -57,6 +57,7 @@ requires 'Dist::Zilla::Role::TestRunner';
 requires 'Dist::Zilla::Role::TextTemplate';
 requires 'Dist::Zilla::Types';
 requires 'File::Spec';
+requires 'File::pushd';
 requires 'HTTP::Cache::Transparent';
 requires 'LWP::Simple';
 requires 'List::SomeUtils';

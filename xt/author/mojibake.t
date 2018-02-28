@@ -8,7 +8,4 @@ use warnings;
 
 use Test::Mojibake;
 
-use lib::relative '../lib';
-use Local::TestsDirs;
-
-all_files_encoding_ok( grep { -d } qw( bin lib ), Local::TestsDirs::tests_dirs() );
+all_files_encoding_ok( grep { -d } qw( bin lib t xt ) );

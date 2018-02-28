@@ -40,7 +40,7 @@ verbose = [%p] %m at %f line %l, near '%r'\n
 [ControlStructures::ProhibitLabelsWithSpecialBlockNames]
 [ControlStructures::ProhibitMutatingListFunctions]
 [ControlStructures::ProhibitNegativeExpressionsInUnlessAndUntilConditions]
-[ControlStructures::ProhibitPostfixControls]
+#[ControlStructures::ProhibitPostfixControls]
 [ControlStructures::ProhibitUnlessBlocks]
 [ControlStructures::ProhibitUnreachableCode]
 [ControlStructures::ProhibitUntilBlocks]
@@ -167,7 +167,7 @@ allow = $@ $! $/ $0
 [Variables::ProhibitReusedNames]
 [Variables::ProhibitUnusedVariables]
 [Variables::ProtectPrivateVars]
-[Variables::RequireInitializationForLocalVars]
+#[Variables::RequireInitializationForLocalVars]
 [Variables::RequireLexicalLoopIterators]
 [Variables::RequireLocalizedPunctuationVars]
 [Variables::RequireNegativeIndices]
@@ -326,8 +326,7 @@ equivalent_modules = Moo Moo::Role
 # Perl::Critic::Policy::Variables::ProhibitUnusedVarsStricter
 # ----------------------------------------------------------
 
-[Variables::ProhibitUnusedVarsStricter]
-allow_unused_subroutine_arguments = 1
+#[Variables::ProhibitUnusedVarsStricter]
 
 # ----------------------------------------------------------
 # Perl::Critic::Pulp

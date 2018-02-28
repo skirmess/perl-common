@@ -11,9 +11,6 @@ use Path::Tiny;
 use Test::More;
 use Test::PerlTidy;
 
-use lib::relative '../lib';
-use Local::TestsDirs;
-
 my @files;
 if ( -d 'bin' ) {
     my $it = path('bin')->iterator( { recurse => 1 } );
@@ -38,7 +35,7 @@ if ( -d 'lib' ) {
     }
 }
 
-for my $dir ( Local::TestsDirs::tests_dirs() ) {
+for my $dir (qw(t xt)) {
     my $it = path($dir)->iterator( { recurse => 1 } );
 
   TEST:
