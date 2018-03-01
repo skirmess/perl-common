@@ -8,9 +8,7 @@ our $VERSION = '0.033';
 
 use Moose;
 
-with qw(
-  Dist::Zilla::Role::FileMunger
-);
+with qw(Dist::Zilla::Role::FileMunger);
 
 use Path::Tiny;
 

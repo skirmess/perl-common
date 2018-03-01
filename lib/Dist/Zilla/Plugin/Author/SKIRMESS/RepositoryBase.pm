@@ -97,6 +97,7 @@ sub munge_files {
     # build phase because the FileFinderUser isn't initialized that
     # early
     $self->_write_file('t/00-load.t');
+
     return;
 }
 
@@ -128,12 +129,12 @@ sub _write_file {
         # exist. Create it if required.
         my $parent = $file->parent();
         if ( !-e $parent ) {
-            $self->log("Creating directory $parent");
+            $self->log_debug("Creating directory $parent");
             $parent->mkpath();
         }
     }
 
-    $self->log("Generate file $file");
+    $self->log_debug("Generate file $file");
 
     # write the file to disk
     $file->spew( $self->file($file) );
@@ -156,7 +157,8 @@ Version 0.033
 =head1 SYNOPSIS
 
 This plugin is part of the l<dzil-inc|https://github.com/skirmess/dzil-inc>
-L<MyBundle|MyBundle> bundle and should not be used outside of that.
+L<Dist::Zilla::PluginBundle::Author::SKIRMESS|Dist::Zilla::PluginBundle::Author::SKIRMESS>
+bundle and should not be used outside of that.
 
 =head1 DESCRIPTION
 
@@ -173,19 +175,15 @@ sub _perl_critic_policy_from_distribution {
     my ( $self, $distribution ) = @_;
 
     my $url = "http://cpanmetadb.plackperl.org/v1.0/package/$distribution";
-    $self->log("Downloading '$url'...");
+    $self->log_debug("Downloading '$url'...");
     my $content = LWP::Simple::get($url);
 
-    if ( !defined $content ) {
-        $self->log_fatal("Cannot download '$url'");
-    }
+    $self->log_fatal("Cannot download '$url'") if !defined $content;
 
     my $yaml = CPAN::Meta::YAML->read_string($content) or $self->log_fatal( CPAN::Meta::YAML->errstr );
     my $meta = $yaml->[0];
 
-    if ( !exists $meta->{provides} ) {
-        $self->log_fatal('Unable to parse returned data');
-    }
+    $self->log_fatal('Unable to parse returned data') if !exists $meta->{provides};
 
     my @policies;
   MODULE:
@@ -395,25 +393,22 @@ sub _perl_critic_policy_default_config {
           : $policy eq 'Subroutines::ProhibitUnusedPrivateSubroutines' ? { private_name_regex => '_(?!build_)\w+' }
           : $policy eq 'ValuesAndExpressions::ProhibitComplexVersion'  ? { forbid_use_version => '1' }
           : $policy eq 'Variables::ProhibitPunctuationVars'            ? { allow              => '$@ $! $/ $0' }
-          :
 
           # Perl::Critic::Moose
-            $policy eq 'Moose::ProhibitDESTROYMethod' ? { equivalent_modules => 'Moo Moo::Role' }
+          : $policy eq 'Moose::ProhibitDESTROYMethod' ? { equivalent_modules => 'Moo Moo::Role' }
           : $policy eq 'Moose::ProhibitLazyBuild'     ? { equivalent_modules => 'Moo Moo::Role' }
           : $policy eq 'Moose::ProhibitMultipleWiths' ? { equivalent_modules => 'Moo Moo::Role' }
           : $policy eq 'Moose::ProhibitNewMethod'     ? { equivalent_modules => 'Moo Moo::Role' }
-          :
 
           # Perl::Critic::Policy::Variables::ProhibitUnusedVarsStricter
-          $policy eq 'Variables::ProhibitUnusedVarsStricter'
-          ? { allow_unused_subroutine_arguments => '1' }
-          : undef;
+          : $policy eq 'Variables::ProhibitUnusedVarsStricter' ? { allow_unused_subroutine_arguments => '1' }
+          :                                                      undef;
 
         return $pol_ref;
     };
 }
 
-# Parses the perlcriticrc.local configuration file. Then, returns an
+# Parses the perlcriticrc-*.local configuration file. Then, returns an
 # iterator that iterates over all policies of all the perlcritic policy
 # distributions we use. Return value is an array ref of the distribution
 # name, the policy name, if the policy should be enabled and either undef
@@ -435,15 +430,11 @@ sub _perl_critic_policy_with_config {
       POLICY:
         for my $policy ( keys %perlcriticrc_local ) {
 
-            if ( $policy eq q{-} ) {
-                $self->log_fatal('We cannot disable the global settings');
-            }
+            $self->log_fatal('We cannot disable the global settings') if $policy eq q{-};
 
             my $policy_name = $policy =~ m{ ^ - (.+) }xsm ? $1 : $policy;
 
-            if ( exists $local_seen{$policy_name} ) {
-                $self->log_fatal("There are multiple entries for policy '$policy_name' in '$perlcriticrc_local'.");
-            }
+            $self->log_fatal("There are multiple entries for policy '$policy_name' in '$perlcriticrc_local'.") if exists $local_seen{$policy_name};
 
             $local_seen{$policy_name} = 1;
 
@@ -453,13 +444,10 @@ sub _perl_critic_policy_with_config {
                 next POLICY;
             }
             #
-            if ( $policy eq q{} ) {
-                $self->log_fatal('Custom global settings are not supported');
-            }
-            else {
-                $self->log("Custom configuration for policy '$policy_name'");
-                $local_config{$policy} = [ 1, $perlcriticrc_local{$policy_name} ];
-            }
+            $self->log_fatal('Custom global settings are not supported') if $policy eq q{};
+
+            $self->log("Custom configuration for policy '$policy_name'");
+            $local_config{$policy} = [ 1, $perlcriticrc_local{$policy_name} ];
         }
     }
 
@@ -469,9 +457,7 @@ sub _perl_critic_policy_with_config {
 
         if ( !defined $pol_ref ) {
             my ($first_not_used_policy_from_local_config) = keys %local_config_unused;
-            if ( defined $first_not_used_policy_from_local_config ) {
-                $self->log_fatal("Policy '$first_not_used_policy_from_local_config' is mentioned the local configuration file '$perlcriticrc_local' but does not exist.");
-            }
+            $self->log_fatal("Policy '$first_not_used_policy_from_local_config' is mentioned the local configuration file '$perlcriticrc_local' but does not exist.") if defined $first_not_used_policy_from_local_config;
 
             return;
         }
@@ -481,18 +467,11 @@ sub _perl_critic_policy_with_config {
 
         delete $local_config_unused{$policy};
 
-        if ( ${ $local_config{$policy} }[0] == 0 ) {
+        # policy is disabled from local config
+        return [ $dist, $policy, 0, undef ] if ${ $local_config{$policy} }[0] == 0;
 
-            # policy is disabled from local config
-            return [ $dist, $policy, 0, undef ];
-        }
-
-        # policy is enabled in local config
-        if ( ( @{ $local_config{$policy} } == 1 ) || ( scalar keys %{ ${ $local_config{$policy} }[1] } == 0 ) ) {
-
-            # policy is enabled from local config, with no local configuration
-            return [ $dist, $policy, 1, undef ];
-        }
+        # policy is enabled from local config, with no local configuration
+        return [ $dist, $policy, 1, undef ] if ( @{ $local_config{$policy} } == 1 ) || ( scalar keys %{ ${ $local_config{$policy} }[1] } == 0 );
 
         # policy is enabled from local config, with local configuration
         return [ $dist, $policy, 1, ${ $local_config{$policy} }[1] ];
@@ -600,9 +579,7 @@ PERLCRITICRC_TEMPLATE
     sub file {
         my ( $self, $filename ) = @_;
 
-        if ( !exists $file{$filename} ) {
-            $self->log_fatal("File '$filename' is not defined");
-        }
+        $self->log_fatal("File '$filename' is not defined") if !exists $file{$filename};
 
         my $file_content = $file{$filename};
         if ( ref $file_content eq ref sub { } ) {

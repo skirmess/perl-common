@@ -27,19 +27,15 @@ sub after_build {
     my $prereqs = $zilla->prereqs;
     my $pre     = $prereqs->as_string_hash;
 
-    if ( exists $pre->{develop} ) {
-        $self->log_fatal('develop prereqs were not removed, please use Author::SKIRMESS::MoveDevelopPrereqsToStash');
-    }
+    $self->log_fatal('develop prereqs were not removed, please use Author::SKIRMESS::MoveDevelopPrereqsToStash') if exists $pre->{develop};
 
     # Created by Dist::Zilla::Plugin::Author::SKIRMESS::RemoveDevelopPrereqs
     my $plugin = $self->zilla->plugin_named( $self->develop_prereqs );
-    if ( !defined $plugin ) {
-        $self->log_fatal( [ q{Plugin '%s' does not exist}, $self->develop_prereqs ] );
-    }
+    $self->log_fatal( [ q{Plugin '%s' does not exist}, $self->develop_prereqs ] ) if !defined $plugin;
 
     my $develop = $plugin->develop_prereqs;
     if ( !defined $develop ) {
-        $self->log('No develop dependencies found in stash');
+        $self->log( [ q{No develop dependencies received from '%s'}, $self->develop_prereqs ] );
     }
     else {
         $pre->{develop} = $develop;
