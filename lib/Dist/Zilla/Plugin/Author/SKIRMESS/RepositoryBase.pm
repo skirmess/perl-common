@@ -69,7 +69,6 @@ has _travis_available_perl => (
     traits  => ['Array'],
 );
 
-use Carp;
 use Config::Std { def_sep => q{=} };
 use CPAN::Meta::YAML;
 use File::Spec;
@@ -148,9 +147,7 @@ sub _write_files {
 
   FILE:
     for my $file ( sort $self->files() ) {
-        if ( exists $file_to_skip{$file} ) {
-            next FILE;
-        }
+        next FILE if exists $file_to_skip{$file};
 
         $self->_write_file($file);
     }
@@ -645,9 +642,6 @@ PERLCRITICRC_TEMPLATE
 
         if ( !exists $file{$filename} ) {
             $self->log_fatal("File '$filename' is not defined");
-
-            # log_fatal should die
-            croak 'internal error';
         }
 
         my $file_content = $file{$filename};

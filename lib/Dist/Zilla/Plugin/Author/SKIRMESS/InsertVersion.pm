@@ -12,7 +12,6 @@ with qw(
   Dist::Zilla::Role::FileMunger
 );
 
-use Carp;
 use Path::Tiny;
 
 use namespace::autoclean;
@@ -48,9 +47,6 @@ sub munge_file {
       )
     {
         $self->log_fatal("Unable to replace VERSION section in file $filename.");
-
-        # log_fatal should die
-        croak 'internal error';
     }
 
     $file->content($content);

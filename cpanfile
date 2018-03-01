@@ -1,6 +1,5 @@
 requires 'App::Prove';
 requires 'CPAN::Meta::YAML';
-requires 'Carp';
 requires 'Config::Std';
 requires 'Dist::Zilla';
 requires 'Dist::Zilla::File::OnDisk';
