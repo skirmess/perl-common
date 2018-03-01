@@ -92,47 +92,7 @@ sub before_build {
 sub munge_files {
     my ($self) = @_;
 
-    # Files are already generated in the before build phase.
-
-    # This module is part of the MyBundle plugin bundle. The bundle
-    # is either used to release itself, but also to release other
-    # distributions. We must know which kind of build the current build is
-    # because if we build another distribution we are done, the files were
-    # already correctly generated during the "before build" phase.
-    #
-    # But if we are using the bundle to release itself we have to recreate
-    # the generated files because the new version of this plugin was not
-    # known during the "before build" phase.
-    #
-    # If __FILE__ is inside lib of the cwd we are run with Bootstrap::lib
-    # which means we are building the bundle. Otherwise we use the bundle to
-    # build another distribution.
-    if ( exists $ENV{DZIL_RELEASING} && path('lib')->realpath->subsumes( path(__FILE__)->realpath() ) ) {
-
-        # Ok, we are releasing the bundle itself. That means that $VERSION of
-        # this module is not set correctly as the module was require'd before
-        # the $VERSION was adjusted in the file (during the "munge files"
-        # phase). We have to fix this now to write the correct version to the
-        # generated files.
-
-        # NOTE: Just a reminder if someone wants to refactor this module.
-        # $self->zilla->version() must not be called in the "before build"
-        # phase because it calls _build_version which is going to fail the
-        # build. Besides that, VersionFromMainModule is run during the
-        # "munge files" phase and before that we can't even know the new
-        # version of the bundle.
-
-        local $VERSION = $self->zilla->version;
-
-        # re-write all generated files
-        $self->_write_files();
-
-        return;
-    }
-
-    # We are building, or releasing something else - not the bundle itself.
-
-    # We always have to write t/00-load.t during the munge files phase
+    # We have to write t/00-load.t again during the munge files phase
     # because this file is not created correctly during the before
     # build phase because the FileFinderUser isn't initialized that
     # early
