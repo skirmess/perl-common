@@ -529,13 +529,6 @@ This is free software, licensed under:
 
   The (two-clause) FreeBSD License
 
-=head1 SEE ALSO
-
-L<Dist::Zilla::PluginBundle::Author::ETHER|Dist::Zilla::PluginBundle::Author::ETHER>,
-L<Dist::Zilla::PluginBundle::DAGOLDEN|Dist::Zilla::PluginBundle::DAGOLDEN>,
-L<Dist::Zilla::PluginBundle::Milla|Dist::Zilla::PluginBundle::Milla>,
-L<Dist::Milla|Dist::Milla>
-
 =cut
 
 # vim: ts=4 sts=4 sw=4 et: syntax=perl

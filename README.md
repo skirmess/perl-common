@@ -50,10 +50,3 @@ This software is Copyright (c) 2017-2018 by Sven Kirmess.
 This is free software, licensed under:
 
     The (two-clause) FreeBSD License
-
-# SEE ALSO
-
-[Dist::Zilla::PluginBundle::Author::ETHER](https://metacpan.org/pod/Dist::Zilla::PluginBundle::Author::ETHER),
-[Dist::Zilla::PluginBundle::DAGOLDEN](https://metacpan.org/pod/Dist::Zilla::PluginBundle::DAGOLDEN),
-[Dist::Zilla::PluginBundle::Milla](https://metacpan.org/pod/Dist::Zilla::PluginBundle::Milla),
-[Dist::Milla](https://metacpan.org/pod/Dist::Milla)
