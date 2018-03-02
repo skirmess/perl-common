@@ -194,6 +194,8 @@ sub configure {
         # distribution, that's why we have to create a new ExtraTestsFiles
         # plugin
         #
+        # code must be a single value but inside an array ref. Bug is
+        # reported as:
         # https://github.com/rjbs/Config-MVP/issues/13
         [
             'FinderCode', 'ExtraTestFiles',
@@ -478,17 +480,43 @@ Version 0.033
 
 =head1 SYNOPSIS
 
+=head2 Create a new dzil project
+
+Create a new repository on Github and clone it.
+
+  $ git submodule add ../dzil-inc.git
+  $ git commit -m 'added Author::SKIRMESS plugin bundle as git submodule'
+
   # in dist.ini
+  [lib]
+  lib = dzil-inc/lib
+
   [@Author::SKIRMESS]
+
+=head2 Clone a project which already contains this submodule
+
+  $ git clone https://github.com/skirmess/...
+  $ git submodule update --init
+
+  # To update dzil-inc
+  $ cd dzil-inc && git checkout master
+
+
+=head2 Update the submodule
+
+  $ cd dzil-inv && git pull
 
 =head1 DESCRIPTION
 
 This is a L<Dist::Zilla|Dist::Zilla> PluginBundle.
 
+The bundle will not be released on CPAN, instead it is designed to be
+included as Git submodule in the project that will use it.
+
 =head1 USAGE
 
-To use this PluginBundle, just add it to your dist.ini. You can provide the
-following options:
+To use this PluginBundle, include it as Git submodule in your project and
+add it to your dist.ini. You can provide the following options:
 
 =over 4
 
