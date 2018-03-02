@@ -63,7 +63,6 @@ requires 'List::SomeUtils';
 requires 'Module::CPANfile';
 requires 'Moose', '0.99';
 requires 'Path::Tiny';
-requires 'lib::relative';
 requires 'namespace::autoclean', '0.09';
 requires 'perl', '5.006';
 requires 'strict';

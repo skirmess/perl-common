@@ -6,8 +6,6 @@ use warnings;
 
 our $VERSION = '0.033';
 
-use lib::relative '../../../../../inc/lib';
-
 use Moose 0.99;
 
 use Dist::Zilla::File::OnDisk;
