@@ -634,6 +634,7 @@ APPVEYOR_YML_3
 
 test_script:
   - set AUTOMATED_TESTING=1
+  - set PERL_USE_UNSAFE_INC=0
 APPVEYOR_YML_4
 
         $appveyor_yml .= $self->makefile_pl_exists()
@@ -700,6 +701,7 @@ cache:
 env:
   global:
     - AUTOMATED_TESTING=1
+    - PERL_USE_UNSAFE_INC=0
 
 git:
   submodules: false

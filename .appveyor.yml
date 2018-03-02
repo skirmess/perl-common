@@ -16,5 +16,6 @@ build_script:
 
 test_script:
   - set AUTOMATED_TESTING=1
+  - set PERL_USE_UNSAFE_INC=0
   - prove -lr t
   - prove -lr xt/author
