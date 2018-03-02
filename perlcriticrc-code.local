@@ -1,8 +1,5 @@
 [-ControlStructures::ProhibitPostfixControls]
 [-Documentation::RequirePodAtEnd]
 [-ValuesAndExpressions::ProhibitMagicNumbers]
-[-ValuesAndExpressions::RequireConstantVersion]
 [-ValuesAndExpressions::RequireInterpolationOfMetachars]
 [-Variables::ProhibitLocalVars]
-[-Variables::ProhibitUnusedVarsStricter]
-[-Variables::RequireInitializationForLocalVars]

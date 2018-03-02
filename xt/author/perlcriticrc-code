@@ -148,7 +148,7 @@ forbid_use_version = 1
 [ValuesAndExpressions::ProhibitQuotesAsQuotelikeOperatorDelimiters]
 [ValuesAndExpressions::ProhibitSpecialLiteralHeredocTerminator]
 [ValuesAndExpressions::ProhibitVersionStrings]
-#[ValuesAndExpressions::RequireConstantVersion]
+[ValuesAndExpressions::RequireConstantVersion]
 #[ValuesAndExpressions::RequireInterpolationOfMetachars]
 [ValuesAndExpressions::RequireNumberSeparators]
 [ValuesAndExpressions::RequireQuotedHeredocTerminator]
@@ -167,7 +167,7 @@ allow = $@ $! $/ $0
 [Variables::ProhibitReusedNames]
 [Variables::ProhibitUnusedVariables]
 [Variables::ProtectPrivateVars]
-#[Variables::RequireInitializationForLocalVars]
+[Variables::RequireInitializationForLocalVars]
 [Variables::RequireLexicalLoopIterators]
 [Variables::RequireLocalizedPunctuationVars]
 [Variables::RequireNegativeIndices]
@@ -326,7 +326,8 @@ equivalent_modules = Moo Moo::Role
 # Perl::Critic::Policy::Variables::ProhibitUnusedVarsStricter
 # ----------------------------------------------------------
 
-#[Variables::ProhibitUnusedVarsStricter]
+[Variables::ProhibitUnusedVarsStricter]
+allow_unused_subroutine_arguments = 1
 
 # ----------------------------------------------------------
 # Perl::Critic::Pulp

@@ -67,7 +67,7 @@ sub test {
     }
     else {
         local $ENV{BUILD_TESTING} = 1;
-        local $ENV{PROJECT_TESTING};
+        local $ENV{PROJECT_TESTING};    ## no critic (Variables::RequireInitializationForLocalVars)
         delete $ENV{PROJECT_TESTING};
 
         $self->log('Running xt tests (from project) on build');
@@ -81,11 +81,11 @@ sub test {
         $self->log('No xt tests (from project) to run against the project');
     }
     else {
-        local $ENV{BUILD_TESTING};
+        local $ENV{BUILD_TESTING};    ## no critic (Variables::RequireInitializationForLocalVars)
         delete $ENV{BUILD_TESTING};
         local $ENV{PROJECT_TESTING} = 1;
 
-        my $wd = File::pushd::pushd($project_root);
+        my $wd = File::pushd::pushd($project_root);    ## no critic (Variables::ProhibitUnusedVarsStricter)
 
         $self->log('Running xt tests (from project) on project');
         $self->_run_prove( $prove_arg_ref, \@project_tests );
@@ -139,7 +139,7 @@ sub _xt_tests {
     $self->log_fatal("internal error: _project_root '$project_root' does not exist or is not a directory") if !-d $project_root;
 
     # Change to the project root (will be restored when $wd goes out of scope)
-    my $wd = File::pushd::pushd($project_root);
+    my $wd = File::pushd::pushd($project_root);    ## no critic (Variables::ProhibitUnusedVarsStricter)
 
     # Find all the tests we have to run
     my %xt_child = map { $_ => $_ } grep { -d || m{ [.]t $ }xsm } path('xt')->children;
