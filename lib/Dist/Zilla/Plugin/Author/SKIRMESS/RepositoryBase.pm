@@ -4,8 +4,6 @@ use 5.006;
 use strict;
 use warnings;
 
-our $VERSION = '0.033';
-
 use Moose;
 
 with(
@@ -155,10 +153,6 @@ sub _write_file {
 =head1 NAME
 
 Dist::Zilla::Plugin::Author::SKIRMESS::RepositoryBase - Automatically create and update files
-
-=head1 VERSION
-
-Version 0.033
 
 =head1 SYNOPSIS
 

@@ -4,8 +4,6 @@ use 5.006;
 use strict;
 use warnings;
 
-our $VERSION = '0.033';
-
 use Moose 0.99;
 
 use Dist::Zilla::File::OnDisk;
@@ -110,7 +108,7 @@ sub configure {
         ],
 
         # Set the distribution version from your main module's $VERSION
-        'VersionFromMainModule',
+        ( $self_build ? () : 'VersionFromMainModule' ),
 
         # Bump and reversion $VERSION on release
         [
@@ -131,6 +129,7 @@ sub configure {
                         makefile_pl_exists => 0,
                         skip               => [
                             qw(
+                              xt/author/test-version.t
                               xt/release/changes.t
                               xt/release/distmeta.t
                               xt/release/kwalitee.t
@@ -473,10 +472,6 @@ __END__
 =head1 NAME
 
 Dist::Zilla::PluginBundle::Author::SKIRMESS - Dist::Zilla configuration the way SKIRMESS does it
-
-=head1 VERSION
-
-Version 0.033
 
 =head1 SYNOPSIS
 

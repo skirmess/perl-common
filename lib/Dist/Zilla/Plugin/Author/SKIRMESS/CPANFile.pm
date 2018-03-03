@@ -4,8 +4,6 @@ use 5.006;
 use strict;
 use warnings;
 
-our $VERSION = '0.033';
-
 use Moose;
 
 with qw(Dist::Zilla::Role::AfterBuild);
