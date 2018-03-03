@@ -439,14 +439,14 @@ sub _perl_critic_policy_with_config {
             $local_seen{$policy_name} = 1;
 
             if ( $policy =~ m{ ^ - }xsm ) {
-                $self->log("Disabling policy '$policy_name'");
+                $self->log_debug("Disabling policy '$policy_name'");
                 $local_config{$policy_name} = [0];
                 next POLICY;
             }
             #
             $self->log_fatal('Custom global settings are not supported') if $policy eq q{};
 
-            $self->log("Custom configuration for policy '$policy_name'");
+            $self->log_debug("Custom configuration for policy '$policy_name'");
             $local_config{$policy} = [ 1, $perlcriticrc_local{$policy_name} ];
         }
     }
