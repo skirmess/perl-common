@@ -23,6 +23,7 @@ AppVeyor
 Kirmess
 MyBundle
 MyRepositoryBase
+RunExtraTests
 SKIRMESS
 Sven
 TravisCI
@@ -31,3 +32,4 @@ dist
 perltidy
 perltidyrc
 travis
+xt

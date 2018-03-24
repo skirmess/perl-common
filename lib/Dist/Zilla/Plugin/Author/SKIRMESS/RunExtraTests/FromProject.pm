@@ -180,4 +180,78 @@ __PACKAGE__->meta->make_immutable;
 
 1;
 
+__END__
+
+=pod
+
+=encoding UTF-8
+
+=head1 NAME
+
+Dist::Zilla::Plugin::Author::SKIRMESS::RunExtraTests::FromProject - support running xt tests from your project via dzil test
+
+=head1 VERSION
+
+Version 0.000
+
+=head1 SYNOPSIS
+
+In your F<dist.ini>:
+
+[Author::SKIRMESS::RunExtraTests::FromProject]
+
+=head1 DESCRIPTION
+
+This plugin is used to run xt tests from your project against your distribution and against your project. This is useful if you don't want to include your xt tests in your distribution. If you include your xt tests with your distribution, use L<RunExtraTests|Dist::Zilla::Plugin::RunExtraTests> instead. The plugin was created because the existing test plugins always run the tests from the build against the build. This makes it impossible to check files that are part of your project but not included in the distribution which can be useful for some tests. Additionally it forces you to include your author tests in the distribution, which, in my opinion, is questionable because the distribution is no longer a working dzil project anyway.
+
+Runs xt tests when the test phase is run (e.g. dzil test, dzil release etc). xt/release, xt/author, and xt/smoke will be tested based on the values of the appropriate environment variables (RELEASE_TESTING, AUTHOR_TESTING, and AUTOMATED_TESTING), which are set by dzil test. Additionally, all other xt files and directories will always be run.
+
+All xt tests are run twice, once against the built distribution and again against the project. The environment variable C<BUILD_TESTING> is set and C<PROJECT_TESTING> is unset if the xt tests are run against the distribution. When the xt tests are run against the project C<PROJECT_TESTING> is set and C<BUILD_TESTING> is unset. If both variables are unset the test is most likely run directly under prove.
+
+C<Author::SKIRMESS::RunExtraTests::FromProject> must be listed after one of the normal test-running plugins (e.g. MakeMaker).
+
+=head2 skip_build
+
+The option C<skip_build> is used to specify xt tests to skip while testing the distribution. The option can be specified multiple times.
+
+=head2 skip_project
+
+The option C<skip_project> is used to specify xt tests to skip while testing the project. The option can be specified multiple times.
+
+=head1 SUPPORT
+
+=head2 Bugs / Feature Requests
+
+Please report any bugs or feature requests through the issue tracker
+at L<https://github.com/skirmess/dzil-inc/issues>.
+You will be notified automatically of any progress on your issue.
+
+=head2 Source Code
+
+This is open source software. The code repository is available for
+public review and contribution under the terms of the license.
+
+L<https://github.com/skirmess/dzil-inc>
+
+  git clone https://github.com/skirmess/dzil-inc.git
+
+=head1 AUTHOR
+
+Sven Kirmess <sven.kirmess@kzone.ch>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2018 by Sven Kirmess.
+
+This is free software, licensed under:
+
+  The (two-clause) FreeBSD License
+
+=head1 SEE ALSO
+
+L<Dist::Zilla|Dist::Zilla>,
+L<Dist::Zilla::Plugin::RunExtraTests|Dist::Zilla::Plugin::RunExtraTests>
+
+=cut
+
 # vim: ts=4 sts=4 sw=4 et: syntax=perl
