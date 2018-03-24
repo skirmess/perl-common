@@ -553,6 +553,7 @@ sub _perlcriticrc {
 # {{ $plugin->_generated_string() }}
 
 only = 1
+profile-strictness = fatal
 severity = 1
 verbose = [%p] %m at %f line %l, near '%r'\n
 PERLCRITICRC_TEMPLATE
