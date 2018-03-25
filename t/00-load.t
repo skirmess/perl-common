@@ -12,6 +12,7 @@ use lib qw(lib);
 
 my @modules = qw(
   Dist::Zilla::Plugin::Author::SKIRMESS::CPANFile
+  Dist::Zilla::Plugin::Author::SKIRMESS::CheckFilesInDistribution
   Dist::Zilla::Plugin::Author::SKIRMESS::InsertVersion
   Dist::Zilla::Plugin::Author::SKIRMESS::RemoveDevelopPrereqs
   Dist::Zilla::Plugin::Author::SKIRMESS::RepositoryBase

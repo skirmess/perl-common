@@ -304,6 +304,31 @@ sub configure {
             },
         ],
 
+        # check that the distribution contains only the correct files
+        [
+            'Author::SKIRMESS::CheckFilesInDistribution',
+            {
+                required_file => [
+                    qw(
+                      README
+                      LICENSE
+                      MANIFEST
+                      Makefile.PL
+                      ),
+                    (
+                        $self_build
+                        ? ()
+                        : qw(
+                          Changes
+                          INSTALL
+                          META.yml
+                          META.json
+                          )
+                    ),
+                ],
+            },
+        ],
+
         # Automatically convert POD to a README in any format for Dist::Zilla
         [ 'ReadmeAnyFromPod', 'ReadmeAnyFromPod/ReadmeTextInBuild' ],
 
