@@ -309,22 +309,8 @@ sub configure {
             'Author::SKIRMESS::CheckFilesInDistribution',
             {
                 required_file => [
-                    qw(
-                      README
-                      LICENSE
-                      MANIFEST
-                      Makefile.PL
-                      ),
-                    (
-                        $self_build
-                        ? ()
-                        : qw(
-                          Changes
-                          INSTALL
-                          META.yml
-                          META.json
-                          )
-                    ),
+                    qw(LICENSE Makefile.PL MANIFEST README),
+                    ( $self_build ? () : qw(Changes INSTALL META.json META.yml) ),
                 ],
             },
         ],
