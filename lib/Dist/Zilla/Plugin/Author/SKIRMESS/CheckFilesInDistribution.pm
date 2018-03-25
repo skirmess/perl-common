@@ -83,7 +83,7 @@ sub _is_file_allowed {
     }
 
     if ( $dirs[0] eq 'lib' ) {
-        return 1 if $dirs[-1] =~ m{ .+ [.] pm $ }xsm;
+        return 1 if $dirs[-1] =~ m{ .+ [.] (?: pm | pod ) $ }xsm;
         return;
     }
 
