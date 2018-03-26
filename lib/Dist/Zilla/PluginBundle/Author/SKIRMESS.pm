@@ -370,17 +370,6 @@ sub configure {
         # Build a MANIFEST file
         'Manifest',
 
-        # Copy (or move) specific files after building (for SCM inclusion, etc.)
-        [
-            'CopyFilesFromBuild',
-            {
-                copy => [
-                    qw(LICENSE),
-                    ( $self_build ? () : qw(INSTALL Makefile.PL META.json META.yml README) ),
-                ],
-            },
-        ],
-
         # Check that you're on the correct branch before release
         'Git::CheckFor::CorrectBranch',
 
@@ -419,11 +408,14 @@ sub configure {
         # Upload the dist to CPAN
         'UploadToCPAN',
 
-        # Copy files from a release (for SCM inclusion, etc.)
+        # copy all files from the distribution to the project (after build and release)
         [
-            'CopyFilesFromRelease',
+            'Author::SKIRMESS::CopyAllFilesFromDistributionToProject',
             {
-                match => [qw( \.pm$ ^bin/ )],
+                skip_file => [
+                    qw(MANIFEST),
+                    ( $self_build ? qw(Makefile.PL README) : qw(Changes) ),
+                ],
             },
         ],
 
