@@ -45,7 +45,6 @@ requires 'Dist::Zilla::Plugin::TestRelease';
 requires 'Dist::Zilla::Plugin::UploadToCPAN';
 requires 'Dist::Zilla::Plugin::VerifyPhases';
 requires 'Dist::Zilla::Role::AfterBuild';
-requires 'Dist::Zilla::Role::BeforeArchive';
 requires 'Dist::Zilla::Role::BeforeBuild';
 requires 'Dist::Zilla::Role::FileFinderUser';
 requires 'Dist::Zilla::Role::FileMunger';

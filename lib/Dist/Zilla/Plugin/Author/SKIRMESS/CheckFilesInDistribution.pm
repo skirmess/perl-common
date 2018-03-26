@@ -6,7 +6,7 @@ use warnings;
 
 use Moose;
 
-with qw(Dist::Zilla::Role::BeforeArchive);
+with qw(Dist::Zilla::Role::AfterBuild);
 
 use File::pushd;
 use File::Spec;
@@ -22,13 +22,15 @@ has required_file => (
 
 use namespace::autoclean;
 
-sub before_archive {
-    my ($self) = @_;
+sub after_build {
+    my ( $self, $data ) = @_;
+
+    $self->log_fatal(q{'build_root' not defined}) if !exists $data->{build_root};
 
     my %required_file = map { $_ => 1 } @{ $self->required_file };
 
   FILE:
-    for my $file ( $self->_get_files_in_archive() ) {
+    for my $file ( $self->_get_files_in_archive( $data->{build_root} ) ) {
         if ( exists $required_file{$file} ) {
             delete $required_file{$file};
             next FILE;
@@ -48,13 +50,10 @@ sub before_archive {
 }
 
 sub _get_files_in_archive {
-    my ($self) = @_;
-
-    my $zilla         = $self->zilla;
-    my $dist_basename = $zilla->dist_basename;
+    my ( $self, $built_in ) = @_;
 
     # change to the generated distribution
-    my $wd = pushd($dist_basename);    ## no critic (Variables::ProhibitUnusedVarsStricter)
+    my $wd = pushd($built_in);    ## no critic (Variables::ProhibitUnusedVarsStricter)
 
     my @files;
     my $it = path(q{.})->iterator( { recurse => 1 } );
@@ -117,7 +116,7 @@ Dist::Zilla::Plugin::Author::SKIRMESS::CheckFilesInDistribution - check that the
 
 =head1 VERSION
 
-Version 0.000
+Version 0
 
 =head1 SYNOPSIS
 
@@ -130,9 +129,7 @@ required_file = ...
 
 =head1 DESCRIPTION
 
-This plugin runs before the archive is generated and checks that it contains only files we expect to include in a distribution. Additionally it checks that all C<required_file>s are included.
-
-Because this is a L<BeforeArchive|Dist::Zilla::Role::BeforeArchive> plugin, it is only run during C<dzil build> or C<release> but not during C<dzil test>.
+This plugin runs after the build and checks that it contains only files we expect to include in a distribution. Additionally it checks that all C<required_file>s are included.
 
 =head2 required_file
 
