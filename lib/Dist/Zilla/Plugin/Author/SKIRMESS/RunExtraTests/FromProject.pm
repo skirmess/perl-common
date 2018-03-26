@@ -192,7 +192,7 @@ Dist::Zilla::Plugin::Author::SKIRMESS::RunExtraTests::FromProject - support runn
 
 =head1 VERSION
 
-Version 0.000
+Version 0
 
 =head1 SYNOPSIS
 
