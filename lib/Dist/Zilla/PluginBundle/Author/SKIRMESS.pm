@@ -7,7 +7,7 @@ use warnings;
 use Moose 0.99;
 
 use Dist::Zilla::File::OnDisk;
-use Dist::Zilla::Plugin::Author::SKIRMESS::RepositoryBase;
+use Dist::Zilla::Plugin::Author::SKIRMESS::ProjectSkeleton;
 
 with qw(
   Dist::Zilla::Role::PluginBundle::Easy
@@ -64,7 +64,18 @@ sub configure {
     # distribution.
     my $self_build = -d 'lib/Dist/Zilla/PluginBundle/Author' && path('lib/Dist/Zilla/PluginBundle/Author')->realpath eq path(__FILE__)->parent()->realpath();
 
-    my @generated_files = Dist::Zilla::Plugin::Author::SKIRMESS::RepositoryBase->files();
+    my @generated_files = Dist::Zilla::Plugin::Author::SKIRMESS::ProjectSkeleton->files();
+    push @generated_files, qw(
+      t/00-load.t
+      META.json
+      META.yml
+      LICENSE
+      INSTALL
+      Makefile.PL
+      cpanfile
+      README
+      README.md
+    );
 
     $self->add_plugins(
 
@@ -89,20 +100,12 @@ sub configure {
                 ':version'       => '2.016',
                 exclude_filename => [
                     qw(
-                      cpanfile
-                      dist.ini
-                      INSTALL
-                      LICENSE
-                      Makefile.PL
-                      META.json
-                      META.yml
                       perlcriticrc-code.local
                       perlcriticrc-tests.local
-                      README
-                      README.md
+                      dist.ini
                       ),
+                    @generated_files,
                 ],
-                exclude_match    => ['^xt/'],
                 include_dotfiles => 1,
             },
         ],
@@ -118,10 +121,9 @@ sub configure {
             },
         ],
 
-        # Must run after ReversionOnRelease because it adds the version of
-        # the bundle to the generated files
+        # maintain a base set of files in the project
         [
-            'Author::SKIRMESS::RepositoryBase',
+            'Author::SKIRMESS::ProjectSkeleton',
             {
                 (
                     $self_build
@@ -143,6 +145,9 @@ sub configure {
                 ),
             },
         ],
+
+        # Create te t/00-load.t test
+        'Author::SKIRMESS::Test::Load',
 
         'Author::SKIRMESS::InsertVersion',
 
@@ -170,13 +175,6 @@ sub configure {
                 allow_dirty => [
                     qw(
                       Changes
-                      cpanfile
-                      dist.ini
-                      Makefile.PL
-                      META.json
-                      META.yml
-                      README
-                      README.md
                       ),
                     @generated_files,
                 ],
@@ -245,7 +243,7 @@ sub configure {
             : [
                 'MetaNoIndex',
                 {
-                    directory => [ qw(t xt), grep { -d } qw(corpus demo examples fatlib inc local perl5 share ) ],
+                    directory => [ qw(t xt), grep { -d } qw(corpus demo examples fatlib inc local perl5 share) ],
                 },
             ]
         ),
@@ -427,14 +425,6 @@ sub configure {
                 allow_dirty => [
                     qw(
                       Changes
-                      cpanfile
-                      dist.ini
-                      INSTALL
-                      LICENSE
-                      Makefile.PL
-                      META.json
-                      META.yml
-                      README.md
                       ),
                     @generated_files,
                 ],

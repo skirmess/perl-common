@@ -1,4 +1,4 @@
-package Dist::Zilla::Plugin::Author::SKIRMESS::RepositoryBase;
+package Dist::Zilla::Plugin::Author::SKIRMESS::ProjectSkeleton;
 
 use 5.006;
 use strict;
@@ -6,20 +6,9 @@ use warnings;
 
 use Moose;
 
-with(
-    'Dist::Zilla::Role::BeforeBuild',
-    'Dist::Zilla::Role::FileFinderUser' => {
-        method           => 'found_module_files',
-        finder_arg_names => ['module_finder'],
-        default_finders  => [':InstallModules'],
-    },
-    'Dist::Zilla::Role::FileFinderUser' => {
-        method           => 'found_script_files',
-        finder_arg_names => ['script_finder'],
-        default_finders  => [':PerlExecFiles'],
-    },
-    'Dist::Zilla::Role::FileMunger',
-    'Dist::Zilla::Role::TextTemplate',
+with qw(
+  Dist::Zilla::Role::BeforeBuild
+  Dist::Zilla::Role::TextTemplate
 );
 
 sub mvp_multivalue_args { return (qw( skip stopwords travis_ci_ignore_perl travis_ci_no_author_testing_perl travis_ci_osx_perl )) }
@@ -74,8 +63,6 @@ has _travis_available_perl => (
 );
 
 use Config::Std { def_sep => q{=} };
-use CPAN::Meta::YAML;
-use File::Spec;
 use HTTP::Cache::Transparent ( BasePath => '.cache', NoUpdate => 15 * 60 );
 use List::SomeUtils qw(uniq);
 use LWP::Simple ();
@@ -84,28 +71,6 @@ use Path::Tiny;
 use namespace::autoclean;
 
 sub before_build {
-    my ($self) = @_;
-
-    # Files must exist during the "gather files" phase and therefore we're
-    # forced to create them in the "before build" phase.
-    $self->_write_files();
-
-    return;
-}
-
-sub munge_files {
-    my ($self) = @_;
-
-    # We have to write t/00-load.t again during the munge files phase
-    # because this file is not created correctly during the before
-    # build phase because the FileFinderUser isn't initialized that
-    # early
-    $self->_write_file('t/00-load.t');
-
-    return;
-}
-
-sub _write_files {
     my ($self) = @_;
 
     my %file_to_skip = map { $_ => 1 } grep { defined && !m{ ^ \s* $ }xsm } @{ $self->skip };
@@ -152,7 +117,7 @@ sub _write_file {
 
 =head1 NAME
 
-Dist::Zilla::Plugin::Author::SKIRMESS::RepositoryBase - Automatically create and update files
+Dist::Zilla::Plugin::Author::SKIRMESS::ProjectSkeleton - maintain a base set of files in the project
 
 =head1 SYNOPSIS
 
@@ -804,86 +769,6 @@ use warnings;
 # {{ $plugin->_generated_string() }}
 
 _TEST_HEADER
-
-=head2 t/00-load.t
-
-Verifies that all modules and perl scripts can be compiled with require_ok
-from L<Test::More|Test::More>.
-
-=cut
-
-    $file{q{t/00-load.t}} = sub {
-        my ($self) = @_;
-
-        my %use_lib_args = (
-            lib  => undef,
-            q{.} => undef,
-        );
-
-        my @modules;
-      MODULE:
-        for my $module ( map { $_->name } @{ $self->found_module_files() } ) {
-            next MODULE if $module =~ m{ [.] pod $}xsm;
-
-            my @dirs = File::Spec->splitdir($module);
-            if ( $dirs[0] eq 'lib' && $dirs[-1] =~ s{ [.] pm $ }{}xsm ) {
-                shift @dirs;
-                push @modules, join q{::}, @dirs;
-                $use_lib_args{lib} = 1;
-                next MODULE;
-            }
-
-            $use_lib_args{q{.}} = 1;
-            push @modules, $module;
-        }
-
-        my @scripts = map { $_->name } @{ $self->found_script_files() };
-        if (@scripts) {
-            $use_lib_args{q{.}} = 1;
-        }
-
-        my $content = $test_header . <<'T_OO_LOAD_T';
-use Test::More;
-
-T_OO_LOAD_T
-
-        if ( !@scripts && !@modules ) {
-            $content .= qq{BAIL_OUT("No files found in distribution");\n};
-
-            return $content;
-        }
-
-        $content .= 'use lib qw(';
-        if ( defined $use_lib_args{lib} ) {
-            if ( defined $use_lib_args{q{.}} ) {
-                $content .= 'lib .';
-            }
-            else {
-                $content .= 'lib';
-            }
-        }
-        else {
-            $content .= q{.};
-        }
-        $content .= ");\n\n";
-
-        $content .= "my \@modules = qw(\n";
-
-        for my $module ( @modules, @scripts ) {
-            $content .= "  $module\n";
-        }
-        $content .= <<'T_OO_LOAD_T';
-);
-
-plan tests => scalar @modules;
-
-for my $module (@modules) {
-    require_ok($module) || BAIL_OUT();
-}
-T_OO_LOAD_T
-
-        return $content;
-    };
 
 =head2 xt/author/clean-namespaces.t
 

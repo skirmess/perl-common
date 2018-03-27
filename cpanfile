@@ -1,7 +1,7 @@
 requires 'App::Prove';
-requires 'CPAN::Meta::YAML';
 requires 'Config::Std';
 requires 'Dist::Zilla';
+requires 'Dist::Zilla::File::InMemory';
 requires 'Dist::Zilla::File::OnDisk';
 requires 'Dist::Zilla::Plugin::AutoPrereqs';
 requires 'Dist::Zilla::Plugin::AutoPrereqs::Perl::Critic';
@@ -46,6 +46,7 @@ requires 'Dist::Zilla::Role::AfterBuild';
 requires 'Dist::Zilla::Role::AfterRelease';
 requires 'Dist::Zilla::Role::BeforeBuild';
 requires 'Dist::Zilla::Role::FileFinderUser';
+requires 'Dist::Zilla::Role::FileGatherer';
 requires 'Dist::Zilla::Role::FileMunger';
 requires 'Dist::Zilla::Role::PluginBundle::Config::Slicer';
 requires 'Dist::Zilla::Role::PluginBundle::Easy';
