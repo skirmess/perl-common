@@ -63,6 +63,7 @@ has _travis_available_perl => (
 );
 
 use Config::Std { def_sep => q{=} };
+use CPAN::Meta::YAML;
 use HTTP::Cache::Transparent ( BasePath => '.cache', NoUpdate => 15 * 60 );
 use List::SomeUtils qw(uniq);
 use LWP::Simple ();

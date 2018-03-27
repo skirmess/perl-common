@@ -1,4 +1,5 @@
 requires 'App::Prove';
+requires 'CPAN::Meta::YAML';
 requires 'Config::Std';
 requires 'Dist::Zilla';
 requires 'Dist::Zilla::File::InMemory';
