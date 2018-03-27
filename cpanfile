@@ -26,6 +26,7 @@ requires 'Dist::Zilla::Plugin::Git::GatherDir', '2.016';
 requires 'Dist::Zilla::Plugin::Git::Push';
 requires 'Dist::Zilla::Plugin::Git::RequireUnixEOL';
 requires 'Dist::Zilla::Plugin::Git::Tag';
+requires 'Dist::Zilla::Plugin::GithubMeta';
 requires 'Dist::Zilla::Plugin::License';
 requires 'Dist::Zilla::Plugin::MakeMaker';
 requires 'Dist::Zilla::Plugin::Manifest';

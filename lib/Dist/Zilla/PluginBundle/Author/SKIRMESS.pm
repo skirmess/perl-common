@@ -149,10 +149,13 @@ sub configure {
         # Create te t/00-load.t test
         'Author::SKIRMESS::Test::Load',
 
-        'Author::SKIRMESS::InsertVersion',
+        # update POD with project specific defaults
+        'Author::SKIRMESS::UpdatePOD',
 
+        # fix the file permissions in your Git repository with Dist::Zilla
         'Git::FilePermissions',
 
+        # Enforce the correct line endings in your Git repository with Dist::Zilla
         'Git::RequireUnixEOL',
 
         # Update the next release number in your changelog
@@ -249,16 +252,12 @@ sub configure {
         ),
 
         # Automatically include GitHub meta information in META.yml
-        (
-            $self_build
-            ? ()
-            : [
-                'GithubMeta',
-                {
-                    issues => 1,
-                },
-            ]
-        ),
+        [
+            'GithubMeta',
+            {
+                issues => 1,
+            },
+        ],
 
         # Automatically convert POD to a README in any format for Dist::Zilla
         [
@@ -468,6 +467,10 @@ __END__
 =head1 NAME
 
 Dist::Zilla::PluginBundle::Author::SKIRMESS - Dist::Zilla configuration the way SKIRMESS does it
+
+=head1 VERSION
+
+Version 0
 
 =head1 SYNOPSIS
 

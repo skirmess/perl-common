@@ -28,6 +28,7 @@ SKIRMESS
 Sven
 TravisCI
 appveyor
+cpanfile
 dist
 perltidy
 perltidyrc

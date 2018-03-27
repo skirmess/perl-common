@@ -58,7 +58,7 @@ has _generated_string => (
 has _travis_available_perl => (
     is      => 'ro',
     isa     => 'ArrayRef[Str]',
-    default => sub { [qw( 5.8 5.10 5.12 5.14 5.16 5.18 5.20 5.22 5.24 5.26)] },
+    default => sub { [qw(5.8 5.10 5.12 5.14 5.16 5.18 5.20 5.22 5.24 5.26)] },
     traits  => ['Array'],
 );
 
@@ -119,6 +119,10 @@ sub _write_file {
 =head1 NAME
 
 Dist::Zilla::Plugin::Author::SKIRMESS::ProjectSkeleton - maintain a base set of files in the project
+
+=head1 VERSION
+
+Version 0
 
 =head1 SYNOPSIS
 

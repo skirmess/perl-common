@@ -1,6 +1,7 @@
 [-ControlStructures::ProhibitPostfixControls]
 [-Documentation::RequirePodAtEnd]
 [-RegularExpressions::ProhibitCaptureWithoutTest]
+[-RegularExpressions::ProhibitComplexRegexes]
 [-RegularExpressions::ProhibitEnumeratedClasses]
 [-ValuesAndExpressions::ProhibitMagicNumbers]
 [-ValuesAndExpressions::RequireInterpolationOfMetachars]

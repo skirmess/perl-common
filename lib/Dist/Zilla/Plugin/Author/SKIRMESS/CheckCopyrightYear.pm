@@ -100,7 +100,7 @@ Sven Kirmess <sven.kirmess@kzone.ch>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2018 by Sven Kirmess.
+This software is Copyright (c) 2017-2018 by Sven Kirmess.
 
 This is free software, licensed under:
 

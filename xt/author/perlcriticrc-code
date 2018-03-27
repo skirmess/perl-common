@@ -97,7 +97,7 @@ modules = Class::ISA {Found use of Class::ISA. This module is deprecated by the 
 [Objects::ProhibitIndirectSyntax]
 [References::ProhibitDoubleSigils]
 #[RegularExpressions::ProhibitCaptureWithoutTest]
-[RegularExpressions::ProhibitComplexRegexes]
+#[RegularExpressions::ProhibitComplexRegexes]
 #[RegularExpressions::ProhibitEnumeratedClasses]
 [RegularExpressions::ProhibitEscapedMetacharacters]
 [RegularExpressions::ProhibitFixedStringMatches]

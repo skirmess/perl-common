@@ -15,11 +15,11 @@ my @modules = qw(
   Dist::Zilla::Plugin::Author::SKIRMESS::CheckCopyrightYear
   Dist::Zilla::Plugin::Author::SKIRMESS::CheckFilesInDistribution
   Dist::Zilla::Plugin::Author::SKIRMESS::CopyAllFilesFromDistributionToProject
-  Dist::Zilla::Plugin::Author::SKIRMESS::InsertVersion
   Dist::Zilla::Plugin::Author::SKIRMESS::ProjectSkeleton
   Dist::Zilla::Plugin::Author::SKIRMESS::RemoveDevelopPrereqs
   Dist::Zilla::Plugin::Author::SKIRMESS::RunExtraTests::FromProject
   Dist::Zilla::Plugin::Author::SKIRMESS::Test::Load
+  Dist::Zilla::Plugin::Author::SKIRMESS::UpdatePOD
   Dist::Zilla::PluginBundle::Author::SKIRMESS
 );
 
