@@ -28,6 +28,7 @@ has _generated_string => (
 );
 
 use Dist::Zilla::File::InMemory;
+use File::Spec;
 
 use namespace::autoclean;
 
@@ -41,9 +42,9 @@ sub gather_files {
                 $self->_t_load,
                 {
                     plugin => \$self,
-                }
+                },
             ),
-        }
+        },
     );
 
     $self->add_file($file);
