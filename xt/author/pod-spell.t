@@ -23,7 +23,6 @@ AppVeyor
 BeforeArchive
 Kirmess
 MyBundle
-MyRepositoryBase
 RunExtraTests
 SKIRMESS
 Sven
@@ -33,4 +32,5 @@ dist
 perltidy
 perltidyrc
 travis
+whitelisted
 xt

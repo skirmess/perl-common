@@ -302,6 +302,9 @@ sub configure {
             },
         ],
 
+        # check that the copyright year is correct
+        'Author::SKIRMESS::CheckCopyrightYear',
+
         # check that the distribution contains only the correct files
         [
             'Author::SKIRMESS::CheckFilesInDistribution',
