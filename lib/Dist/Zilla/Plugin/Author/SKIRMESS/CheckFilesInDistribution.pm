@@ -122,7 +122,7 @@ Version 0
 
 In your F<dist.ini>:
 
-[Author::SKIRMESS::RunExtraTests::FromProject]
+[Author::SKIRMESS::CheckFilesInDistribution]
 required_file = LICENSE
 required_file = Makefile.PL
 required_file = ...
