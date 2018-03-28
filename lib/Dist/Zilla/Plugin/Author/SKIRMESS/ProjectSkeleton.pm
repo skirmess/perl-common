@@ -945,6 +945,28 @@ for my $file (@files) {
 }
 XT_AUTHOR_PERLCRITIC_TESTS_T
 
+=head2 xt/author/pod-linkcheck.t
+
+L<Test::Pod::LinkCheck|Test::Pod::LinkCheck> author test.
+
+=cut
+
+    $file{q{xt/author/pod-linkcheck.t}} = $test_header . <<'XT_AUTHOR_POD_LINKCHECK_T';
+# CPANPLUS is used by Test::Pod::LinkCheck but is not a dependency. The
+# require on CPANPLUS is only here for dzil to pick it up and add it as a
+# develop dependency to the cpanfile.
+require CPANPLUS;
+
+use Test::Pod::LinkCheck;
+
+if ( exists $ENV{AUTOMATED_TESTING} ) {
+    print "1..0 # SKIP these tests during AUTOMATED_TESTING\n";
+    exit 0;
+}
+
+Test::Pod::LinkCheck->new->all_pod_ok;
+XT_AUTHOR_POD_LINKCHECK_T
+
 =head2 xt/author/pod-no404s.t
 
 L<Test::Pod::No404s|Test::Pod::No404s> author test.
