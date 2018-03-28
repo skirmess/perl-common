@@ -957,6 +957,10 @@ L<Test::Pod::LinkCheck|Test::Pod::LinkCheck> author test.
 # develop dependency to the cpanfile.
 require CPANPLUS;
 
+# Test::Pod::LinkCheck checks for link targets in @INC. We have to add these
+# directories to be able to find link targets in this project.
+use lib qw(bin lib blib);
+
 use Test::Pod;
 use Test::Pod::LinkCheck;
 
