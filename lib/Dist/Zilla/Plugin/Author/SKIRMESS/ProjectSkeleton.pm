@@ -957,6 +957,7 @@ L<Test::Pod::LinkCheck|Test::Pod::LinkCheck> author test.
 # develop dependency to the cpanfile.
 require CPANPLUS;
 
+use Test::Pod;
 use Test::Pod::LinkCheck;
 
 if ( exists $ENV{AUTOMATED_TESTING} ) {
@@ -964,7 +965,7 @@ if ( exists $ENV{AUTOMATED_TESTING} ) {
     exit 0;
 }
 
-Test::Pod::LinkCheck->new->all_pod_ok;
+Test::Pod::LinkCheck->new->all_pod_ok( Test::Pod::all_pod_files( grep { -d } qw(bin lib t xt) ) );
 XT_AUTHOR_POD_LINKCHECK_T
 
 =head2 xt/author/pod-no404s.t
@@ -974,6 +975,7 @@ L<Test::Pod::No404s|Test::Pod::No404s> author test.
 =cut
 
     $file{q{xt/author/pod-no404s.t}} = $test_header . <<'XT_AUTHOR_POD_NO404S_T';
+use Test::Pod;
 use Test::Pod::No404s;
 
 if ( exists $ENV{AUTOMATED_TESTING} ) {
@@ -981,7 +983,7 @@ if ( exists $ENV{AUTOMATED_TESTING} ) {
     exit 0;
 }
 
-all_pod_files_ok();
+all_pod_files_ok( Test::Pod::all_pod_files( grep { -d } qw(bin lib t xt) ) );
 XT_AUTHOR_POD_NO404S_T
 
 =head2 xt/author/pod-spell.t

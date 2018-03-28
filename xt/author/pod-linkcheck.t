@@ -11,6 +11,7 @@ use warnings;
 # develop dependency to the cpanfile.
 require CPANPLUS;
 
+use Test::Pod;
 use Test::Pod::LinkCheck;
 
 if ( exists $ENV{AUTOMATED_TESTING} ) {
@@ -18,4 +19,4 @@ if ( exists $ENV{AUTOMATED_TESTING} ) {
     exit 0;
 }
 
-Test::Pod::LinkCheck->new->all_pod_ok;
+Test::Pod::LinkCheck->new->all_pod_ok( Test::Pod::all_pod_files( grep { -d } qw(bin lib t xt) ) );
