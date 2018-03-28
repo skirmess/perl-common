@@ -171,19 +171,6 @@ sub configure {
             ]
         ),
 
-        # Check your git repository before releasing
-        [
-            'Git::Check',
-            {
-                allow_dirty => [
-                    qw(
-                      Changes
-                      ),
-                    @generated_files,
-                ],
-            },
-        ],
-
         # Prune stuff that you probably don't mean to include
         'PruneCruft',
 

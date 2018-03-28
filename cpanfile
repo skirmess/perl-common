@@ -16,7 +16,6 @@ requires 'Dist::Zilla::Plugin::CheckStrictVersion';
 requires 'Dist::Zilla::Plugin::ConfirmRelease';
 requires 'Dist::Zilla::Plugin::ExecDir';
 requires 'Dist::Zilla::Plugin::FinderCode';
-requires 'Dist::Zilla::Plugin::Git::Check';
 requires 'Dist::Zilla::Plugin::Git::CheckFor::CorrectBranch';
 requires 'Dist::Zilla::Plugin::Git::CheckFor::MergeConflicts';
 requires 'Dist::Zilla::Plugin::Git::Commit';
