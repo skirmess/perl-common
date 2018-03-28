@@ -66,15 +66,15 @@ sub configure {
 
     my @generated_files = Dist::Zilla::Plugin::Author::SKIRMESS::ProjectSkeleton->files();
     push @generated_files, qw(
-      t/00-load.t
+      cpanfile
+      INSTALL
+      LICENSE
+      Makefile.PL
       META.json
       META.yml
-      LICENSE
-      INSTALL
-      Makefile.PL
-      cpanfile
       README
       README.md
+      t/00-load.t
     );
 
     $self->add_plugins(
@@ -100,9 +100,9 @@ sub configure {
                 ':version'       => '2.016',
                 exclude_filename => [
                     qw(
+                      dist.ini
                       perlcriticrc-code.local
                       perlcriticrc-tests.local
-                      dist.ini
                       ),
                     @generated_files,
                 ],
@@ -430,7 +430,7 @@ sub configure {
                       ),
                     @generated_files,
                 ],
-                allow_dirty_match => [qw( \.pm$ ^bin/ )],
+                allow_dirty_match => [qw( \.pm$ \.pod$ ^bin/ )],
             },
         ],
 
