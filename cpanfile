@@ -173,7 +173,7 @@ on develop => sub {
     requires 'Test::EOL';
     requires 'Test::MinimumVersion', '0.008';
     requires 'Test::Mojibake';
-    requires 'Test::More';
+    requires 'Test::More', '0.88';
     requires 'Test::NoTabs';
     requires 'Test::Perl::Critic';
     requires 'Test::PerlTidy';
@@ -182,5 +182,6 @@ on develop => sub {
     requires 'Test::Pod::No404s';
     requires 'Test::Portability::Files';
     requires 'Test::Spelling', '0.12';
+    requires 'Test::Version', '0.04';
     requires 'lib';
 };

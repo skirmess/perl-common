@@ -4,6 +4,8 @@ use 5.006;
 use strict;
 use warnings;
 
+our $VERSION = '1.000';
+
 use Moose;
 
 with qw(Dist::Zilla::Role::BeforeBuild);
@@ -61,7 +63,7 @@ Dist::Zilla::Plugin::Author::SKIRMESS::CheckCopyrightYear - check that the copyr
 
 =head1 VERSION
 
-Version 0
+Version 1.000
 
 =head1 SYNOPSIS
 

@@ -4,6 +4,8 @@ use 5.006;
 use strict;
 use warnings;
 
+our $VERSION = '1.000';
+
 use Moose;
 
 with qw(
@@ -183,7 +185,7 @@ Dist::Zilla::Plugin::Author::SKIRMESS::ContributingGuide - build an CONTRIBUTING
 
 =head1 VERSION
 
-Version 0
+Version 1.000
 
 =head1 SUPPORT
 

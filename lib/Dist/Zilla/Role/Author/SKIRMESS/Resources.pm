@@ -4,6 +4,8 @@ use 5.006;
 use strict;
 use warnings;
 
+our $VERSION = '1.000';
+
 use Moose::Role;
 
 use namespace::autoclean;
@@ -65,7 +67,7 @@ Dist::Zilla::Role::Author::SKIRMESS::Resources - access the distmeta resources
 
 =head1 VERSION
 
-Version 0
+Version 1.000
 
 =head1 SUPPORT
 

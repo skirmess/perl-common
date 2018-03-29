@@ -4,6 +4,8 @@ use 5.006;
 use strict;
 use warnings;
 
+our $VERSION = '1.000';
+
 use Moose 0.99;
 
 use Dist::Zilla::File::OnDisk;
@@ -137,7 +139,6 @@ sub configure {
                         makefile_pl_exists => 0,
                         skip               => [
                             qw(
-                              xt/author/test-version.t
                               xt/release/changes.t
                               xt/release/distmeta.t
                               xt/release/kwalitee.t
@@ -466,7 +467,7 @@ Dist::Zilla::PluginBundle::Author::SKIRMESS - Dist::Zilla configuration the way 
 
 =head1 VERSION
 
-Version 0
+Version 1.000
 
 =head1 SYNOPSIS
 
