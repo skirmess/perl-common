@@ -30,6 +30,7 @@ TravisCI
 appveyor
 cpanfile
 dist
+distmeta
 perltidy
 perltidyrc
 travis

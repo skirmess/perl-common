@@ -67,15 +67,21 @@ sub configure {
     my @generated_files = Dist::Zilla::Plugin::Author::SKIRMESS::ProjectSkeleton->files();
     push @generated_files, qw(
       cpanfile
-      INSTALL
       LICENSE
-      Makefile.PL
-      META.json
-      META.yml
-      README
       README.md
       t/00-load.t
     );
+
+    if ( !$self_build ) {
+        push @generated_files, qw(
+          CONTRIBUTING
+          INSTALL
+          Makefile.PL
+          META.json
+          META.yml
+          README
+        );
+    }
 
     $self->add_plugins(
 
@@ -297,7 +303,7 @@ sub configure {
             {
                 required_file => [
                     qw(LICENSE Makefile.PL MANIFEST README),
-                    ( $self_build ? () : qw(Changes INSTALL META.json META.yml) ),
+                    ( $self_build ? () : qw(Changes CONTRIBUTING INSTALL META.json META.yml) ),
                 ],
             },
         ],
@@ -319,6 +325,9 @@ sub configure {
                 },
             ]
         ),
+
+        # build an CONTRIBUTING file
+        ( $self_build ? () : 'Author::SKIRMESS::ContributingGuide' ),
 
         # Install a directory's contents as executables
         'ExecDir',

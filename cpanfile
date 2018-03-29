@@ -64,6 +64,7 @@ requires 'LWP::Simple';
 requires 'List::SomeUtils';
 requires 'Module::CPANfile';
 requires 'Moose', '0.99';
+requires 'Moose::Role';
 requires 'Path::Tiny';
 requires 'namespace::autoclean', '0.09';
 requires 'perl', '5.006';

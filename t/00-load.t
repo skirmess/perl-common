@@ -14,6 +14,7 @@ my @modules = qw(
   Dist::Zilla::Plugin::Author::SKIRMESS::CPANFile
   Dist::Zilla::Plugin::Author::SKIRMESS::CheckCopyrightYear
   Dist::Zilla::Plugin::Author::SKIRMESS::CheckFilesInDistribution
+  Dist::Zilla::Plugin::Author::SKIRMESS::ContributingGuide
   Dist::Zilla::Plugin::Author::SKIRMESS::CopyAllFilesFromDistributionToProject
   Dist::Zilla::Plugin::Author::SKIRMESS::ProjectSkeleton
   Dist::Zilla::Plugin::Author::SKIRMESS::RemoveDevelopPrereqs
@@ -21,6 +22,7 @@ my @modules = qw(
   Dist::Zilla::Plugin::Author::SKIRMESS::Test::Load
   Dist::Zilla::Plugin::Author::SKIRMESS::UpdatePOD
   Dist::Zilla::PluginBundle::Author::SKIRMESS
+  Dist::Zilla::Role::Author::SKIRMESS::Resources
 );
 
 plan tests => scalar @modules;

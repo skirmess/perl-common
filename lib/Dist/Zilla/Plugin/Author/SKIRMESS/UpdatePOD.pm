@@ -6,7 +6,10 @@ use warnings;
 
 use Moose;
 
-with qw(Dist::Zilla::Role::FileMunger);
+with qw(
+  Dist::Zilla::Role::Author::SKIRMESS::Resources
+  Dist::Zilla::Role::FileMunger
+);
 
 use Path::Tiny;
 
@@ -70,49 +73,6 @@ sub _check_pod_sections {
     return;
 }
 
-sub _get_bugtracker {
-    my ($self) = @_;
-
-    my $resources = $self->_get_resources;
-
-    return if !defined $resources->{bugtracker} || ref $resources->{bugtracker} ne ref {};
-    return if !defined $resources->{bugtracker}->{web} || ref $resources->{bugtracker}->{web} ne ref q{};
-
-    return $resources->{bugtracker}->{web};
-}
-
-sub _get_homepage {
-    my ($self) = @_;
-
-    my $resources = $self->_get_resources;
-
-    return if !defined $resources->{homepage} || ref $resources->{homepage} ne ref q{};
-
-    return $resources->{homepage};
-}
-
-sub _get_repository {
-    my ($self) = @_;
-
-    my $resources = $self->_get_resources;
-
-    return if !defined $resources->{repository} || ref $resources->{repository} ne ref {};
-    return if !defined $resources->{repository}->{url} || ref $resources->{repository}->{url} ne ref q{};
-
-    return $resources->{repository}->{url};
-}
-
-sub _get_resources {
-    my ($self) = @_;
-
-    my $distmeta = $self->zilla->distmeta;
-
-    return if !defined $distmeta;
-    return if !defined $distmeta->{resources} || ref $distmeta->{resources} ne ref {};
-
-    return $distmeta->{resources};
-}
-
 sub _update_pod_section_author {
     my ( $self, $file ) = @_;
 
@@ -169,13 +129,13 @@ sub _update_pod_section_support {
     my $filename = $file->name;
     my $content  = $file->content;
 
-    my $bugtracker = $self->_get_bugtracker;
+    my $bugtracker = $self->bugtracker;
     $self->log_fatal('distmeta does not contain bugtracker') if !defined $bugtracker;
 
-    my $homepage = $self->_get_homepage;
+    my $homepage = $self->homepage;
     $self->log_fatal('distmeta does not contain homepage') if !defined $homepage;
 
-    my $repository = $self->_get_repository;
+    my $repository = $self->repository;
     $self->log_fatal('distmeta does not contain repository') if !defined $repository;
 
     # We must protect this here-doc, otherwise we find the =head1 entries and
