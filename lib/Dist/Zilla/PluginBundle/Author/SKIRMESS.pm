@@ -25,7 +25,12 @@ has set_script_shebang => (
     },
 );
 
+use CHI;
+use File::HomeDir;
+use File::Spec;
+use HTTP::Tiny::Mech;
 use Path::Tiny;
+use WWW::Mechanize::Cached;
 
 use namespace::autoclean 0.09;
 
@@ -84,6 +89,18 @@ sub configure {
           README
         );
     }
+
+    my $dist_dir = __PACKAGE__;
+    $dist_dir =~ s{::}{-}xsmg;
+
+    my $ua = HTTP::Tiny::Mech->new(
+        mechua => WWW::Mechanize::Cached->new(
+            cache => CHI->new(
+                driver   => 'File',
+                root_dir => File::Spec->catdir( File::HomeDir->my_dist_data( $dist_dir, { create => 1 } ), '.cache' ),
+            ),
+        ),
+    );
 
     $self->add_plugins(
 
@@ -147,6 +164,7 @@ sub configure {
                               xt/release/meta-yaml.t
                               ),
                         ],
+                        ua => [$ua],
                       )
                     : ( makefile_pl_exists => 1, )
                 ),

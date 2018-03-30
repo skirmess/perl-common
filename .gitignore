@@ -2,7 +2,6 @@
 *~
 .*.swp
 .build
-.cache
 .perlcritic_package.yml
 dzil-inc-*
 tmp
