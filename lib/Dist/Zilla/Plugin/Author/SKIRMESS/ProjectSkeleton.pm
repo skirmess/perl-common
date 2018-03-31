@@ -582,6 +582,10 @@ The configuration file for AppVeyor.
     $file{q{.appveyor.yml}} = sub {
         my ($self) = @_;
 
+        # https://github.com/rjbs/Data-UUID/issues/24
+        # Create the c:\tmp directory because Data::UUID can't be built on
+        # Windows without it.
+
         my $appveyor_yml = <<'APPVEYOR_YML_1';
 # {{ $plugin->_generated_string() }}
 
@@ -594,6 +598,7 @@ install:
   - if not exist "C:\strawberry" cinst strawberryperl
   - set PATH=C:\strawberry\perl\bin;C:\strawberry\perl\site\bin;C:\strawberry\c\bin;%PATH%
   - cd %APPVEYOR_BUILD_FOLDER%
+  - mkdir C:\tmp
   - cpanm --quiet --installdeps --notest --skip-satisfied --with-develop .
 
 build_script:

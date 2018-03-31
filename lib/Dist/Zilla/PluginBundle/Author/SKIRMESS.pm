@@ -357,6 +357,16 @@ sub configure {
         # Build a Makefile.PL that uses ExtUtils::MakeMaker
         'MakeMaker',
 
+        # list simple prerequisites
+        [
+            'Prereqs::Floor',
+            {
+                # http://blogs.perl.org/users/ovid/2014/02/moose-dying-with-invalid-version-format-version-required.html#comments
+                # Moose 2.1202 or below fails with newer versions of Module::Runtime
+                'Moose' => '2.1203',
+            },
+        ],
+
         # Support running xt tests via dzil test from the project
         [
             'Author::SKIRMESS::RunExtraTests::FromProject',
