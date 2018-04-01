@@ -221,7 +221,7 @@ sub configure {
         [
             'AutoPrereqs',
             {
-                develop_finder => [ ':ExtraTestFiles', '@Author::SKIRMESS/ExtraTestFiles', ],
+                develop_finder => [ ':ExtraTestFiles', '@Author::SKIRMESS/ExtraTestFiles', ],    ## no critic (ValuesAndExpressions::RequireInterpolationOfMetachars)
             },
         ],
 
@@ -309,7 +309,7 @@ sub configure {
         [
             'Author::SKIRMESS::CPANFile',
             {
-                develop_prereqs => '@Author::SKIRMESS/Author::SKIRMESS::RemoveDevelopPrereqs',
+                develop_prereqs => '@Author::SKIRMESS/Author::SKIRMESS::RemoveDevelopPrereqs',    ## no critic (ValuesAndExpressions::RequireInterpolationOfMetachars)
             },
         ],
 

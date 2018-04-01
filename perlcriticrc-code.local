@@ -1,8 +1,2 @@
+# test cannot be configured to allow "$self->log_fatal() if ..."
 [-ControlStructures::ProhibitPostfixControls]
-[-Documentation::RequirePodAtEnd]
-[-RegularExpressions::ProhibitCaptureWithoutTest]
-[-RegularExpressions::ProhibitComplexRegexes]
-[-RegularExpressions::ProhibitEnumeratedClasses]
-[-ValuesAndExpressions::ProhibitMagicNumbers]
-[-ValuesAndExpressions::RequireInterpolationOfMetachars]
-[-Variables::ProhibitLocalVars]

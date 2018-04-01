@@ -37,8 +37,8 @@ sub before_build {
     }
 
     $self->log_fatal("Copyright year must either be '$this_year' or 'yyyy-$this_year' but is '$year'") if $year !~ m{ ^ ( [0-9]{4} ) - ( [0-9]{4} ) $ }xsm;
-    my $first_year = $1;
-    my $last_year  = $2;
+    my $first_year = $1;    ## no critic (RegularExpressions::ProhibitCaptureWithoutTest)
+    my $last_year  = $2;    ## no critic (RegularExpressions::ProhibitCaptureWithoutTest)
 
     $self->log_fatal("First year in copyright year must be a smaller number then second but is '$year'") if $first_year >= $last_year;
 
