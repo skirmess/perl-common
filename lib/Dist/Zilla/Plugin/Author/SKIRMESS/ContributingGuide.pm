@@ -43,9 +43,9 @@ sub gather_files {
 sub munge_file {
     my ( $self, $file ) = @_;
 
-    ( my $main_module = $self->zilla->name ) =~ s{-}{::}xsmg;
-
     return if $file->name ne $self->_filename;
+
+    ( my $main_module = $self->zilla->name ) =~ s{-}{::}xsmg;
 
     $file->content(
         $self->fill_in_string(
@@ -56,7 +56,6 @@ sub munge_file {
             },
         ),
     );
-    $self->log( $file->name );
 
     return;
 }
