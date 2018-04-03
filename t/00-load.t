@@ -20,7 +20,7 @@ my @modules = qw(
   Dist::Zilla::Plugin::Author::SKIRMESS::RemoveDevelopPrereqs
   Dist::Zilla::Plugin::Author::SKIRMESS::RunExtraTests::FromProject
   Dist::Zilla::Plugin::Author::SKIRMESS::Test::Load
-  Dist::Zilla::Plugin::Author::SKIRMESS::UpdatePOD
+  Dist::Zilla::Plugin::Author::SKIRMESS::UpdatePod
   Dist::Zilla::PluginBundle::Author::SKIRMESS
   Dist::Zilla::Role::Author::SKIRMESS::Resources
 );
