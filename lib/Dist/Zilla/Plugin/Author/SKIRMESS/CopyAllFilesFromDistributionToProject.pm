@@ -14,7 +14,6 @@ with qw(
 );
 
 use File::Compare;
-use File::Copy;
 use Path::Tiny;
 
 sub mvp_multivalue_args { return (qw( skip_file )) }
@@ -76,9 +75,11 @@ sub _copy_all_files_back {
             }
         }
 
-        if ( copy( $file, $target ) != 1 ) {
-            $self->log_fatal("Copy $file to $target failed: $!");
+        if ( !-d $target->parent ) {
+            $target->parent->mkpath();
         }
+
+        path($file)->copy($target);
 
         $self->log("Copy $file to $target");
     }
