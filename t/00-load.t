@@ -18,6 +18,7 @@ my @modules = qw(
   Dist::Zilla::Plugin::Author::SKIRMESS::CopyAllFilesFromDistributionToProject
   Dist::Zilla::Plugin::Author::SKIRMESS::ProjectSkeleton
   Dist::Zilla::Plugin::Author::SKIRMESS::RemoveDevelopPrereqs
+  Dist::Zilla::Plugin::Author::SKIRMESS::RemoveWhitespaceFromEndOfLine
   Dist::Zilla::Plugin::Author::SKIRMESS::RunExtraTests::FromProject
   Dist::Zilla::Plugin::Author::SKIRMESS::Test::Load
   Dist::Zilla::Plugin::Author::SKIRMESS::UpdatePod

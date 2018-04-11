@@ -330,6 +330,18 @@ sub configure {
         # Automatically convert POD to a README in any format for Dist::Zilla
         [ 'ReadmeAnyFromPod', 'ReadmeAnyFromPod/ReadmeTextInBuild' ],
 
+        # remove whitespace at end of line
+        (
+            $self_build
+            ? ()
+            : [
+                'Author::SKIRMESS::RemoveWhitespaceFromEndOfLine',
+                {
+                    file => [qw(README)],
+                },
+            ]
+        ),
+
         # Output a LICENSE file
         'License',
 
