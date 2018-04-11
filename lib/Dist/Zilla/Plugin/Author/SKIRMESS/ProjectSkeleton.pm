@@ -875,8 +875,8 @@ L<Test::Perl::Critic|Test::Perl::Critic> author test for F<bin> and F<lib>.
 =cut
 
     $file{q{xt/author/perlcritic-code.t}} = $test_header . <<'XT_AUTHOR_PERLCRITIC_CODE_T';
-use FindBin qw($Bin);
-use Test::Perl::Critic ( -profile => "$Bin/perlcriticrc-code" );
+use FindBin qw($RealBin);
+use Test::Perl::Critic ( -profile => "$RealBin/perlcriticrc-code" );
 
 all_critic_ok(qw(bin lib));
 XT_AUTHOR_PERLCRITIC_CODE_T
@@ -888,8 +888,8 @@ L<Test::Perl::Critic|Test::Perl::Critic> author test for F<t> and F<xt>.
 =cut
 
     $file{q{xt/author/perlcritic-tests.t}} = $test_header . <<'XT_AUTHOR_PERLCRITIC_TESTS_T';
-use FindBin qw($Bin);
-use Test::Perl::Critic ( -profile => "$Bin/perlcriticrc-tests" );
+use FindBin qw($RealBin);
+use Test::Perl::Critic ( -profile => "$RealBin/perlcriticrc-tests" );
 
 all_critic_ok(qw(t xt));
 XT_AUTHOR_PERLCRITIC_TESTS_T
@@ -901,7 +901,7 @@ L<Test::PerlTidy|Test::PerlTidy> author test.
 =cut
 
     $file{q{xt/author/perltidy.t}} = $test_header . <<'XT_AUTHOR_PERLCRITIC_TESTS_T';
-use FindBin qw($Bin);
+use FindBin qw($RealBin);
 use Path::Tiny;
 use Test::More;
 use Test::PerlTidy;
@@ -948,7 +948,7 @@ if ( !@files ) {
 
 plan tests => scalar @files;
 
-my $perltidyrc = path($Bin)->parent(2)->child('.perltidyrc')->stringify;
+my $perltidyrc = path($RealBin)->parent(2)->child('.perltidyrc')->stringify;
 
 $Test::PerlTidy::MUTE = 1;
 
