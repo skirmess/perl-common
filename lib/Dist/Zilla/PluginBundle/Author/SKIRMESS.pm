@@ -174,7 +174,7 @@ sub configure {
         # Create te t/00-load.t test
         'Author::SKIRMESS::Test::Load',
 
-        # update pod with project specific defaults
+        # update Pod with project specific defaults
         'Author::SKIRMESS::UpdatePod',
 
         # fix the file permissions in your Git repository with Dist::Zilla

@@ -28,8 +28,8 @@ sub munge_file {
 
     my $content = $file->content;
 
-    # perl code must contain pod
-    $self->log_fatal("File '$filename' contains no pod") if $content !~ m{ ^ =pod }xsm;
+    # perl code must contain Pod
+    $self->log_fatal("File '$filename' contains no Pod") if $content !~ m{ ^ =pod }xsm;
 
     # Check if the correct sections exist
     $self->_check_pod_sections($file);
@@ -221,7 +221,7 @@ __END__
 
 =head1 NAME
 
-Dist::Zilla::Plugin::Author::SKIRMESS::UpdatePod - update pod with project specific defaults
+Dist::Zilla::Plugin::Author::SKIRMESS::UpdatePod - update Pod with project specific defaults
 
 =head1 VERSION
 
