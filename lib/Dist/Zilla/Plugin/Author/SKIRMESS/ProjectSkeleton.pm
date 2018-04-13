@@ -604,7 +604,7 @@ install:
   - set PATH=C:\strawberry\perl\bin;C:\strawberry\perl\site\bin;C:\strawberry\c\bin;%PATH%
   - cd %APPVEYOR_BUILD_FOLDER%
   - mkdir C:\tmp
-  - cpanm --quiet --installdeps --notest --skip-satisfied --with-develop .
+  - cpanm --verbose --installdeps --notest --skip-satisfied --with-develop .
 
 build_script:
 APPVEYOR_YML_1
@@ -751,9 +751,9 @@ install:
   - |
     if [ -n "$AUTHOR_TESTING" ]
     then
-      cpanm --quiet --installdeps --notest --skip-satisfied --with-develop .
+      cpanm --verbose --installdeps --notest --skip-satisfied --with-develop .
     else
-      cpanm --quiet --installdeps --notest --skip-satisfied .
+      cpanm --verbose --installdeps --notest --skip-satisfied .
     fi
 
 script:
