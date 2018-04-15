@@ -984,23 +984,22 @@ if ( exists $ENV{AUTOMATED_TESTING} ) {
 Test::Pod::LinkCheck->new->all_pod_ok( Test::Pod::all_pod_files( grep { -d } qw(bin lib t xt) ) );
 XT_AUTHOR_POD_LINKCHECK_T
 
-=head2 xt/author/pod-no404s.t
+=head2 xt/author/pod-links.t
 
-L<Test::Pod::No404s|Test::Pod::No404s> author test.
+L<Test::Pod::Links|Test::Pod::Links> author test.
 
 =cut
 
-    $file{q{xt/author/pod-no404s.t}} = $test_header . <<'XT_AUTHOR_POD_NO404S_T';
-use Test::Pod;
-use Test::Pod::No404s;
+    $file{q{xt/author/pod-links.t}} = $test_header . <<'XT_AUTHOR_POD_LINKS_T';
+use Test::Pod::Links;
 
 if ( exists $ENV{AUTOMATED_TESTING} ) {
     print "1..0 # SKIP these tests during AUTOMATED_TESTING\n";
     exit 0;
 }
 
-all_pod_files_ok( Test::Pod::all_pod_files( grep { -d } qw(bin lib t xt) ) );
-XT_AUTHOR_POD_NO404S_T
+Test::Pod::Links->new->all_pod_files_ok( grep { -d } qw(bin lib t xt) );
+XT_AUTHOR_POD_LINKS_T
 
 =head2 xt/author/pod-spell.t
 
