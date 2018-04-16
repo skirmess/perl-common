@@ -69,6 +69,7 @@ requires 'Moose', '2.1203';
 requires 'Moose::Role';
 requires 'Path::Tiny';
 requires 'WWW::Mechanize::Cached';
+requires 'constant';
 requires 'namespace::autoclean', '0.09';
 requires 'perl', '5.006';
 requires 'strict';

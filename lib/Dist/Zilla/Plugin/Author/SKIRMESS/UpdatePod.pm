@@ -17,6 +17,10 @@ use Path::Tiny;
 
 use namespace::autoclean;
 
+use constant REQUIRED  => 1;
+use constant ALLOWED   => 2;
+use constant FORBIDDEN => 3;
+
 sub munge_file {
     my ( $self, $file ) = @_;
 
@@ -57,20 +61,52 @@ sub _check_pod_sections {
         $section =~ s{ ^ =head1 \s+ }{}xsm;
     }
 
-    my @needed_sections = ( 'NAME', 'VERSION', 'SUPPORT', 'AUTHOR', 'COPYRIGHT AND LICENSE' );
+    my $is_lib = $file->name =~ m{ [.] pm $ }xsm;
+
+    my @needed_sections = (
+        [ 'NAME',        REQUIRED ],
+        [ 'VERSION',     REQUIRED ],
+        [ 'SYNOPSIS',    ALLOWED ],
+        [ 'DESCRIPTION', ALLOWED ],
+        [ 'USAGE',       ( $is_lib ? ALLOWED   : FORBIDDEN ) ],
+        [ 'OPTIONS',     ( $is_lib ? FORBIDDEN : ALLOWED ) ],
+        [ 'SUBCOMMANDS', ( $is_lib ? FORBIDDEN : ALLOWED ) ],
+        [ 'EXIT STATUS', ( $is_lib ? FORBIDDEN : ALLOWED ) ],
+        [ 'EXAMPLES',              ALLOWED ],
+        [ 'ENVIRONMENT',           ALLOWED ],
+        [ 'RATIONALE',             ALLOWED ],
+        [ 'SEE ALSO',              ALLOWED ],
+        [ 'SUPPORT',               REQUIRED ],
+        [ 'AUTHOR',                REQUIRED ],
+        [ 'CONTRIBUTORS',          ALLOWED ],
+        [ 'COPYRIGHT AND LICENSE', REQUIRED ],
+    );
 
   SECTION:
     while ( @needed_sections && @sections ) {
-        if ( $needed_sections[0] eq $sections[0] ) {
+        if ( $needed_sections[0][0] eq $sections[0] ) {
+            if ( $needed_sections[0][1] != FORBIDDEN ) {
+                shift @needed_sections;
+                shift @sections;
+                next SECTION;
+            }
+
+            $self->log_fatal( "Section '$sections[0]' found but is forbidden in '" . $file->name . q{'} );
+        }
+
+        if ( $needed_sections[0][1] != REQUIRED ) {
             shift @needed_sections;
-            shift @sections;
             next SECTION;
         }
 
-        shift @sections;
+        $self->log_fatal( "Section '$sections[0]' either not allowed or in the wrong position in file '" . $file->name . q{'} );
     }
 
-    $self->log_fatal( "Section '$needed_sections[0]' not found or in the wrong order in '" . $file->name . q{'} ) if @needed_sections;
+    while ( @needed_sections && $needed_sections[0][1] != REQUIRED ) {
+        shift @needed_sections;
+    }
+
+    $self->log_fatal( "Required section '$needed_sections[0]' not found in '" . $file->name . q{'} ) if @needed_sections;
 
     return;
 }

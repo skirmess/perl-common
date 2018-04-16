@@ -135,7 +135,7 @@ private_name_regex = _(?!build_)\w+
 [ValuesAndExpressions::ProhibitComplexVersion]
 forbid_use_version = 1
 
-[ValuesAndExpressions::ProhibitConstantPragma]
+#[ValuesAndExpressions::ProhibitConstantPragma]
 [ValuesAndExpressions::ProhibitEmptyQuotes]
 [ValuesAndExpressions::ProhibitEscapedCharacters]
 [ValuesAndExpressions::ProhibitImplicitNewlines]
