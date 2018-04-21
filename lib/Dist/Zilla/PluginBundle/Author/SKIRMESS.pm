@@ -29,6 +29,7 @@ use CHI;
 use File::HomeDir;
 use File::Spec;
 use HTTP::Tiny::Mech;
+use Module::Metadata ();
 use Path::Tiny;
 use WWW::Mechanize::Cached;
 
@@ -112,6 +113,7 @@ sub configure {
                 check_authordeps  => 1,
                 check_all_plugins => 1,
                 check_all_prereqs => 1,
+                skip              => [ sort keys %{ Module::Metadata->package_versions_from_directory( $self_build ? 'lib' : 'dzil-inc/lib' ) } ],
             },
         ],
 

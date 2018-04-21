@@ -65,6 +65,7 @@ requires 'HTTP::Tiny';
 requires 'HTTP::Tiny::Mech';
 requires 'List::SomeUtils';
 requires 'Module::CPANfile';
+requires 'Module::Metadata';
 requires 'Moose', '2.1203';
 requires 'Moose::Role';
 requires 'Path::Tiny';
