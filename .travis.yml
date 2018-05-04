@@ -17,29 +17,23 @@ git:
 matrix:
   include:
     - perl: '5.14'
-      env: AUTHOR_TESTING=1
 
     - perl: '5.16'
-      env: AUTHOR_TESTING=1
 
     - perl: '5.18'
-      env: AUTHOR_TESTING=1
 
     - perl: '5.18'
       env: AUTHOR_TESTING=1
       os: osx
 
     - perl: '5.20'
-      env: AUTHOR_TESTING=1
 
     - perl: '5.22'
-      env: AUTHOR_TESTING=1
 
     - perl: '5.24'
       env: AUTHOR_TESTING=1
 
     - perl: '5.26'
-      env: AUTHOR_TESTING=1
 
 before_install:
   - |
@@ -60,14 +54,16 @@ before_install:
         eval $(perl -I $HOME/perl5/lib/perl5/ -Mlocal::lib)
         ;;
     esac
+  - perl -V
+  - curl -L https://raw.githubusercontent.com/skirmess/dzil-inc/master/bin/check-travis-perl-version | perl -
 
 install:
   - |
     if [ -n "$AUTHOR_TESTING" ]
     then
-      cpanm --verbose --installdeps --notest --skip-satisfied --with-develop .
+        cpanm --verbose --installdeps --notest --skip-satisfied --with-develop .
     else
-      cpanm --verbose --installdeps --notest --skip-satisfied .
+        cpanm --verbose --installdeps --notest --skip-satisfied .
     fi
 
 script:
@@ -75,5 +71,5 @@ script:
   - |
     if [ -n "$AUTHOR_TESTING" ]
     then
-      prove -lr xt/author
+        prove -lr xt/author
     fi

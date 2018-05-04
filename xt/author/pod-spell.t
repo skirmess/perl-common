@@ -21,6 +21,7 @@ __DATA__
 <sven.kirmess@kzone.ch>
 AppVeyor
 BeforeArchive
+CI
 Kirmess
 MyBundle
 RunExtraTests
@@ -31,6 +32,7 @@ appveyor
 cpanfile
 dist
 distmeta
+osx
 perltidy
 perltidyrc
 travis

@@ -1,0 +1,96 @@
+#!/usr/bin/env perl
+
+use 5.006;
+use strict;
+use warnings;
+
+if ( !caller ) {
+    main();
+    exit 1;
+}
+
+sub main {
+    print "Travis Perl:  $ENV{TRAVIS_PERL_VERSION}\n";
+    print "Perl:         $]\n";
+
+    _check_perl_version();
+
+    print "Perl $ENV{TRAVIS_PERL_VERSION} is requested and $] is installed. Good!\n";
+    exit 0;
+}
+
+sub _check_perl_version {
+    die "Unable to parse environment variable TRAVIS_PERL_VERSION\n" if $ENV{TRAVIS_PERL_VERSION} !~ m{ ^ ( 5 ) [.] ( [0-9]+ ) (?: [.] ( [0-9]+ ) )? $ }xsm;
+    my ( $major, $minor, $patch ) = ( $1, $2, $3 );    ## no critic (RegularExpressions::ProhibitCaptureWithoutTest)
+
+    if ( defined $patch ) {
+        my $want = sprintf '%i.%03i', $major, $minor;
+        return if $] eq $want && $patch eq q{0};
+
+        $want .= sprintf '%03i', $patch;
+
+        return if $] eq $want;
+    }
+    else {
+        my $min = $major + $minor * 0.001;
+        my $max = $major + ( $minor + 1 ) * 0.001;
+
+        return if $] >= $min && $] < $max;
+    }
+
+    die "We asked for Perl $ENV{TRAVIS_PERL_VERSION} but got $]\n";
+}
+
+1;
+
+__END__
+
+=pod
+
+=encoding UTF-8
+
+=head1 NAME
+
+check-travis-perl-version - Check that we have the request Perl version on Travis CI
+
+=head1 VERSION
+
+Version 1.000
+
+=head1 DESCRIPTION
+
+Checks that the Perl version this script runs under is the version specified
+in the C<TRAVIS_PERL_VERSION> environment variable.
+
+=head1 SUPPORT
+
+=head2 Bugs / Feature Requests
+
+Please report any bugs or feature requests through the issue tracker
+at L<https://github.com/skirmess/dzil-inc/issues>.
+You will be notified automatically of any progress on your issue.
+
+=head2 Source Code
+
+This is open source software. The code repository is available for
+public review and contribution under the terms of the license.
+
+L<https://github.com/skirmess/dzil-inc>
+
+  git clone https://github.com/skirmess/dzil-inc.git
+
+=head1 AUTHOR
+
+Sven Kirmess <sven.kirmess@kzone.ch>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2017-2018 by Sven Kirmess.
+
+This is free software, licensed under:
+
+  The (two-clause) FreeBSD License
+
+=cut
+
+# vim: ts=4 sts=4 sw=4 et: syntax=perl

@@ -166,10 +166,19 @@ sub configure {
                               xt/release/meta-yaml.t
                               ),
                         ],
-                        ua => [$ua],
                       )
-                    : ( makefile_pl_exists => 1, )
+                    : ( makefile_pl_exists => 1, ),
+                    ua => [$ua],
                 ),
+            },
+        ],
+
+        # Check at build/release time if modules are out of date
+        [
+            'PromptIfStale', 'PromptIfStale / CPAN::Perl::Releases',
+            {
+                phase  => 'build',
+                module => [qw(CPAN::Perl::Releases)],
             },
         ],
 
@@ -378,6 +387,9 @@ sub configure {
                 # http://blogs.perl.org/users/ovid/2014/02/moose-dying-with-invalid-version-format-version-required.html#comments
                 # Moose 2.1202 or below fails with newer versions of Module::Runtime
                 'Moose' => '2.1203',
+
+                # https://github.com/dagolden/Test-TempDir-Tiny/pull/14
+                'Test::TempDir::Tiny' => '0.017',
             },
         ],
 

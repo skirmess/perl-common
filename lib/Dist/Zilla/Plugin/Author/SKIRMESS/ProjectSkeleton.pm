@@ -13,15 +13,19 @@ with qw(
   Dist::Zilla::Role::TextTemplate
 );
 
-use HTTP::Tiny;
 use Config::Std { def_sep => q{=} };
-use CPAN::Meta::YAML;
-use List::SomeUtils qw(uniq);
-use Path::Tiny;
+use CPAN::Meta::YAML ();
+use CPAN::Perl::Releases qw(perl_versions);
+use HTTP::Tiny ();
+use List::Util qw(any uniq);
+use MetaCPAN::Client;
+use MetaCPAN::Helper;
+use Path::Tiny qw(path);
+use version 0.77;
 
 use namespace::autoclean;
 
-sub mvp_multivalue_args { return (qw( skip stopwords travis_ci_ignore_perl travis_ci_no_author_testing_perl travis_ci_osx_perl )) }
+sub mvp_multivalue_args { return (qw( skip stopwords travis_ci_author_testing_perl travis_ci_osx_perl )) }
 
 has makefile_pl_exists => (
     is      => 'ro',
@@ -41,16 +45,22 @@ has stopwords => (
     default => sub { [] },
 );
 
-has travis_ci_ignore_perl => (
+has travis_ci_author_testing_perl => (
     is      => 'ro',
     isa     => 'Maybe[ArrayRef]',
-    default => sub { [] },
+    default => sub { [qw(5.24)] },
 );
 
-has travis_ci_no_author_testing_perl => (
+has travis_ci_dist_zilla => (
     is      => 'ro',
-    isa     => 'Maybe[ArrayRef]',
-    default => sub { [qw(5.8)] },
+    isa     => 'Bool',
+    default => undef,
+);
+
+has travis_ci_earliest_perl => (
+    is      => 'ro',
+    isa     => 'Str',
+    default => '5.8',
 );
 
 has travis_ci_osx_perl => (
@@ -69,13 +79,6 @@ has _generated_string => (
     is      => 'ro',
     isa     => 'Str',
     default => 'Automatically generated file; DO NOT EDIT.',
-);
-
-has _travis_available_perl => (
-    is      => 'ro',
-    isa     => 'ArrayRef[Str]',
-    default => sub { [qw(5.8 5.10 5.12 5.14 5.16 5.18 5.20 5.22 5.24 5.26)] },
-    traits  => ['Array'],
 );
 
 sub before_build {
@@ -147,6 +150,56 @@ CPAN distributions which makes it easy to keep them all up to date.
 The following files are created in the repository and in the distribution:
 
 =cut
+
+# Returns the latest releases of Dist::Zilla for major release 5 and 6
+sub _latest_dist_zilla_releases {
+    my ($self) = @_;
+
+    my $t_start = time;
+    $self->log('Finding latest Dist::Zilla release');
+
+    my $helper = MetaCPAN::Helper->new(
+        client => MetaCPAN::Client->new( ua => $self->ua ),
+    );
+
+    my $dist       = $helper->module2dist('Dist::Zilla');
+    my $result_set = $helper->dist2releases($dist);
+
+    my @latest = (
+        [ version->parse('v7'), version->parse('v7') ],
+        [ version->parse('v6'), version->parse('v6') ],
+        [ version->parse('v5'), version->parse('v5') ],
+    );
+
+  RELEASE:
+    while ( defined( my $release = $result_set->next ) ) {
+        my $version = version->parse( $release->version );
+
+        for my $latest_ref (@latest) {
+            if ( $version >= $latest_ref->[0] ) {
+                if ( $version > $latest_ref->[1] ) {
+                    $latest_ref->[1] = $version;
+                }
+
+                next RELEASE;
+            }
+        }
+
+        # skip all releases < 5
+    }
+
+    if ( $latest[0]->[0] != $latest[0]->[1] ) {
+        $self->log("New Dist::Zilla version found: $latest[0]->[1]\n");
+    }
+
+    my $duration = time - $t_start;
+    $self->log( "Found Dist::Zilla $latest[-1]->[1] and $latest[-2]->[1] after $duration second" . ( $duration == 1 ? q{} : 's' ) );
+
+    return {
+        '5' => $latest[-1]->[1]->numify,
+        '6' => $latest[-2]->[1]->numify,
+    };
+}
 
 # Returns an iterator that can be used to iterate over all the perlcritic
 # policies in a policy distribution.
@@ -549,6 +602,87 @@ PERLCRITICRC_TEMPLATE
     return $content;
 }
 
+sub _relevant_perl_5_8_versions {
+    my ($self) = @_;
+
+    my $earliest_perl = $self->travis_ci_earliest_perl;
+    return if version->parse("v$earliest_perl") >= version->parse('v5.9');
+
+    $self->log_fatal('Perl 5.8.0 is not supported because cpanm does not work on 5.8.0') if $earliest_perl eq '5.8.0';
+    $self->log_fatal("Perl $earliest_perl does not exist") if version->parse("v$earliest_perl") > version->parse('v5.8.9');
+
+    return qw(5.8.1 5.8.2 5.8) if $earliest_perl eq '5.8' || $earliest_perl eq '5.8.1';
+    return $earliest_perl, '5.8' if version->parse("v$earliest_perl") < version->parse('v5.8.8');
+
+    return $earliest_perl;
+}
+
+sub _relevant_perl_5_10_versions {
+    my ($self) = @_;
+
+    my $earliest_perl = $self->travis_ci_earliest_perl;
+    return if version->parse("v$earliest_perl") >= version->parse('v5.11');
+
+    $self->log_fatal("Perl $earliest_perl does not exist") if version->parse("v$earliest_perl") > version->parse('v5.10.1');
+
+    return '5.10' if $earliest_perl eq '5.10.1';
+    return qw(5.10.0 5.10);
+}
+
+# This generates a list of Perl versions I think are relevant to be tested on
+# Travis CI. The list includes all stable versions of Perl, starting with
+# 5.8, as major.minor entry. Additionally, the following versions are added:
+#  - 5.8.0
+#  - 5.8.1
+#  - 5.8.2
+#  - 5.10.0
+sub _relevant_perl_versions {
+    my ($self) = @_;
+
+    my $earliest_perl = $self->travis_ci_earliest_perl;
+
+    # Generate the list of all stable versions of perl as major.minor,
+    # starting with 5.12 (or the first version we are interested in).
+    my %perl;
+  PERL:
+    for my $perl ( perl_versions() ) {
+        next PERL if $perl !~ m { ^ 5 [.] ( [1-9][0-9]* ) [.] [0-9]+ $ }xsm;
+        my $minor = $1;    ## no critic (RegularExpressions::ProhibitCaptureWithoutTest)
+
+        # Remove dev releases
+        next PERL if $minor % 2;
+
+        next PERL if version->parse("v5.$minor") < version->parse("v$earliest_perl");
+        next PERL if $minor < 12;
+
+        $perl{$minor} = 1;
+    }
+
+    my @perls;
+
+    if ( version->parse("v$earliest_perl") < version->parse('v5.11') ) {
+        if ( version->parse("v$earliest_perl") < version->parse('v5.9') ) {
+            @perls = $self->_relevant_perl_5_8_versions;
+        }
+
+        push @perls, $self->_relevant_perl_5_10_versions;
+    }
+    elsif ( $earliest_perl =~ m{ ^ 5 [.] ( [1-9][0-9]* ) [.] ( [0-9]+ ) $ }xsm ) {
+
+        # if the earliest perl version has a patch level, add this version to
+        # the versions to be tested but skip the major.minor from Travis for
+        # this release. The _relevant_perl_5_8_versions and
+        # _relevant_perl_5_10_versionsal method already does that for these releases.
+
+        @perls = "5.$1.$2";
+    }
+
+    # Add the releases >= 5.12 releases
+    push @perls, map { "5.$_" } sort { $a <=> $b } keys %perl;
+
+    return @perls;
+}
+
 {
     # Files to generate
     my %file;
@@ -658,21 +792,22 @@ PERLTIDYRC
 =head2 .travis.yml
 
 The configuration file for TravisCI. All known supported Perl versions are
-enabled unless disabled with B<travis_ci_ignore_perl>.
+enabled unless they are older then B<travis_ci_earliest_perl>.
 
 With B<travis_ci_osx_perl> you can specify one or multiple Perl versions to
 be tested on OSX, in addition to on Linux. If omitted it defaults to one
 single version.
 
-Use the B<travis_ci_no_author_testing_perl> option to disable author tests on
-some Perl versions.
+Use the B<travis_ci_author_testing_perl> option to enable author tests on
+specific Perl versions. By default it is only enabled on one version.
+Additionally, author testing is enabled on the osx run.
 
 =cut
 
     $file{q{.travis.yml}} = sub {
         my ($self) = @_;
 
-        my $travis_yml = <<'TRAVIS_YML_1';
+        my $travis_yml = <<'TRAVIS_YML';
 # {{ $plugin->_generated_string() }}
 
 language: perl
@@ -691,21 +826,22 @@ git:
 
 matrix:
   include:
-TRAVIS_YML_1
+TRAVIS_YML
 
-        my %ignore_perl;
-        @ignore_perl{ @{ $self->travis_ci_ignore_perl } } = ();
-
-        my %no_auth;
-        @no_auth{ @{ $self->travis_ci_no_author_testing_perl } } = ();
+        my %auth;
+        @auth{ @{ $self->travis_ci_author_testing_perl } } = ();
 
         my %osx_perl;
         @osx_perl{ @{ $self->travis_ci_osx_perl } } = ();
 
-      PERL:
-        for my $perl ( @{ $self->_travis_available_perl } ) {
-            next PERL if exists $ignore_perl{$perl};
+        my $dzil_used = $self->travis_ci_dist_zilla;
 
+        my $perl_helper_used = 0;
+
+        my %latest_dzil_release = %{ $self->_latest_dist_zilla_releases };
+
+      PERL:
+        for my $perl ( $self->_relevant_perl_versions ) {
             my @os = (undef);
             if ( exists $osx_perl{$perl} ) {
                 push @os, 'osx';
@@ -714,8 +850,29 @@ TRAVIS_YML_1
             for my $os (@os) {
                 $travis_yml .= "    - perl: '$perl'\n";
 
-                if ( !exists $no_auth{$perl} ) {
-                    $travis_yml .= "      env: AUTHOR_TESTING=1\n";
+                if ( $perl =~ m{ ^ 5 [.] ( [1-9][0-9]* ) [.] ( [0-9]+ ) $ }xsm ) {
+                    $perl_helper_used = 1;
+                }
+
+                my @env;
+
+                if ($dzil_used) {
+                    $self->log_fatal('I cannot install Dist::Zilla on Perl below 5.8.8 (because Net::SSLeay fails to install)') if version->parse("v$perl") < version->parse('v5.8.8');
+
+                    if ( version->parse("v$perl") < version->parse('v5.14') ) {
+                        push @env, "DIST_ZILLA=$latest_dzil_release{5}";
+                    }
+                    else {
+                        push @env, "DIST_ZILLA=$latest_dzil_release{6}";
+                    }
+                }
+
+                if ( ( exists $auth{$perl} ) or ( defined $os ) ) {
+                    push @env, 'AUTHOR_TESTING=1';
+                }
+
+                if (@env) {
+                    $travis_yml .= '      env: ' . join( q{ }, @env ) . "\n";
                 }
 
                 if ( defined $os ) {
@@ -726,7 +883,7 @@ TRAVIS_YML_1
             }
         }
 
-        $travis_yml .= <<'TRAVIS_YML_2';
+        $travis_yml .= <<'TRAVIS_YML';
 before_install:
   - |
     case "${TRAVIS_OS_NAME}" in
@@ -746,31 +903,76 @@ before_install:
         eval $(perl -I $HOME/perl5/lib/perl5/ -Mlocal::lib)
         ;;
     esac
+TRAVIS_YML
+
+        if ($perl_helper_used) {
+            $travis_yml .= <<'TRAVIS_YML';
+  - |
+    if [[ $TRAVIS_PERL_VERSION =~ 5[.][1-9][0-9]*[.][0-9][0-9]* ]]
+    then
+        echo "Initializing the Travis Perl Helper"
+
+        if [ -z "$AUTHOR_TESTING" ]
+        then
+            AUTHOR_TESTING=0
+        fi
+
+        git clone git://github.com/travis-perl/helpers ~/travis-perl-helpers
+        source ~/travis-perl-helpers/init
+        build-perl
+
+        if [ "$AUTHOR_TESTING" = 0 ]
+        then
+            unset AUTHOR_TESTING
+        fi
+    fi
+TRAVIS_YML
+
+        }
+
+        $travis_yml .= <<'TRAVIS_YML';
+  - perl -V
+  - curl -L https://raw.githubusercontent.com/skirmess/dzil-inc/master/bin/check-travis-perl-version | perl -
 
 install:
+TRAVIS_YML
+
+        if ($dzil_used) {
+            $travis_yml .= <<'TRAVIS_YML';
+  - |
+    if [ -n "$DIST_ZILLA" ]
+    then
+        cpanm --verbose --notest --skip-satisfied Dist::Zilla@$DIST_ZILLA
+        dzil version
+    fi
+TRAVIS_YML
+
+        }
+
+        $travis_yml .= <<'TRAVIS_YML';
   - |
     if [ -n "$AUTHOR_TESTING" ]
     then
-      cpanm --verbose --installdeps --notest --skip-satisfied --with-develop .
+        cpanm --verbose --installdeps --notest --skip-satisfied --with-develop .
     else
-      cpanm --verbose --installdeps --notest --skip-satisfied .
+        cpanm --verbose --installdeps --notest --skip-satisfied .
     fi
 
 script:
-TRAVIS_YML_2
+TRAVIS_YML
 
         $travis_yml .=
           $self->makefile_pl_exists()
           ? "  - perl Makefile.PL && make test\n"
           : "  - prove -lr t\n";
 
-        $travis_yml .= <<'TRAVIS_YML_3';
+        $travis_yml .= <<'TRAVIS_YML';
   - |
     if [ -n "$AUTHOR_TESTING" ]
     then
-      prove -lr xt/author
+        prove -lr xt/author
     fi
-TRAVIS_YML_3
+TRAVIS_YML
 
         return $travis_yml;
     };
@@ -1195,9 +1397,23 @@ C<stopwords> - Defines stopwords for the spell checker.
 
 =item *
 
-C<travis_ci_ignore_perl> - By default, the generated F<.travis.yml> file
+C<travis_ci_author_testing_perl> - Only run author tests on these versions.
+
+=item *
+
+C<travis_ci_dist_zilla> - Generate the F<.travis.yml> which installs the
+latest L<Dist::Zilla|Dist::Zilla> that runs on this version of Perl. This is used to
+support tests that run with L<Test::DZil|Test::DZil>.
+
+=item *
+
+C<travis_ci_earliest_perl> - By default, the generated F<.travis.yml> file
 runs on all Perl version known to exist on TravisCI. Use the
-C<travis_ci_ignore_perl> option to define Perl versions to not check.
+C<travis_ci_earliest_perl> option to define Perl versions to not check.
+
+=item *
+
+C<travis_ci_osx_perl> - Only run this version on osx.
 
 =back
 

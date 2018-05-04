@@ -1,6 +1,7 @@
 requires 'App::Prove';
 requires 'CHI';
 requires 'CPAN::Meta::YAML';
+requires 'CPAN::Perl::Releases';
 requires 'Config::Std';
 requires 'Dist::Zilla';
 requires 'Dist::Zilla::File::InMemory';
@@ -40,7 +41,6 @@ requires 'Dist::Zilla::Plugin::PruneCruft';
 requires 'Dist::Zilla::Plugin::ReadmeAnyFromPod';
 requires 'Dist::Zilla::Plugin::RemovePrereqs::Provided';
 requires 'Dist::Zilla::Plugin::ReversionOnRelease';
-requires 'Dist::Zilla::Plugin::SetScriptShebang';
 requires 'Dist::Zilla::Plugin::ShareDir';
 requires 'Dist::Zilla::Plugin::TestRelease';
 requires 'Dist::Zilla::Plugin::UploadToCPAN';
@@ -63,7 +63,9 @@ requires 'File::Spec';
 requires 'File::pushd';
 requires 'HTTP::Tiny';
 requires 'HTTP::Tiny::Mech';
-requires 'List::SomeUtils';
+requires 'List::Util';
+requires 'MetaCPAN::Client';
+requires 'MetaCPAN::Helper';
 requires 'Module::CPANfile';
 requires 'Module::Metadata';
 requires 'Moose', '2.1203';
@@ -74,6 +76,7 @@ requires 'constant';
 requires 'namespace::autoclean', '0.09';
 requires 'perl', '5.006';
 requires 'strict';
+requires 'version', '0.77';
 requires 'warnings';
 
 on configure => sub {
