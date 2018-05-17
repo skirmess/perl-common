@@ -27,6 +27,36 @@ use namespace::autoclean;
 
 sub mvp_multivalue_args { return (qw( skip stopwords travis_ci_author_testing_perl travis_ci_osx_perl )) }
 
+has appveyor_test_on_cygwin => (
+    is      => 'ro',
+    isa     => 'Bool',
+    default => 1,
+);
+
+has appveyor_test_on_cygwin64 => (
+    is      => 'ro',
+    isa     => 'Bool',
+    default => 1,
+);
+
+has appveyor_test_on_strawberry => (
+    is      => 'ro',
+    isa     => 'Bool',
+    default => 1,
+);
+
+has ci_dist_zilla => (
+    is      => 'ro',
+    isa     => 'Bool',
+    default => undef,
+);
+
+has ci_earliest_perl => (
+    is      => 'ro',
+    isa     => 'Str',
+    default => '5.8',
+);
+
 has makefile_pl_exists => (
     is      => 'ro',
     isa     => 'Bool',
@@ -49,18 +79,6 @@ has travis_ci_author_testing_perl => (
     is      => 'ro',
     isa     => 'Maybe[ArrayRef]',
     default => sub { [qw(5.24)] },
-);
-
-has travis_ci_dist_zilla => (
-    is      => 'ro',
-    isa     => 'Bool',
-    default => undef,
-);
-
-has travis_ci_earliest_perl => (
-    is      => 'ro',
-    isa     => 'Str',
-    default => '5.8',
 );
 
 has travis_ci_osx_perl => (
@@ -605,7 +623,7 @@ PERLCRITICRC_TEMPLATE
 sub _relevant_perl_5_8_versions {
     my ($self) = @_;
 
-    my $earliest_perl = $self->travis_ci_earliest_perl;
+    my $earliest_perl = $self->ci_earliest_perl;
     return if version->parse("v$earliest_perl") >= version->parse('v5.9');
 
     $self->log_fatal('Perl 5.8.0 is not supported because cpanm does not work on 5.8.0') if $earliest_perl eq '5.8.0';
@@ -620,7 +638,7 @@ sub _relevant_perl_5_8_versions {
 sub _relevant_perl_5_10_versions {
     my ($self) = @_;
 
-    my $earliest_perl = $self->travis_ci_earliest_perl;
+    my $earliest_perl = $self->ci_earliest_perl;
     return if version->parse("v$earliest_perl") >= version->parse('v5.11');
 
     $self->log_fatal("Perl $earliest_perl does not exist") if version->parse("v$earliest_perl") > version->parse('v5.10.1');
@@ -639,7 +657,7 @@ sub _relevant_perl_5_10_versions {
 sub _relevant_perl_versions {
     my ($self) = @_;
 
-    my $earliest_perl = $self->travis_ci_earliest_perl;
+    my $earliest_perl = $self->ci_earliest_perl;
 
     # Generate the list of all stable versions of perl as major.minor,
     # starting with 5.12 (or the first version we are interested in).
@@ -681,6 +699,31 @@ sub _relevant_perl_versions {
     push @perls, map { "5.$_" } sort { $a <=> $b } keys %perl;
 
     return @perls;
+}
+
+sub _relevant_strawberry_perl_versions {
+    my ($self) = @_;
+
+    my $earliest_perl = $self->ci_earliest_perl;
+
+    my @strawberries = (
+        [ 'v5.14.4', '5.14.4.1' ],
+        [ 'v5.16.3', '5.16.3.20170202' ],
+        [ 'v5.18.4', '5.18.4.1' ],
+        [ 'v5.20.3', '5.20.3.3' ],
+        [ 'v5.22.3', '5.22.3.1' ],
+        [ 'v5.24.4', '5.24.4.1' ],
+    );
+
+    my @result;
+
+  PERL:
+    for my $v_ref (@strawberries) {
+        next PERL if version->parse("v$earliest_perl") > version->parse( $v_ref->[0] );
+        push @result, $v_ref->[1];
+    }
+
+    return @result;
 }
 
 {
@@ -725,51 +768,164 @@ The configuration file for AppVeyor.
         # Create the c:\tmp directory because Data::UUID can't be built on
         # Windows without it.
 
-        my $appveyor_yml = <<'APPVEYOR_YML_1';
+        my $appveyor_yml = <<'APPVEYOR_YML';
 # {{ $plugin->_generated_string() }}
 
 skip_tags: true
 
-cache:
-  - C:\strawberry -> appveyor.yml
+environment:
+  AUTOMATED_TESTING: 1
+  TAR_OPTIONS: --warning=no-unknown-keyword
 
+  matrix:
+APPVEYOR_YML
+
+        my $appveyor_perl_used = 0;
+
+        if ( $self->appveyor_test_on_cygwin ) {
+            $appveyor_perl_used = 1;
+            $appveyor_yml .= <<'APPVEYOR_YML';
+    - PERL_TYPE: cygwin
+      AUTHOR_TESTING: 1
+
+APPVEYOR_YML
+        }
+
+        if ( $self->appveyor_test_on_cygwin64 ) {
+            $appveyor_perl_used = 1;
+            $appveyor_yml .= <<'APPVEYOR_YML';
+    - PERL_TYPE: cygwin64
+      AUTHOR_TESTING: 1
+
+APPVEYOR_YML
+        }
+
+        if ( $self->appveyor_test_on_strawberry ) {
+            $appveyor_perl_used = 1;
+            $appveyor_yml .= <<'APPVEYOR_YML';
+    - PERL_TYPE: strawberry
+      AUTHOR_TESTING: 1
+
+APPVEYOR_YML
+        }
+
+        $self->log_fatal('No Perl enabled for AppVeyor') if !$appveyor_perl_used;
+
+        for my $strawberry ( $self->_relevant_strawberry_perl_versions ) {
+            $appveyor_yml .= <<"APPVEYOR_YML";
+    - PERL_TYPE: strawberry
+      PERL_VERSION: $strawberry
+
+APPVEYOR_YML
+        }
+
+        $appveyor_yml .= <<'APPVEYOR_YML';
 install:
-  - if not exist "C:\strawberry" cinst strawberryperl
-  - set PATH=C:\strawberry\perl\bin;C:\strawberry\perl\site\bin;C:\strawberry\c\bin;%PATH%
-  - cd %APPVEYOR_BUILD_FOLDER%
+  - ps: 'Write-Host "ERROR: Unknown Perl type ''$env:PERL_TYPE''"'
+  - exit 1
+
+for:
+APPVEYOR_YML
+
+        if ( $self->appveyor_test_on_cygwin ) {
+            $appveyor_yml .= <<'APPVEYOR_YML';
+  -
+    matrix:
+      only:
+        - PERL_TYPE: cygwin
+
+    install:
+      - c:\cygwin\setup-x86.exe -q -C devel -C perl -P libcrypt-devel -P openssl-devel
+      - set PATH=C:\cygwin\bin;C:\cygwin\usr\local\bin;%PATH%
+
+APPVEYOR_YML
+        }
+
+        if ( $self->appveyor_test_on_cygwin64 ) {
+            $appveyor_yml .= <<'APPVEYOR_YML';
+  -
+    matrix:
+      only:
+        - PERL_TYPE: cygwin64
+
+    install:
+      - c:\cygwin64\setup-x86_64.exe -q -C devel -C perl -P libcrypt-devel -P openssl-devel
+      - set PATH=C:\cygwin64\bin;C:\cygwin64\usr\local\bin;%PATH%
+
+APPVEYOR_YML
+        }
+
+        if ( $self->appveyor_test_on_strawberry ) {
+            $appveyor_yml .= <<'APPVEYOR_YML';
+  -
+    matrix:
+      only:
+        - PERL_TYPE: strawberry
+
+    install:
+      - if     defined PERL_VERSION cinst -y strawberryperl --version %PERL_VERSION%
+      - if not defined PERL_VERSION cinst -y strawberryperl
+      - set PATH=C:\Strawberry\perl\site\bin;C:\Strawberry\perl\bin;C:\Strawberry\c\bin;%PATH%
+
+APPVEYOR_YML
+        }
+
+        $appveyor_yml .= <<'APPVEYOR_YML';
+before_build:
+  - ps: systeminfo | Select-String "^OS Name", "^OS Version"
+  - where perl
+  - perl -V
+  - ps: $env:make = perl -MConfig -e'print $Config{make}'
+  - echo %make%
+  - if not exist %make% where %make%
+  - where gcc
+  - gcc --version
+  - ps: Invoke-WebRequest https://cpanmin.us/ -OutFile cpanm.pl
+  - perl cpanm.pl App::cpanminus
+  - unlink cpanm.pl
+  - where cpanm
+  - perl -S cpanm --version
   - mkdir C:\tmp
-  - cpanm --verbose --installdeps --notest --skip-satisfied --with-develop .
+APPVEYOR_YML
+
+        if ( $self->ci_dist_zilla ) {
+            $appveyor_yml .= <<'APPVEYOR_YML';
+  - if     defined DIST_ZILLA     perl -S cpanm --verbose --notest --skip-satisfied Dist::Zilla@%DIST_ZILLA%
+  - if     defined DIST_ZILLA     perl -S dzil version
+APPVEYOR_YML
+        }
+
+        $appveyor_yml .= <<'APPVEYOR_YML';
+  - if     defined AUTHOR_TESTING perl -S cpanm --verbose --installdeps --notest --skip-satisfied --with-develop .
+  - if not defined AUTHOR_TESTING perl -S cpanm --verbose --installdeps --notest --skip-satisfied .
 
 build_script:
-APPVEYOR_YML_1
+  - set PERL_USE_UNSAFE_INC=0
+APPVEYOR_YML
 
-        $appveyor_yml .= $self->makefile_pl_exists()
-          ? <<'APPVEYOR_YML_2'
+        if ( $self->makefile_pl_exists() ) {
+            $appveyor_yml .= <<'APPVEYOR_YML';
   - perl Makefile.PL
-  - gmake
-APPVEYOR_YML_2
-          : <<'APPVEYOR_YML_3';
-  - rem no build required
-APPVEYOR_YML_3
+  - '%make%'
+APPVEYOR_YML
+        }
 
-        $appveyor_yml .= <<'APPVEYOR_YML_4';
+        $appveyor_yml .= <<'APPVEYOR_YML';
 
 test_script:
-  - set AUTOMATED_TESTING=1
-  - set PERL_USE_UNSAFE_INC=0
-APPVEYOR_YML_4
+APPVEYOR_YML
 
         $appveyor_yml .= $self->makefile_pl_exists()
-          ? <<'APPVEYOR_YML_5'
-  - gmake test
-APPVEYOR_YML_5
-          : <<'APPVEYOR_YML_6';
+          ? <<'APPVEYOR_YML'
+  - '%make% test'
+APPVEYOR_YML
+          : <<'APPVEYOR_YML';
   - prove -lr t
-APPVEYOR_YML_6
+APPVEYOR_YML
 
-        $appveyor_yml .= <<'APPVEYOR_YML_7';
-  - prove -lr xt/author
-APPVEYOR_YML_7
+        $appveyor_yml .= <<'APPVEYOR_YML';
+  - if defined AUTHOR_TESTING perl -S prove -lr xt/author
+APPVEYOR_YML
 
         return $appveyor_yml;
     };
@@ -792,7 +948,7 @@ PERLTIDYRC
 =head2 .travis.yml
 
 The configuration file for TravisCI. All known supported Perl versions are
-enabled unless they are older then B<travis_ci_earliest_perl>.
+enabled unless they are older then B<ci_earliest_perl>.
 
 With B<travis_ci_osx_perl> you can specify one or multiple Perl versions to
 be tested on OSX, in addition to on Linux. If omitted it defaults to one
@@ -819,7 +975,7 @@ cache:
 env:
   global:
     - AUTOMATED_TESTING=1
-    - PERL_USE_UNSAFE_INC=0
+    - TAR_OPTIONS=--warning=no-unknown-keyword
 
 git:
   submodules: false
@@ -834,7 +990,7 @@ TRAVIS_YML
         my %osx_perl;
         @osx_perl{ @{ $self->travis_ci_osx_perl } } = ();
 
-        my $dzil_used = $self->travis_ci_dist_zilla;
+        my $dzil_used = $self->ci_dist_zilla;
 
         my $perl_helper_used = 0;
 
@@ -931,8 +1087,14 @@ TRAVIS_YML
         }
 
         $travis_yml .= <<'TRAVIS_YML';
+  - which perl
   - perl -V
   - curl -L https://raw.githubusercontent.com/skirmess/dzil-inc/master/bin/check-travis-perl-version | perl -
+  - which make
+  - which gcc
+  - gcc --version
+  - which cpanm
+  - cpanm --version
 
 install:
 TRAVIS_YML
@@ -959,6 +1121,7 @@ TRAVIS_YML
     fi
 
 script:
+  - PERL_USE_UNSAFE_INC=0
 TRAVIS_YML
 
         $travis_yml .=
@@ -1389,6 +1552,31 @@ The following configuration options are supported:
 
 =item *
 
+C<appveyor_test_on_cygwin> - Test with Cygwin on AppVeyor. Default to true.
+
+=item *
+
+C<appveyor_test_on_cygwin64> - Test with Cygwin64 on AppVeyor. Defaults to
+true.
+
+=item *
+
+C<appveyor_test_on_strawberry> - Test with Strawberry Perl on AppVeyor.
+Defaults to true.
+
+=item *
+
+C<ci_dist_zilla> - Generate the F<.travis.yml> and F<.appveyor.yml> which
+installs the latest L<Dist::Zilla|Dist::Zilla> that runs on this version of
+Perl. This is used to support tests that run with L<Test::DZil|Test::DZil>.
+
+=item *
+
+C<ci_earliest_perl> - Do not test on Perl versions older then this on
+Travis CI and AppVeyor. Defaults to C<5.8>.
+
+=item *
+
 C<skip> - Defines files to be skipped (not generated).
 
 =item *
@@ -1398,18 +1586,6 @@ C<stopwords> - Defines stopwords for the spell checker.
 =item *
 
 C<travis_ci_author_testing_perl> - Only run author tests on these versions.
-
-=item *
-
-C<travis_ci_dist_zilla> - Generate the F<.travis.yml> which installs the
-latest L<Dist::Zilla|Dist::Zilla> that runs on this version of Perl. This is used to
-support tests that run with L<Test::DZil|Test::DZil>.
-
-=item *
-
-C<travis_ci_earliest_perl> - By default, the generated F<.travis.yml> file
-runs on all Perl version known to exist on TravisCI. Use the
-C<travis_ci_earliest_perl> option to define Perl versions to not check.
 
 =item *
 

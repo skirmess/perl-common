@@ -9,7 +9,7 @@ cache:
 env:
   global:
     - AUTOMATED_TESTING=1
-    - PERL_USE_UNSAFE_INC=0
+    - TAR_OPTIONS=--warning=no-unknown-keyword
 
 git:
   submodules: false
@@ -54,8 +54,14 @@ before_install:
         eval $(perl -I $HOME/perl5/lib/perl5/ -Mlocal::lib)
         ;;
     esac
+  - which perl
   - perl -V
   - curl -L https://raw.githubusercontent.com/skirmess/dzil-inc/master/bin/check-travis-perl-version | perl -
+  - which make
+  - which gcc
+  - gcc --version
+  - which cpanm
+  - cpanm --version
 
 install:
   - |
@@ -67,6 +73,7 @@ install:
     fi
 
 script:
+  - PERL_USE_UNSAFE_INC=0
   - prove -lr t
   - |
     if [ -n "$AUTHOR_TESTING" ]
