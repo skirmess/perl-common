@@ -1,6 +1,6 @@
 package Dist::Zilla::Plugin::Author::SKIRMESS::ProjectSkeleton;
 
-use 5.006;
+use 5.010;
 use strict;
 use warnings;
 
@@ -22,6 +22,8 @@ use MetaCPAN::Client;
 use MetaCPAN::Helper;
 use Path::Tiny qw(path);
 use version 0.77;
+
+use constant DZIL_6_NEEDS_PERL => 'v5.14';
 
 use namespace::autoclean;
 
@@ -156,7 +158,7 @@ Version 1.000
 
 =head1 SYNOPSIS
 
-This plugin is part of the l<dzil-inc|https://github.com/skirmess/dzil-inc>
+This plugin is part of the
 L<Dist::Zilla::PluginBundle::Author::SKIRMESS|Dist::Zilla::PluginBundle::Author::SKIRMESS>
 bundle and should not be used outside of that.
 
@@ -172,6 +174,9 @@ The following files are created in the repository and in the distribution:
 # Returns the latest releases of Dist::Zilla for major release 5 and 6
 sub _latest_dist_zilla_releases {
     my ($self) = @_;
+
+    state $result_ref;
+    return $result_ref if defined $result_ref;
 
     my $t_start = time;
     $self->log('Finding latest Dist::Zilla release');
@@ -213,10 +218,12 @@ sub _latest_dist_zilla_releases {
     my $duration = time - $t_start;
     $self->log( "Found Dist::Zilla $latest[-1]->[1] and $latest[-2]->[1] after $duration second" . ( $duration == 1 ? q{} : 's' ) );
 
-    return {
+    $result_ref = {
         '5' => $latest[-1]->[1]->numify,
         '6' => $latest[-2]->[1]->numify,
     };
+
+    return $result_ref;
 }
 
 # Returns an iterator that can be used to iterate over all the perlcritic
@@ -707,23 +714,25 @@ sub _relevant_strawberry_perl_versions {
     my $earliest_perl = $self->ci_earliest_perl;
 
     my @strawberries = (
-        [ 'v5.14.4', '5.14.4.1' ],
-        [ 'v5.16.3', '5.16.3.20170202' ],
-        [ 'v5.18.4', '5.18.4.1' ],
-        [ 'v5.20.3', '5.20.3.3' ],
-        [ 'v5.22.3', '5.22.3.1' ],
-        [ 'v5.24.4', '5.24.4.1' ],
+        '5.14.4.1',
+        '5.16.3.20170202',
+        '5.18.4.1',
+        '5.20.3.3',
+        '5.22.3.1',
+        '5.24.4.1',
     );
 
-    my @result;
+    my $earliest_perl_version = version->parse("v$earliest_perl");
 
-  PERL:
-    for my $v_ref (@strawberries) {
-        next PERL if version->parse("v$earliest_perl") > version->parse( $v_ref->[0] );
-        push @result, $v_ref->[1];
-    }
+    return grep { $earliest_perl_version <= $self->_version_parse_strawberry($_) } @strawberries;
+}
 
-    return @result;
+sub _version_parse_strawberry {    ## no critic (Subroutines::RequireFinalReturn)
+    my ( $self, $version ) = @_;
+
+    return version->parse("v5.$1.$2") if $version =~ m{ ^ 5 [.] ( [1-9][0-9]* ) [.] ( [0-9]+ ) [.] [0-9]+ $ }xsm;
+
+    $self->log_fatal("Cannot parse Strawberry Perl version '$version'");
 }
 
 {
@@ -780,6 +789,9 @@ environment:
   matrix:
 APPVEYOR_YML
 
+        my %latest_dzil_release = %{ $self->_latest_dist_zilla_releases };
+
+        my $dzil_used          = $self->ci_dist_zilla;
         my $appveyor_perl_used = 0;
 
         if ( $self->appveyor_test_on_cygwin ) {
@@ -787,8 +799,13 @@ APPVEYOR_YML
             $appveyor_yml .= <<'APPVEYOR_YML';
     - PERL_TYPE: cygwin
       AUTHOR_TESTING: 1
-
 APPVEYOR_YML
+
+            if ($dzil_used) {
+                $appveyor_yml .= "      DIST_ZILLA: $latest_dzil_release{6}\n";
+            }
+
+            $appveyor_yml .= "\n";
         }
 
         if ( $self->appveyor_test_on_cygwin64 ) {
@@ -796,8 +813,13 @@ APPVEYOR_YML
             $appveyor_yml .= <<'APPVEYOR_YML';
     - PERL_TYPE: cygwin64
       AUTHOR_TESTING: 1
-
 APPVEYOR_YML
+
+            if ($dzil_used) {
+                $appveyor_yml .= "      DIST_ZILLA: $latest_dzil_release{6}\n";
+            }
+
+            $appveyor_yml .= "\n";
         }
 
         if ( $self->appveyor_test_on_strawberry ) {
@@ -805,8 +827,13 @@ APPVEYOR_YML
             $appveyor_yml .= <<'APPVEYOR_YML';
     - PERL_TYPE: strawberry
       AUTHOR_TESTING: 1
-
 APPVEYOR_YML
+
+            if ($dzil_used) {
+                $appveyor_yml .= "      DIST_ZILLA: $latest_dzil_release{6}\n";
+            }
+
+            $appveyor_yml .= "\n";
         }
 
         $self->log_fatal('No Perl enabled for AppVeyor') if !$appveyor_perl_used;
@@ -815,8 +842,18 @@ APPVEYOR_YML
             $appveyor_yml .= <<"APPVEYOR_YML";
     - PERL_TYPE: strawberry
       PERL_VERSION: $strawberry
-
 APPVEYOR_YML
+            if ($dzil_used) {
+                if ( $self->_version_parse_strawberry($strawberry) < version->parse(DZIL_6_NEEDS_PERL) ) {
+                    $appveyor_yml .= "      DIST_ZILLA=$latest_dzil_release{5}\n";
+                }
+                else {
+                    $appveyor_yml .= "      DIST_ZILLA: $latest_dzil_release{6}\n";
+                }
+            }
+
+            $appveyor_yml .= "\n";
+
         }
 
         $appveyor_yml .= <<'APPVEYOR_YML';
@@ -1015,7 +1052,7 @@ TRAVIS_YML
                 if ($dzil_used) {
                     $self->log_fatal('I cannot install Dist::Zilla on Perl below 5.8.8 (because Net::SSLeay fails to install)') if version->parse("v$perl") < version->parse('v5.8.8');
 
-                    if ( version->parse("v$perl") < version->parse('v5.14') ) {
+                    if ( version->parse("v$perl") < version->parse(DZIL_6_NEEDS_PERL) ) {
                         push @env, "DIST_ZILLA=$latest_dzil_release{5}";
                     }
                     else {

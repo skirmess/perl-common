@@ -74,20 +74,20 @@ requires 'Path::Tiny';
 requires 'WWW::Mechanize::Cached';
 requires 'constant';
 requires 'namespace::autoclean', '0.09';
-requires 'perl', '5.006';
+requires 'perl', '5.010';
 requires 'strict';
 requires 'version', '0.77';
 requires 'warnings';
 
 on configure => sub {
     requires 'ExtUtils::MakeMaker';
-    requires 'perl', '5.006';
+    requires 'perl', '5.010';
 };
 
 on test => sub {
     requires 'Test::More';
     requires 'lib';
-    requires 'perl', '5.006';
+    requires 'perl', '5.010';
 };
 
 on develop => sub {
