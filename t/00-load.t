@@ -24,7 +24,8 @@ my @modules = qw(
   Dist::Zilla::Plugin::Author::SKIRMESS::UpdatePod
   Dist::Zilla::PluginBundle::Author::SKIRMESS
   Dist::Zilla::Role::Author::SKIRMESS::Resources
-  bin/check-travis-perl-version
+  bin/check-ci-perl-version
+  bin/fix-appveyor-matrix-bug
 );
 
 plan tests => scalar @modules;

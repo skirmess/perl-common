@@ -29,6 +29,7 @@ SKIRMESS
 Sven
 TravisCI
 appveyor
+ci
 cpanfile
 dist
 distmeta
