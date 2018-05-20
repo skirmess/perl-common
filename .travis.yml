@@ -17,23 +17,29 @@ git:
 matrix:
   include:
     - perl: '5.14'
+      env: DIST_ZILLA=6.012
 
     - perl: '5.16'
+      env: DIST_ZILLA=6.012
 
     - perl: '5.18'
+      env: DIST_ZILLA=6.012
 
     - perl: '5.18'
-      env: AUTHOR_TESTING=1
+      env: DIST_ZILLA=6.012 AUTHOR_TESTING=1
       os: osx
 
     - perl: '5.20'
+      env: DIST_ZILLA=6.012
 
     - perl: '5.22'
+      env: DIST_ZILLA=6.012
 
     - perl: '5.24'
-      env: AUTHOR_TESTING=1
+      env: DIST_ZILLA=6.012 AUTHOR_TESTING=1
 
     - perl: '5.26'
+      env: DIST_ZILLA=6.012
 
 before_install:
   - |
@@ -64,6 +70,12 @@ before_install:
   - cpanm --version
 
 install:
+  - |
+    if [ -n "$DIST_ZILLA" ]
+    then
+        cpanm --verbose --notest --skip-satisfied Dist::Zilla@$DIST_ZILLA
+        dzil version
+    fi
   - |
     if [ -n "$AUTHOR_TESTING" ]
     then

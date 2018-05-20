@@ -9,30 +9,39 @@ environment:
   matrix:
     - PERL_TYPE: cygwin
       AUTHOR_TESTING: 1
+      DIST_ZILLA: 6.012
 
     - PERL_TYPE: cygwin64
       AUTHOR_TESTING: 1
+      DIST_ZILLA: 6.012
 
     - PERL_TYPE: strawberry
       AUTHOR_TESTING: 1
+      DIST_ZILLA: 6.012
 
     - PERL_TYPE: strawberry
       PERL_VERSION: 5.14.4.1
+      DIST_ZILLA: 6.012
 
     - PERL_TYPE: strawberry
       PERL_VERSION: 5.16.3.20170202
+      DIST_ZILLA: 6.012
 
     - PERL_TYPE: strawberry
       PERL_VERSION: 5.18.4.1
+      DIST_ZILLA: 6.012
 
     - PERL_TYPE: strawberry
       PERL_VERSION: 5.20.3.3
+      DIST_ZILLA: 6.012
 
     - PERL_TYPE: strawberry
       PERL_VERSION: 5.22.3.1
+      DIST_ZILLA: 6.012
 
     - PERL_TYPE: strawberry
       PERL_VERSION: 5.24.4.1
+      DIST_ZILLA: 6.012
 
 install:
   - ps: 'Write-Host "ERROR: Unknown Perl type ''$env:PERL_TYPE''"'
@@ -100,6 +109,8 @@ before_build:
   - where cpanm
   - perl -S cpanm --version
   - mkdir C:\tmp
+  - if     defined DIST_ZILLA     perl -S cpanm --verbose --notest --skip-satisfied Dist::Zilla@%DIST_ZILLA%
+  - if     defined DIST_ZILLA     perl -S dzil version
   - if     defined AUTHOR_TESTING perl -S cpanm --verbose --installdeps --notest --skip-satisfied --with-develop .
   - if not defined AUTHOR_TESTING perl -S cpanm --verbose --installdeps --notest --skip-satisfied .
 
