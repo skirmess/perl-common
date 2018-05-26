@@ -63,6 +63,7 @@ requires 'File::Spec';
 requires 'File::pushd';
 requires 'HTTP::Tiny';
 requires 'HTTP::Tiny::Mech';
+requires 'JSON::MaybeXS';
 requires 'List::Util';
 requires 'MetaCPAN::Client';
 requires 'MetaCPAN::Helper';

@@ -17,17 +17,26 @@ use Config::Std { def_sep => q{=} };
 use CPAN::Meta::YAML ();
 use CPAN::Perl::Releases qw(perl_versions);
 use HTTP::Tiny ();
+use JSON::MaybeXS qw(decode_json);
 use List::Util qw(any uniq);
 use MetaCPAN::Client;
 use MetaCPAN::Helper;
 use Path::Tiny qw(path);
 use version 0.77;
 
-use constant DZIL_6_NEEDS_PERL => 'v5.14';
+use constant DZIL_6_NEEDS_PERL      => 'v5.14';
+use constant WITH_USE_64_BIT_INT    => 1;
+use constant WITHOUT_USE_64_BIT_INT => 2;
 
 use namespace::autoclean;
 
-sub mvp_multivalue_args { return (qw( skip stopwords travis_ci_author_testing_perl travis_ci_osx_perl )) }
+sub mvp_multivalue_args { return (qw( appveyor_author_testing_perl skip stopwords travis_ci_author_testing_perl travis_ci_osx_perl )) }
+
+has appveyor_author_testing_perl => (
+    is      => 'ro',
+    isa     => 'Maybe[ArrayRef]',
+    default => sub { [qw(5.24)] },
+);
 
 has appveyor_test_on_cygwin => (
     is      => 'ro',
@@ -99,6 +108,13 @@ has _generated_string => (
     is      => 'ro',
     isa     => 'Str',
     default => 'Automatically generated file; DO NOT EDIT.',
+);
+
+has _strawberry_releases => (
+    is      => 'ro',
+    isa     => 'ArrayRef',
+    lazy    => 1,
+    builder => '_build_strawberry_releases',
 );
 
 sub before_build {
@@ -708,31 +724,97 @@ sub _relevant_perl_versions {
     return @perls;
 }
 
+sub _build_strawberry_releases {
+    my ($self) = @_;
+
+    my $url = 'http://strawberryperl.com/releases.json';
+    $self->log_debug("Downloading '$url'...");
+    my $res = $self->ua->get($url);
+
+    $self->log_fatal("Cannot download '$url': $res->{reason}") if !$res->{success};
+
+    my @releases;
+
+  RELEASE:
+    for my $release ( @{ decode_json( $res->{content} ) } ) {
+        my $version = $release->{version};
+        ## no critic (RegularExpressions::RequireDotMatchAnything)
+        ## no critic (RegularExpressions::RequireExtendedFormatting)
+        ## no critic (RegularExpressions::RequireLineBoundaryMatching)
+        my @name = split /\s*\/\s*/, $release->{name};
+
+        $self->log_fatal("Unable to parse name: $release->{name}") if ( @name < 3 ) || ( @name > 4 );
+        $self->log_fatal("Version '$version' does not version in name '$name[1]'") if $version ne $name[1];
+        $self->log_fatal("Unable to parse version '$version'") if $version !~ m{ ^ ( ( 5 [.] [1-9][0-9]* ) [.] [0-9]+ ) [.] [0-9]+ $ }xsm;
+
+        my @release = ( $2, $1, $version );    ## no critic (RegularExpressions::ProhibitCaptureWithoutTest)
+
+        next RELEASE if !exists $release->{edition}->{zip}->{url};
+        push @release, $release->{edition}->{zip}->{url};
+
+        if ( $name[2] eq '64bit' ) {
+            push @release, $name[2];
+        }
+        elsif ( $name[2] eq '32bit' ) {
+            push @release, $name[2];
+
+            if ( $name[3] eq 'with USE_64_BIT_INT' ) {
+                push @release, WITH_USE_64_BIT_INT;
+            }
+            elsif ( $name[3] eq 'without USE_64_BIT_INT' ) {
+                push @release, WITHOUT_USE_64_BIT_INT;
+            }
+            else {
+                $self->log_fatal("Expect either 'with USE_64_BIT_INT' or 'without USE_64_BIT_INT' but got '$name[3]'");
+            }
+        }
+        else {
+            $self->log_fatal("Expected either 32bit or 64bit but got '$name[2]'");
+        }
+
+        push @releases, \@release;
+    }
+
+    return \@releases;
+}
+
+sub _relevant_strawberry_perl_versions_sort {
+    my $x = version->parse("v$a->[2]") <=> version->parse("v$b->[2]");
+    return $x if $x;
+
+    if ( $a->[4] ne $b->[4] ) {
+        return 1 if $a->[4] eq '64bit';
+        return -1;
+    }
+
+    return $a->[5] <=> $b->[5];
+}
+
 sub _relevant_strawberry_perl_versions {
     my ($self) = @_;
 
     my $earliest_perl = $self->ci_earliest_perl;
+    my @strawberry_releases =
+      reverse
+      sort _relevant_strawberry_perl_versions_sort grep { version->parse("v$_->[1]") >= version->parse("v$earliest_perl") } @{ $self->_strawberry_releases() };
 
-    my @strawberries = (
-        '5.14.4.1',
-        '5.16.3.20170202',
-        '5.18.4.1',
-        '5.20.3.3',
-        '5.22.3.1',
-        '5.24.4.1',
-    );
+    my @strawberry_releases_to_use;
+    my %perl_configured;
+  RELEASE:
+    for my $strawberry_ref (@strawberry_releases) {
+        if ( $strawberry_ref->[0] eq '5.10' ) {
+            next RELEASE if exists $perl_configured{ $strawberry_ref->[1] };
+            $perl_configured{ $strawberry_ref->[1] } = 1;
+        }
+        else {
+            next RELEASE if exists $perl_configured{ $strawberry_ref->[0] };
+            $perl_configured{ $strawberry_ref->[0] } = 1;
+        }
 
-    my $earliest_perl_version = version->parse("v$earliest_perl");
+        push @strawberry_releases_to_use, $strawberry_ref;
+    }
 
-    return grep { $earliest_perl_version <= $self->_version_parse_strawberry($_) } @strawberries;
-}
-
-sub _version_parse_strawberry {    ## no critic (Subroutines::RequireFinalReturn)
-    my ( $self, $version ) = @_;
-
-    return version->parse("v5.$1.$2") if $version =~ m{ ^ 5 [.] ( [1-9][0-9]* ) [.] ( [0-9]+ ) [.] [0-9]+ $ }xsm;
-
-    $self->log_fatal("Cannot parse Strawberry Perl version '$version'");
+    return reverse map { [ $_->[1], $_->[3] ] } @strawberry_releases_to_use;
 }
 
 {
@@ -823,38 +905,39 @@ APPVEYOR_YML
         }
 
         if ( $self->appveyor_test_on_strawberry ) {
-            $appveyor_perl_used = 1;
-            $appveyor_yml .= <<'APPVEYOR_YML';
+
+            ## no critic (RegularExpressions::RequireDotMatchAnything)
+            ## no critic (RegularExpressions::RequireExtendedFormatting)
+            ## no critic (RegularExpressions::RequireLineBoundaryMatching)
+            my $auth_regex = join q{|}, map { qr{^\Q$_\E(?:[.].+)?$} } @{ $self->appveyor_author_testing_perl };
+
+            for my $strawberry_ref ( $self->_relevant_strawberry_perl_versions ) {
+                $appveyor_perl_used = 1;
+                my ( $perl, $url ) = @{$strawberry_ref};
+
+                $appveyor_yml .= <<"APPVEYOR_YML";
     - PERL_TYPE: strawberry
-      AUTHOR_TESTING: 1
+      PERL_VERSION: $perl
 APPVEYOR_YML
+                if ($dzil_used) {
+                    if ( version->parse("v$perl") < version->parse(DZIL_6_NEEDS_PERL) ) {
+                        $appveyor_yml .= "      DIST_ZILLA: $latest_dzil_release{5}\n";
+                    }
+                    else {
+                        $appveyor_yml .= "      DIST_ZILLA: $latest_dzil_release{6}\n";
+                    }
+                }
 
-            if ($dzil_used) {
-                $appveyor_yml .= "      DIST_ZILLA: $latest_dzil_release{6}\n";
+                if ( $perl =~ $auth_regex ) {
+                    $appveyor_yml .= "      AUTHOR_TESTING: 1\n";
+                }
+
+                $appveyor_yml .= "      STRAWBERRY_URL: $url\n";
+                $appveyor_yml .= "\n";
             }
-
-            $appveyor_yml .= "\n";
         }
 
         $self->log_fatal('No Perl enabled for AppVeyor') if !$appveyor_perl_used;
-
-        for my $strawberry ( $self->_relevant_strawberry_perl_versions ) {
-            $appveyor_yml .= <<"APPVEYOR_YML";
-    - PERL_TYPE: strawberry
-      PERL_VERSION: $strawberry
-APPVEYOR_YML
-            if ($dzil_used) {
-                if ( $self->_version_parse_strawberry($strawberry) < version->parse(DZIL_6_NEEDS_PERL) ) {
-                    $appveyor_yml .= "      DIST_ZILLA=$latest_dzil_release{5}\n";
-                }
-                else {
-                    $appveyor_yml .= "      DIST_ZILLA: $latest_dzil_release{6}\n";
-                }
-            }
-
-            $appveyor_yml .= "\n";
-
-        }
 
         $appveyor_yml .= <<'APPVEYOR_YML';
 install:
@@ -872,11 +955,6 @@ APPVEYOR_YML
         - PERL_TYPE: cygwin
 
     install:
-      - ps: Invoke-WebRequest https://raw.githubusercontent.com/skirmess/dzil-inc/master/bin/fix-appveyor-matrix-bug -OutFile fix-appveyor-matrix-bug.pl
-      - perl fix-appveyor-matrix-bug.pl > fix-appveyor-matrix-bug.ps1
-      - unlink fix-appveyor-matrix-bug.pl
-      - ps: .\fix-appveyor-matrix-bug.ps1
-      - unlink fix-appveyor-matrix-bug.ps1
       - c:\cygwin\setup-x86.exe -q -C devel -C perl -P libcrypt-devel -P openssl-devel
       - set PATH=C:\cygwin\bin;C:\cygwin\usr\local\bin;%PATH%
 
@@ -891,11 +969,6 @@ APPVEYOR_YML
         - PERL_TYPE: cygwin64
 
     install:
-      - ps: Invoke-WebRequest https://raw.githubusercontent.com/skirmess/dzil-inc/master/bin/fix-appveyor-matrix-bug -OutFile fix-appveyor-matrix-bug.pl
-      - perl fix-appveyor-matrix-bug.pl > fix-appveyor-matrix-bug.ps1
-      - unlink fix-appveyor-matrix-bug.pl
-      - ps: .\fix-appveyor-matrix-bug.ps1
-      - unlink fix-appveyor-matrix-bug.ps1
       - c:\cygwin64\setup-x86_64.exe -q -C devel -C perl -P libcrypt-devel -P openssl-devel
       - set PATH=C:\cygwin64\bin;C:\cygwin64\usr\local\bin;%PATH%
 
@@ -910,13 +983,10 @@ APPVEYOR_YML
         - PERL_TYPE: strawberry
 
     install:
-      - ps: Invoke-WebRequest https://raw.githubusercontent.com/skirmess/dzil-inc/master/bin/fix-appveyor-matrix-bug -OutFile fix-appveyor-matrix-bug.pl
-      - perl fix-appveyor-matrix-bug.pl > fix-appveyor-matrix-bug.ps1
-      - unlink fix-appveyor-matrix-bug.pl
-      - ps: .\fix-appveyor-matrix-bug.ps1
-      - unlink fix-appveyor-matrix-bug.ps1
-      - if     defined PERL_VERSION cinst -y strawberryperl --version %PERL_VERSION%
-      - if not defined PERL_VERSION cinst -y strawberryperl
+      - ps: Invoke-WebRequest $env:STRAWBERRY_URL -OutFile strawberry.zip
+      - ps: Expand-Archive strawberry.zip -DestinationPath c:\Strawberry
+      - 'c:\Strawberry\relocation.pl.bat'
+      - unlink strawberry.zip
       - set PATH=C:\Strawberry\perl\site\bin;C:\Strawberry\perl\bin;C:\Strawberry\c\bin;%PATH%
 
 APPVEYOR_YML

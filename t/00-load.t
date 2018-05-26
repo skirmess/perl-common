@@ -25,7 +25,6 @@ my @modules = qw(
   Dist::Zilla::PluginBundle::Author::SKIRMESS
   Dist::Zilla::Role::Author::SKIRMESS::Resources
   bin/check-ci-perl-version
-  bin/fix-appveyor-matrix-bug
 );
 
 plan tests => scalar @modules;
