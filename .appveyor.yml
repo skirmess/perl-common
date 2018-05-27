@@ -82,25 +82,29 @@ for:
     install:
       - ps: Invoke-WebRequest $env:STRAWBERRY_URL -OutFile strawberry.zip
       - ps: Expand-Archive strawberry.zip -DestinationPath c:\Strawberry
-      - 'c:\Strawberry\relocation.pl.bat'
-      - unlink strawberry.zip
+      - if exist c:\Strawberry\relocation.pl.bat c:\Strawberry\relocation.pl.bat
+      - erase strawberry.zip
       - set PATH=C:\Strawberry\perl\site\bin;C:\Strawberry\perl\bin;C:\Strawberry\c\bin;%PATH%
 
 before_build:
+  - mv c:\mingw-w64 c:\mingw-w64.old
+  - mv c:\mingw c:\mingw.old
   - ps: systeminfo | Select-String "^OS Name", "^OS Version"
   - where perl
   - perl -V
   - ps: Invoke-WebRequest https://raw.githubusercontent.com/skirmess/dzil-inc/master/bin/check-ci-perl-version -OutFile check-ci-perl-version.pl
   - perl check-ci-perl-version.pl --appveyor
-  - unlink check-ci-perl-version.pl
+  - erase check-ci-perl-version.pl
   - ps: $env:make = perl -MConfig -e'print $Config{make}'
   - echo %make%
   - if not exist %make% where %make%
   - where gcc
   - gcc --version
+  - where g++
+  - g++ --version
   - ps: Invoke-WebRequest https://cpanmin.us/ -OutFile cpanm.pl
   - perl cpanm.pl App::cpanminus
-  - unlink cpanm.pl
+  - erase cpanm.pl
   - where cpanm
   - perl -S cpanm --version
   - mkdir C:\tmp
