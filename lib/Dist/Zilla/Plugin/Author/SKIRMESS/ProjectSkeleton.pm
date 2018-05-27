@@ -38,6 +38,13 @@ has appveyor_author_testing_perl => (
     default => sub { [qw(5.24)] },
 );
 
+has appveyor_earliest_perl => (
+    is      => 'ro',
+    isa     => 'Str',
+    lazy    => 1,
+    default => sub { $_[0]->ci_earliest_perl },
+);
+
 has appveyor_test_on_cygwin => (
     is      => 'ro',
     isa     => 'Bool',
@@ -793,10 +800,10 @@ sub _relevant_strawberry_perl_versions_sort {
 sub _relevant_strawberry_perl_versions {
     my ($self) = @_;
 
-    my $earliest_perl = $self->ci_earliest_perl;
+    my $earliest_perl = version->parse( 'v' . $self->appveyor_earliest_perl );
     my @strawberry_releases =
       reverse
-      sort _relevant_strawberry_perl_versions_sort grep { version->parse("v$_->[1]") >= version->parse("v$earliest_perl") } @{ $self->_strawberry_releases() };
+      sort _relevant_strawberry_perl_versions_sort grep { version->parse("v$_->[1]") >= $earliest_perl } @{ $self->_strawberry_releases() };
 
     my @strawberry_releases_to_use;
     my %perl_configured;
