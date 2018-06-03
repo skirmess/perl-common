@@ -30,7 +30,18 @@ use constant WITHOUT_USE_64_BIT_INT => 2;
 
 use namespace::autoclean;
 
-sub mvp_multivalue_args { return (qw( appveyor_author_testing_perl skip stopwords travis_ci_author_testing_perl travis_ci_osx_perl )) }
+sub mvp_multivalue_args {
+    return (
+        qw(
+          appveyor_author_testing_perl
+          kwalitee_disable_test
+          skip
+          stopwords
+          travis_ci_author_testing_perl
+          travis_ci_osx_perl
+          )
+    );
+}
 
 has appveyor_author_testing_perl => (
     is      => 'ro',
@@ -73,6 +84,12 @@ has ci_earliest_perl => (
     is      => 'ro',
     isa     => 'Str',
     default => '5.8',
+);
+
+has kwalitee_disable_test => (
+    is      => 'ro',
+    isa     => 'ArrayRef[Str]',
+    default => sub { [] },
 );
 
 has makefile_pl_exists => (
@@ -1627,15 +1644,32 @@ L<Test::Kwalitee|Test::Kwalitee> release test.
 
 =cut
 
-    $file{q{xt/release/kwalitee.t}} = $test_header . <<'XT_RELEASE_KWALITEE_T';
+    $file{q{xt/release/kwalitee.t}} = sub {
+        my ($self) = @_;
+
+        my $kwalitee = $test_header . <<'XT_RELEASE_KWALITEE_T';
 use Test::More 0.88;
 use Test::Kwalitee 'kwalitee_ok';
 
 # Module::CPANTS::Analyse does not find the LICENSE in scripts that don't end in .pl
-kwalitee_ok(qw{-has_license_in_source_file});
+XT_RELEASE_KWALITEE_T
+
+        $kwalitee .= 'kwalitee_ok(';
+        my @disabled = @{ $self->kwalitee_disable_test };
+        if (@disabled) {
+            $kwalitee .= 'qw{';
+            $kwalitee .= join q{ }, map { "-$_" } @disabled;
+            $kwalitee .= '}';
+        }
+        $kwalitee .= ");\n";
+
+        $kwalitee .= <<'XT_RELEASE_KWALITEE_T';
 
 done_testing();
 XT_RELEASE_KWALITEE_T
+
+        return $kwalitee;
+    };
 
 =head2 xt/release/manifest.t
 
