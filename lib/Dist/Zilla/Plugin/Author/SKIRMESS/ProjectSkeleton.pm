@@ -1052,7 +1052,8 @@ APPVEYOR_YML
   - if     defined AUTHOR_TESTING perl -S cpanm --verbose --installdeps --notest --skip-satisfied --with-develop .
   - if not defined AUTHOR_TESTING perl -S cpanm --verbose --installdeps --notest --skip-satisfied .
   - perl -S cpanm --verbose --notest --skip-satisfied App::ReportPrereqs
-  - perl -S report-prereqs
+  - if     defined AUTHOR_TESTING perl -S report-prereqs --with-develop
+  - if not defined AUTHOR_TESTING perl -S report-prereqs
 
 build_script:
   - set PERL_USE_UNSAFE_INC=0
@@ -1275,7 +1276,13 @@ TRAVIS_YML
         cpanm --verbose --installdeps --notest --skip-satisfied .
     fi
   - cpanm --verbose --notest --skip-satisfied App::ReportPrereqs
-  - report-prereqs
+  - |
+    if [ -n "$AUTHOR_TESTING" ]
+    then
+        report-prereqs --with-develop
+    else
+        report-prereqs
+    fi
 
 script:
   - PERL_USE_UNSAFE_INC=0
