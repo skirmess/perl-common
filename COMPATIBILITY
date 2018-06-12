@@ -1,0 +1,4 @@
+
+Dist::Zilla::Plugin::CheckChangesHasContent requires Dist::Zilla 6
+  - Dist::Zilla 6 requires perl v5.14.0
+

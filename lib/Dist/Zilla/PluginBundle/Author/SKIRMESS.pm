@@ -127,6 +127,7 @@ sub configure {
                 ':version'       => '2.016',
                 exclude_filename => [
                     qw(
+                      COMPATIBILITY
                       dist.ini
                       perlcriticrc-code.local
                       perlcriticrc-tests.local
