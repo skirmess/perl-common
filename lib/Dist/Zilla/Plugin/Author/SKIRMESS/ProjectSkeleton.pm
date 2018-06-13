@@ -1333,13 +1333,13 @@ if ( !Test::CleanNamespaces->find_modules() ) {
 all_namespaces_clean();
 XT_AUTHOR_CLEAN_NAMESPACES_T
 
-=head2 xt/author/minimum_version.t
+=head2 xt/author/minimum-version.t
 
 L<Test::MinimumVersion|Test::MinimumVersion> author test.
 
 =cut
 
-    $file{q{xt/author/minimum_version.t}} = $test_header . <<'XT_AUTHOR_MINIMUM_VERSION_T';
+    $file{q{xt/author/minimum-version.t}} = $test_header . <<'XT_AUTHOR_MINIMUM_VERSION_T';
 use Test::MinimumVersion 0.008;
 
 all_minimum_version_from_metayml_ok();
