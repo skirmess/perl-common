@@ -1323,7 +1323,7 @@ L<Test::CleanNamespaces|Test::CleanNamespaces> author test.
 =cut
 
     $file{q{xt/author/clean-namespaces.t}} = $test_header . <<'XT_AUTHOR_CLEAN_NAMESPACES_T';
-use Test::More;
+use Test::More 0.88;
 use Test::CleanNamespaces;
 
 if ( !Test::CleanNamespaces->find_modules() ) {
@@ -1332,6 +1332,27 @@ if ( !Test::CleanNamespaces->find_modules() ) {
 
 all_namespaces_clean();
 XT_AUTHOR_CLEAN_NAMESPACES_T
+
+=head2 xt/author/dependency-version.t
+
+L<Test::RequiredMinimumDependencyVersion|Test::RequiredMinimumDependencyVersion> author test.
+
+=cut
+
+    $file{q{xt/author/dependency-version.t}} = $test_header . <<'XT_AUTHOR_DEPENDENCY_VERSION_T';
+use Test::RequiredMinimumDependencyVersion;
+
+Test::RequiredMinimumDependencyVersion->new(
+    module => {
+
+        # the done_testing sub was added on 0.88
+        'Test::More' => '0.88',
+
+        # the version pod page "strongly urges" us to use at least 0.77
+        'version' => '0.77',
+    },
+)->all_files_ok( grep { -d } qw(bin lib t xt) );
+XT_AUTHOR_DEPENDENCY_VERSION_T
 
 =head2 xt/author/minimum-version.t
 
@@ -1432,7 +1453,7 @@ L<Test::PerlTidy|Test::PerlTidy> author test.
     $file{q{xt/author/perltidy.t}} = $test_header . <<'XT_AUTHOR_PERLCRITIC_TESTS_T';
 use FindBin qw($RealBin);
 use Path::Tiny;
-use Test::More;
+use Test::More 0.88;
 use Test::PerlTidy;
 
 my @files;

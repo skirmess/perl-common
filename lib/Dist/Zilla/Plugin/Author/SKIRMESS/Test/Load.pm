@@ -93,7 +93,7 @@ use warnings;
 
 # {{ $plugin->_generated_string() }}
 
-use Test::More;
+use Test::More 0.88;
 
 T_OO_LOAD_T
 
