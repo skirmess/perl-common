@@ -183,7 +183,7 @@ sub configure {
             },
         ],
 
-        # Create te t/00-load.t test
+        # Create the t/00-load.t test
         'Author::SKIRMESS::Test::Load',
 
         # update Pod with project specific defaults
@@ -215,7 +215,7 @@ sub configure {
         'ManifestSkip',
 
         # :ExtraTestFiles is empty because we don't add xt test files to the
-        # distribution, that's why we have to create a new ExtraTestsFiles
+        # distribution, that's why we have to create a new ExtraTestFiles
         # plugin
         #
         # code must be a single value but inside an array ref. Bug is

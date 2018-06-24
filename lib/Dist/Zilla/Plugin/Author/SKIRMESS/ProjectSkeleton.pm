@@ -37,6 +37,7 @@ sub mvp_multivalue_args {
           kwalitee_disable_test
           skip
           stopwords
+          stopwords_comment
           travis_ci_author_testing_perl
           travis_ci_osx_perl
           )
@@ -105,6 +106,12 @@ has skip => (
 );
 
 has stopwords => (
+    is      => 'ro',
+    isa     => 'Maybe[ArrayRef]',
+    default => sub { [] },
+);
+
+has stopwords_comment => (
     is      => 'ro',
     isa     => 'Maybe[ArrayRef]',
     default => sub { [] },
@@ -745,7 +752,7 @@ sub _relevant_perl_versions {
         # if the earliest perl version has a patch level, add this version to
         # the versions to be tested but skip the major.minor from Travis for
         # this release. The _relevant_perl_5_8_versions and
-        # _relevant_perl_5_10_versionsal method already does that for these releases.
+        # _relevant_perl_5_10_versions method already does that for these releases.
 
         @perls = "5.$1.$2";
     }
@@ -1341,6 +1348,55 @@ if ( !Test::CleanNamespaces->find_modules() ) {
 all_namespaces_clean();
 XT_AUTHOR_CLEAN_NAMESPACES_T
 
+=head2 xt/author/comment-spell.t
+
+L<Test::Spelling::Comment|Test::Spelling::Comment> author test. B<stopwords_comment> are added as stopwords.
+
+=cut
+
+    $file{q{xt/author/comment-spell.t}} = sub {
+        my ($self) = @_;
+
+        my $content = $test_header . <<'XT_AUTHOR_COMMENT_SPELL_T';
+use Test::Spelling::Comment 0.003;
+
+if ( exists $ENV{AUTOMATED_TESTING} ) {
+    print "1..0 # SKIP these tests during AUTOMATED_TESTING\n";
+    exit 0;
+}
+
+my @files;
+push @files, grep { -d } qw( bin lib t/lib );
+push @files, glob q{ t/*.t xt/*.t xt/*/*.t };
+
+Test::Spelling::Comment->new(
+    skip => [
+        '^[#] vim: .*',
+        '^[#]!/.*perl$',
+        '(?i)http(?:s)?://[^\s]+',
+    ],
+)->add_stopwords(<DATA>)->all_files_ok(@files);
+
+__DATA__
+XT_AUTHOR_COMMENT_SPELL_T
+
+        my @stopwords = grep { defined && !m{ ^ \s* $ }xsm } @{ $self->stopwords_comment };
+
+        # Add default words used in xt tests
+        push @stopwords, qw(
+          cpanfile
+          Dist
+          LinkCheck
+          RemoveDevelopPrereqs
+          SKIRMESS
+          Zilla
+        );
+
+        $content .= join "\n", uniq( sort @stopwords ), q{};
+
+        return $content;
+    };
+
 =head2 xt/author/dependency-version.t
 
 L<Test::RequiredMinimumDependencyVersion|Test::RequiredMinimumDependencyVersion> author test.
@@ -1355,6 +1411,9 @@ Test::RequiredMinimumDependencyVersion->new(
 
         # the done_testing sub was added on 0.88
         'Test::More' => '0.88',
+
+        # the skip argument was added in 0.003
+        'Test::Spelling::Comment' => '0.003',
 
         # the version pod page "strongly urges" us to use at least 0.77
         'version' => '0.77',
