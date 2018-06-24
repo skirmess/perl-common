@@ -720,6 +720,14 @@ sub _relevant_perl_versions {
         next PERL if version->parse("v5.$minor") < version->parse("v$earliest_perl");
         next PERL if $minor < 12;
 
+        # Allow us to skip the latest Perl if Travis hasn't it available yet
+        if ( exists $ENV{TRAVIS_CI_LATEST_PERL} ) {
+            if ( version->parse("v5.$minor") > version->parse("v$ENV{TRAVIS_CI_LATEST_PERL}") ) {
+                $self->log("Skipping Perl 5.$minor on Travis");
+                next PERL;
+            }
+        }
+
         $perl{$minor} = 1;
     }
 
