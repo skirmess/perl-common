@@ -515,76 +515,6 @@ sub _perl_critic_policy_default_config {
     };
 }
 
-# Parses the perlcriticrc-*.local configuration file. Then, returns an
-# iterator that iterates over all policies of all the perlcritic policy
-# distributions we use. Return value is an array ref of the distribution
-# name, the policy name, if the policy should be enabled and either undef
-# or a hash ref of configuration for that policy.
-sub _perl_critic_policy_with_config {
-    my ( $self, $perlcriticrc_local ) = @_;
-
-    my $it = $self->_perl_critic_policy_default_config();
-
-    my %local_config;
-
-    if ( -f $perlcriticrc_local ) {
-        $self->log("Adjusting Perl::Critic config from '$perlcriticrc_local'");
-
-        read_config $perlcriticrc_local, my %perlcriticrc_local;
-
-        my %local_seen;
-
-      POLICY:
-        for my $policy ( keys %perlcriticrc_local ) {
-
-            $self->log_fatal('We cannot disable the global settings') if $policy eq q{-};
-
-            my $policy_name = $policy =~ m{ ^ - (.+) }xsm ? $1 : $policy;
-
-            $self->log_fatal("There are multiple entries for policy '$policy_name' in '$perlcriticrc_local'.") if exists $local_seen{$policy_name};
-
-            $local_seen{$policy_name} = 1;
-
-            if ( $policy =~ m{ ^ - }xsm ) {
-                $self->log_debug("Disabling policy '$policy_name'");
-                $local_config{$policy_name} = [0];
-                next POLICY;
-            }
-            #
-            $self->log_fatal('Custom global settings are not supported') if $policy eq q{};
-
-            $self->log_debug("Custom configuration for policy '$policy_name'");
-            $local_config{$policy} = [ 1, $perlcriticrc_local{$policy_name} ];
-        }
-    }
-
-    my %local_config_unused = map { $_ => 1 } keys %local_config;
-    return sub {
-        my $pol_ref = $it->();
-
-        if ( !defined $pol_ref ) {
-            my ($first_not_used_policy_from_local_config) = keys %local_config_unused;
-            $self->log_fatal("Policy '$first_not_used_policy_from_local_config' is mentioned the local configuration file '$perlcriticrc_local' but does not exist.") if defined $first_not_used_policy_from_local_config;
-
-            return;
-        }
-
-        my ( $dist, $policy, $enabled_default, $config_default_ref ) = @{$pol_ref};
-        return $pol_ref if !exists $local_config{$policy};
-
-        delete $local_config_unused{$policy};
-
-        # policy is disabled from local config
-        return [ $dist, $policy, 0, undef ] if ${ $local_config{$policy} }[0] == 0;
-
-        # policy is enabled from local config, with no local configuration
-        return [ $dist, $policy, 1, undef ] if ( @{ $local_config{$policy} } == 1 ) || ( scalar keys %{ ${ $local_config{$policy} }[1] } == 0 );
-
-        # policy is enabled from local config, with local configuration
-        return [ $dist, $policy, 1, ${ $local_config{$policy} }[1] ];
-    };
-}
-
 # Returns an iterator that iterates over all policies of all the perlcritic
 # policy distributions we use. Return value is a string containing the
 # configuration of one policy, or a comment block.
@@ -592,9 +522,9 @@ sub _perl_critic_policy_with_config {
 # The returned string are expected to be concatenated together to create
 # the .perlcriticrc config file.
 sub _perl_critic_config_block {
-    my ( $self, $perlcriticrc_local ) = @_;
+    my ($self) = @_;
 
-    my $it = $self->_perl_critic_policy_with_config($perlcriticrc_local);
+    my $it = $self->_perl_critic_policy_default_config;
 
     my $last_dist = q{};
     my $pol_ref;
@@ -654,7 +584,7 @@ sub _perl_critic_config_block {
 # Returns a string containing the content of a .perlcriticrc config file
 # based on the local configuration file and defaults saved in this module.
 sub _perlcriticrc {
-    my ( $self, $perlcriticrc_local ) = @_;
+    my ($self) = @_;
 
     my $content = <<'PERLCRITICRC_TEMPLATE';
 # {{ $plugin->_generated_string() }}
@@ -665,7 +595,7 @@ severity = 1
 verbose = [%p] %m at %f line %l, near '%r'\n
 PERLCRITICRC_TEMPLATE
 
-    my $it = $self->_perl_critic_config_block($perlcriticrc_local);
+    my $it = $self->_perl_critic_config_block;
 
     while ( defined( my $x = $it->() ) ) {
         $content .= $x;
@@ -1457,32 +1387,19 @@ use Test::NoTabs;
 all_perl_files_ok( grep { -d } qw( bin lib t xt ) );
 XT_AUTHOR_NO_TABS_T
 
-=head2 xt/author/perlcriticrc-code
+=head2 xt/author/perlcriticrc
 
-The configuration for L<Perl::Critic|Perl::Critic> for F<bin> and F<lib>.
-This file is created from a default contained in this plugin and, if it
-exists from distribution specific settings in F<perlcriticrc-code.local>.
-
-=cut
-
-    $file{q{xt/author/perlcriticrc-code}} = sub {
-        my ($self) = @_;
-
-        return $self->_perlcriticrc('perlcriticrc-code.local');
-    };
-
-=head2 xt/author/perlcriticrc-tests
-
-The configuration for L<Perl::Critic|Perl::Critic> for F<t> and F<xt>.
-This file is created from a default contained in this plugin and, if it
-exists from distribution specific settings in F<perlcriticrc-tests.local>.
+The base profile for L<Perl::Critic|Perl::Critic>. This profile will be merged
+with F<xt/author/perlcriticrc-code> for F<bin> and F<lib> and with
+F<xt/author/perlcriticrc-tests> for F<t> and F<xt>. This file is created from
+a default contained in this plugin.
 
 =cut
 
-    $file{q{xt/author/perlcriticrc-tests}} = sub {
+    $file{q{xt/author/perlcriticrc}} = sub {
         my ($self) = @_;
 
-        return $self->_perlcriticrc('perlcriticrc-tests.local');
+        return $self->_perlcriticrc;
     };
 
 =head2 xt/author/perlcritic-code.t
@@ -1491,10 +1408,43 @@ L<Test::Perl::Critic|Test::Perl::Critic> author test for F<bin> and F<lib>.
 
 =cut
 
-    $file{q{xt/author/perlcritic-code.t}} = $test_header . <<'XT_AUTHOR_PERLCRITIC_CODE_T';
-use FindBin qw($RealBin);
-use Test::Perl::Critic ( -profile => "$RealBin/perlcriticrc-code" );
+    my $perlcritic_test = $test_header . <<'PERLCRITIC_TEST';
+use FindBin qw($RealBin $Script);
 
+use Test::More 0.88;
+use Perl::Critic::MergeProfile;
+
+eval {
+    my $merge = Perl::Critic::MergeProfile->new;
+
+    my $rc_file = "$RealBin/perlcriticrc";
+    $merge->read($rc_file);
+
+    if ( $Script =~ m{ ^ perlcritic ( - [a-z]+ ) [.] t $ }xsm ) {
+        $rc_file .= $1;
+    }
+    else {
+        BAIL_OUT("Invalid test file name: $Script");
+    }
+
+    if ( -f $rc_file ) {
+        $merge->read($rc_file);
+    }
+
+    my $profile = $merge->write_string;
+
+    require Test::Perl::Critic;
+    Test::Perl::Critic->import( -profile => \$profile );
+
+    1;
+} || do {
+    my $error = $@;
+    BAIL_OUT($error);
+};
+
+PERLCRITIC_TEST
+
+    $file{q{xt/author/perlcritic-code.t}} = $perlcritic_test . <<'XT_AUTHOR_PERLCRITIC_CODE_T';
 all_critic_ok(qw(bin lib));
 XT_AUTHOR_PERLCRITIC_CODE_T
 
@@ -1504,10 +1454,7 @@ L<Test::Perl::Critic|Test::Perl::Critic> author test for F<t> and F<xt>.
 
 =cut
 
-    $file{q{xt/author/perlcritic-tests.t}} = $test_header . <<'XT_AUTHOR_PERLCRITIC_TESTS_T';
-use FindBin qw($RealBin);
-use Test::Perl::Critic ( -profile => "$RealBin/perlcriticrc-tests" );
-
+    $file{q{xt/author/perlcritic-tests.t}} = $perlcritic_test . <<'XT_AUTHOR_PERLCRITIC_TESTS_T';
 all_critic_ok(qw(t xt));
 XT_AUTHOR_PERLCRITIC_TESTS_T
 

@@ -1,4 +1,0 @@
-# test cannot be configured to allow "$self->log_fatal() if ..."
-[-ControlStructures::ProhibitPostfixControls]
-
-[-ValuesAndExpressions::ProhibitConstantPragma]

@@ -16,6 +16,19 @@ with qw(
   Dist::Zilla::Role::PluginBundle::Config::Slicer
 );
 
+use Carp;
+use CHI;
+use File::HomeDir;
+use File::Spec;
+use File::Temp ();
+use HTTP::Tiny::Mech;
+use Module::Metadata ();
+use Path::Tiny;
+use Perl::Critic::MergeProfile;
+use WWW::Mechanize::Cached;
+
+use namespace::autoclean 0.09;
+
 has set_script_shebang => (
     is      => 'ro',
     isa     => 'Bool',
@@ -24,16 +37,6 @@ has set_script_shebang => (
         exists $_[0]->payload->{set_script_shebang} ? $_[0]->payload->{set_script_shebang} : 1;
     },
 );
-
-use CHI;
-use File::HomeDir;
-use File::Spec;
-use HTTP::Tiny::Mech;
-use Module::Metadata ();
-use Path::Tiny;
-use WWW::Mechanize::Cached;
-
-use namespace::autoclean 0.09;
 
 sub _find_files_extra_tests_files {
     my ($self) = @_;
@@ -129,8 +132,8 @@ sub configure {
                     qw(
                       COMPATIBILITY
                       dist.ini
-                      perlcriticrc-code.local
-                      perlcriticrc-tests.local
+                      xt/author/perlcriticrc-code
+                      xt/author/perlcriticrc-tests
                       ),
                     @generated_files,
                 ],
@@ -241,14 +244,14 @@ sub configure {
         [
             'AutoPrereqs::Perl::Critic', 'AutoPrereqs::Perl::Critic / code',
             {
-                critic_config => 'xt/author/perlcriticrc-code',
+                critic_config => $self->_perlcriticrc('code'),
             },
         ],
 
         [
             'AutoPrereqs::Perl::Critic', 'AutoPrereqs::Perl::Critic / tests',
             {
-                critic_config => 'xt/author/perlcriticrc-tests',
+                critic_config => $self->_perlcriticrc('tests'),
             },
         ],
 
@@ -504,6 +507,32 @@ sub configure {
     );
 
     return;
+}
+
+# Files created by File::Temp->new are removed as soon as the object is
+# destroyed. This is here to keep them around until the program ends.
+my @TEMP_FILES;
+
+sub _tempfile {
+    my ($self) = @_;
+
+    push @TEMP_FILES, File::Temp->new;
+    return $TEMP_FILES[-1]->filename;
+}
+
+sub _perlcriticrc {
+    my ( $self, $code_or_tests ) = @_;
+
+    return 'xt/author/perlcriticrc' if !-f "xt/author/perlcriticrc-$code_or_tests";
+
+    my $merge = Perl::Critic::MergeProfile->new;
+    $merge->read('xt/author/perlcriticrc');
+    $merge->read("xt/author/perlcriticrc-$code_or_tests");
+
+    my $rc_file = $self->_tempfile;
+    $merge->write($rc_file) or croak "Cannot write merged Perl::Critic profile to $rc_file: $!";
+
+    return $rc_file;
 }
 
 __PACKAGE__->meta->make_immutable;
