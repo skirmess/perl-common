@@ -39,4 +39,4 @@ eval {
     BAIL_OUT($error);
 };
 
-all_critic_ok(qw(bin lib));
+all_critic_ok( grep { -d } qw(bin lib) );

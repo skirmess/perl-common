@@ -39,4 +39,4 @@ eval {
     BAIL_OUT($error);
 };
 
-all_critic_ok(qw(t xt));
+all_critic_ok( grep { -d } qw(t xt) );

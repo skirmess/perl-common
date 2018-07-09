@@ -181,6 +181,7 @@ on develop => sub {
     requires 'Perl::Critic::Policy::Variables::ProhibitUnusedVarsStricter', '0.102';
     requires 'Perl::Critic::Policy::Variables::ProhibitUselessInitialization', '0.02';
     requires 'Pod::Wordlist';
+    requires 'Test2::V0';
     requires 'Test::CleanNamespaces';
     requires 'Test::EOL';
     requires 'Test::MinimumVersion', '0.008';
@@ -197,5 +198,6 @@ on develop => sub {
     requires 'Test::Spelling', '0.12';
     requires 'Test::Spelling::Comment', '0.003';
     requires 'Test::Version', '0.04';
+    requires 'XT::Util';
     requires 'lib';
 };

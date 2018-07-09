@@ -34,10 +34,7 @@ sub mvp_multivalue_args {
     return (
         qw(
           appveyor_author_testing_perl
-          kwalitee_disable_test
           skip
-          stopwords
-          stopwords_comment
           travis_ci_author_testing_perl
           travis_ci_osx_perl
           )
@@ -87,12 +84,6 @@ has ci_earliest_perl => (
     default => '5.8',
 );
 
-has kwalitee_disable_test => (
-    is      => 'ro',
-    isa     => 'ArrayRef[Str]',
-    default => sub { [] },
-);
-
 has makefile_pl_exists => (
     is      => 'ro',
     isa     => 'Bool',
@@ -100,18 +91,6 @@ has makefile_pl_exists => (
 );
 
 has skip => (
-    is      => 'ro',
-    isa     => 'Maybe[ArrayRef]',
-    default => sub { [] },
-);
-
-has stopwords => (
-    is      => 'ro',
-    isa     => 'Maybe[ArrayRef]',
-    default => sub { [] },
-);
-
-has stopwords_comment => (
     is      => 'ro',
     isa     => 'Maybe[ArrayRef]',
     default => sub { [] },
@@ -1280,7 +1259,7 @@ XT_AUTHOR_CLEAN_NAMESPACES_T
 
 =head2 xt/author/comment-spell.t
 
-L<Test::Spelling::Comment|Test::Spelling::Comment> author test. B<stopwords_comment> are added as stopwords.
+L<Test::Spelling::Comment|Test::Spelling::Comment> author test.
 
 =cut
 
@@ -1289,6 +1268,7 @@ L<Test::Spelling::Comment|Test::Spelling::Comment> author test. B<stopwords_comm
 
         my $content = $test_header . <<'XT_AUTHOR_COMMENT_SPELL_T';
 use Test::Spelling::Comment 0.003;
+use XT::Util;
 
 if ( exists $ENV{AUTOMATED_TESTING} ) {
     print "1..0 # SKIP these tests during AUTOMATED_TESTING\n";
@@ -1305,15 +1285,13 @@ Test::Spelling::Comment->new(
         '^[#]!/.*perl$',
         '(?i)http(?:s)?://[^\s]+',
     ],
-)->add_stopwords(<DATA>)->all_files_ok(@files);
+)->add_stopwords( <DATA>, @{ __CONFIG__()->{stopwords} } )->all_files_ok(@files);
 
 __DATA__
 XT_AUTHOR_COMMENT_SPELL_T
 
-        my @stopwords = grep { defined && !m{ ^ \s* $ }xsm } @{ $self->stopwords_comment };
-
         # Add default words used in xt tests
-        push @stopwords, qw(
+        my @stopwords = qw(
           cpanfile
           Dist
           LinkCheck
@@ -1350,6 +1328,60 @@ Test::RequiredMinimumDependencyVersion->new(
     },
 )->all_files_ok( grep { -d } qw(bin lib t xt) );
 XT_AUTHOR_DEPENDENCY_VERSION_T
+
+=head2 xt/author/json-tidy.t
+
+Author test to check that the JSON config files for L<XT::Util|XT::Util> is
+pretty printed.
+
+=cut
+
+    $file{q{xt/author/json-tidy.t}} = $test_header . <<'XT_AUTHOR_JSON_TIDY_T';
+use JSON::MaybeXS ();
+use Path::Tiny;
+use Test2::V0;
+
+main();
+
+sub main {
+    my $json = JSON::MaybeXS->new( pretty => 1 );
+    my $it = path('xt')->iterator( { recurse => 1 } );
+
+    my $test_count = 0;
+
+  FILE:
+    while ( defined( my $file = $it->() ) ) {
+        next FILE if !-f $file;
+        next FILE if $file !~ m { .+ [.] config $ }xsm;
+
+        $test_count++;
+
+        my $content = $file->slurp;
+        my $content_decoded = eval { $json->decode($content) };
+        if ( !defined $content_decoded ) {
+            my $json_error = $@;
+            ok( 0, $file );
+            diag("\n$json_error\n");
+            next FILE;
+        }
+
+        my $pretty = $json->encode($content_decoded);
+
+        ok( $content eq $pretty, $file );
+    }
+
+    if ( $test_count == 0 ) {
+        skip_all('no json files found');
+        exit 0;
+    }
+
+    done_testing();
+
+    exit 0;
+}
+
+# vim: ts=4 sts=4 sw=4 et: syntax=perl
+XT_AUTHOR_JSON_TIDY_T
 
 =head2 xt/author/minimum-version.t
 
@@ -1445,7 +1477,7 @@ eval {
 PERLCRITIC_TEST
 
     $file{q{xt/author/perlcritic-code.t}} = $perlcritic_test . <<'XT_AUTHOR_PERLCRITIC_CODE_T';
-all_critic_ok(qw(bin lib));
+all_critic_ok( grep { -d } qw(bin lib) );
 XT_AUTHOR_PERLCRITIC_CODE_T
 
 =head2 xt/author/perlcritic-tests.t
@@ -1455,7 +1487,7 @@ L<Test::Perl::Critic|Test::Perl::Critic> author test for F<t> and F<xt>.
 =cut
 
     $file{q{xt/author/perlcritic-tests.t}} = $perlcritic_test . <<'XT_AUTHOR_PERLCRITIC_TESTS_T';
-all_critic_ok(qw(t xt));
+all_critic_ok( grep { -d } qw(t xt) );
 XT_AUTHOR_PERLCRITIC_TESTS_T
 
 =head2 xt/author/perltidy.t
@@ -1494,7 +1526,7 @@ if ( -d 'lib' ) {
     }
 }
 
-for my $dir (qw(t xt)) {
+for my $dir ( grep { -d } qw(t xt) ) {
     my $it = path($dir)->iterator( { recurse => 1 } );
 
   TEST:
@@ -1567,7 +1599,7 @@ XT_AUTHOR_POD_LINKS_T
 
 =head2 xt/author/pod-spell.t
 
-L<Test::Spelling|Test::Spelling> author test. B<stopwords> are added as stopwords.
+L<Test::Spelling|Test::Spelling> author test.
 
 =cut
 
@@ -1575,8 +1607,9 @@ L<Test::Spelling|Test::Spelling> author test. B<stopwords> are added as stopword
         my ($self) = @_;
 
         my $content = $test_header . <<'XT_AUTHOR_POD_SPELL_T';
-use Test::Spelling 0.12;
 use Pod::Wordlist;
+use Test::Spelling 0.12;
+use XT::Util;
 
 if ( exists $ENV{AUTOMATED_TESTING} ) {
     print "1..0 # SKIP these tests during AUTOMATED_TESTING\n";
@@ -1584,14 +1617,13 @@ if ( exists $ENV{AUTOMATED_TESTING} ) {
 }
 
 add_stopwords(<DATA>);
+add_stopwords( @{ __CONFIG__()->{stopwords} } );
 
 all_pod_files_spelling_ok( grep { -d } qw( bin lib t xt ) );
 __DATA__
 XT_AUTHOR_POD_SPELL_T
 
-        my @stopwords = grep { defined && !m{ ^ \s* $ }xsm } @{ $self->stopwords };
-        push @stopwords, split /\s/xms, join q{ }, @{ $self->zilla->authors };
-
+        my @stopwords = split /\s/xms, join q{ }, @{ $self->zilla->authors };
         $content .= join "\n", uniq( sort @stopwords ), q{};
 
         return $content;
@@ -1694,22 +1726,11 @@ L<Test::Kwalitee|Test::Kwalitee> release test.
         my ($self) = @_;
 
         my $kwalitee = $test_header . <<'XT_RELEASE_KWALITEE_T';
-use Test::More 0.88;
 use Test::Kwalitee 'kwalitee_ok';
+use Test::More 0.88;
+use XT::Util;
 
-# Module::CPANTS::Analyse does not find the LICENSE in scripts that don't end in .pl
-XT_RELEASE_KWALITEE_T
-
-        $kwalitee .= 'kwalitee_ok(';
-        my @disabled = @{ $self->kwalitee_disable_test };
-        if (@disabled) {
-            $kwalitee .= 'qw{';
-            $kwalitee .= join q{ }, map { "-$_" } @disabled;
-            $kwalitee .= '}';
-        }
-        $kwalitee .= ");\n";
-
-        $kwalitee .= <<'XT_RELEASE_KWALITEE_T';
+kwalitee_ok( @{ __CONFIG__()->{tests} } );
 
 done_testing();
 XT_RELEASE_KWALITEE_T
@@ -1794,10 +1815,6 @@ Travis CI and AppVeyor. Defaults to C<5.8>.
 =item *
 
 C<skip> - Defines files to be skipped (not generated).
-
-=item *
-
-C<stopwords> - Defines stopwords for the spell checker.
 
 =item *
 

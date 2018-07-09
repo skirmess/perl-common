@@ -137,6 +137,7 @@ sub configure {
                       ),
                     @generated_files,
                 ],
+                exclude_match    => '^xt/(.+/)?.+[.]config$',
                 include_dotfiles => 1,
             },
         ],
