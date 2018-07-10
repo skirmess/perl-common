@@ -1283,6 +1283,7 @@ Test::Spelling::Comment->new(
     skip => [
         '^[#] vim: .*',
         '^[#]!/.*perl$',
+        '[#][#] no critic [(][^)]+[)]',
         '(?i)http(?:s)?://[^\s]+',
     ],
 )->add_stopwords( <DATA>, @{ __CONFIG__()->{stopwords} } )->all_files_ok(@files);
