@@ -6,7 +6,7 @@ use 5.006;
 use strict;
 use warnings;
 
-use Test::Mojibake;
+use Test::DistManifest 1.003;
 use XT::Util;
 
 if ( __CONFIG__()->{':skip'} ) {
@@ -14,4 +14,4 @@ if ( __CONFIG__()->{':skip'} ) {
     exit 0;
 }
 
-all_files_encoding_ok( grep { -d } qw( bin lib t xt ) );
+manifest_ok();

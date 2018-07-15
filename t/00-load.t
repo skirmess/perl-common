@@ -11,6 +11,7 @@ use Test::More 0.88;
 use lib qw(lib .);
 
 my @modules = qw(
+  Dist::Zilla::Plugin::Author::SKIRMESS::AddFilesToProject
   Dist::Zilla::Plugin::Author::SKIRMESS::CPANFile
   Dist::Zilla::Plugin::Author::SKIRMESS::CheckCopyrightYear
   Dist::Zilla::Plugin::Author::SKIRMESS::CheckFilesInDistribution

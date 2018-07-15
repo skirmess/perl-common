@@ -6,7 +6,7 @@ use 5.006;
 use strict;
 use warnings;
 
-use Test::Mojibake;
+use Test::CPAN::Meta::JSON;
 use XT::Util;
 
 if ( __CONFIG__()->{':skip'} ) {
@@ -14,4 +14,4 @@ if ( __CONFIG__()->{':skip'} ) {
     exit 0;
 }
 
-all_files_encoding_ok( grep { -d } qw( bin lib t xt ) );
+meta_json_ok();

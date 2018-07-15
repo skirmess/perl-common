@@ -75,6 +75,33 @@ sub configure {
     # distribution.
     my $self_build = -d 'lib/Dist/Zilla/PluginBundle/Author' && path('lib/Dist/Zilla/PluginBundle/Author')->realpath eq path(__FILE__)->parent()->realpath();
 
+    my @template_files = qw(
+      .perltidyrc
+      xt/author/clean-namespaces.t
+      xt/author/comment-spell.t
+      xt/author/dependency-version.t
+      xt/author/json-tidy.t
+      xt/author/minimum-version.t
+      xt/author/mojibake.t
+      xt/author/no-tabs.t
+      xt/author/perlcritic-code.t
+      xt/author/perlcritic-tests.t
+      xt/author/perltidy.t
+      xt/author/pod-linkcheck.t
+      xt/author/pod-links.t
+      xt/author/pod-spell.t
+      xt/author/pod-syntax.t
+      xt/author/portability.t
+      xt/author/test-version.t
+      xt/release/changes.t
+      xt/release/distmeta.t
+      xt/release/eol.t
+      xt/release/kwalitee.t
+      xt/release/manifest.t
+      xt/release/meta-json.t
+      xt/release/meta-yaml.t
+    );
+
     my @generated_files = Dist::Zilla::Plugin::Author::SKIRMESS::ProjectSkeleton->files();
     push @generated_files, qw(
       cpanfile
@@ -92,6 +119,8 @@ sub configure {
           META.yml
           README
         );
+
+        push @generated_files, @template_files;
     }
 
     my $dist_dir = __PACKAGE__;
@@ -136,6 +165,9 @@ sub configure {
                       xt/author/perlcriticrc-tests
                       ),
                     @generated_files,
+
+                    # template files are in #generated_files for non-self builds
+                    ( $self_build ? @template_files : () ),
                 ],
                 exclude_match    => '^xt/(.+/)?.+[.]config$',
                 include_dotfiles => 1,
@@ -159,24 +191,26 @@ sub configure {
             {
                 (
                     $self_build
-                    ? (
-                        makefile_pl_exists => 0,
-                        skip               => [
-                            qw(
-                              xt/release/changes.t
-                              xt/release/distmeta.t
-                              xt/release/kwalitee.t
-                              xt/release/manifest.t
-                              xt/release/meta-json.t
-                              xt/release/meta-yaml.t
-                              ),
-                        ],
-                      )
+                    ? ( makefile_pl_exists => 0, )
                     : ( makefile_pl_exists => 1, ),
                     ua => [$ua],
                 ),
             },
         ],
+
+        # Add files to the project from templates
+        (
+            $self_build
+            ? ()
+            : [
+                'Author::SKIRMESS::AddFilesToProject',
+                {
+                    file               => [@template_files],
+                    root               => 'dzil-inc',
+                    'config.generated' => 'Automatically generated file; DO NOT EDIT.',
+                },
+            ],
+        ),
 
         # Check at build/release time if modules are out of date
         [

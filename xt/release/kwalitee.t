@@ -6,7 +6,8 @@ use 5.006;
 use strict;
 use warnings;
 
-use Test::Mojibake;
+use Test::Kwalitee 'kwalitee_ok';
+use Test::More 0.88;
 use XT::Util;
 
 if ( __CONFIG__()->{':skip'} ) {
@@ -14,4 +15,6 @@ if ( __CONFIG__()->{':skip'} ) {
     exit 0;
 }
 
-all_files_encoding_ok( grep { -d } qw( bin lib t xt ) );
+kwalitee_ok( @{ __CONFIG__()->{tests} } );
+
+done_testing();
