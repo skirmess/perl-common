@@ -1,4 +1,4 @@
-package Dist::Zilla::Plugin::Author::SKIRMESS::RemoveDevelopPrereqs;
+package Dist::Zilla::Plugin::Author::SKIRMESS::CPANFile::Project;
 
 use 5.006;
 use strict;
@@ -8,38 +8,28 @@ our $VERSION = '1.000';
 
 use Moose;
 
-with qw(Dist::Zilla::Role::PrereqSource);
+with qw(Dist::Zilla::Role::AfterBuild);
 
-# Consumed by Dist::Zilla::Plugin::Author::SKIRMESS::CPANFile
-has _develop => (
-    is  => 'rw',
-    isa => 'HashRef',
-);
+use Module::CPANfile 1.1004 ();
+use Path::Tiny qw(path);
 
 use namespace::autoclean;
 
-sub develop_prereqs {
+has filename => (
+    is      => 'ro',
+    isa     => 'Str',
+    default => 'cpanfile',
+);
+
+sub after_build {
     my ($self) = @_;
 
-    return $self->_develop;
-}
+    my $zilla    = $self->zilla;
+    my $prereqs  = $zilla->prereqs;
+    my $pre      = $prereqs->as_string_hash;
+    my $cpanfile = path( $zilla->root )->child( $self->filename )->stringify;
 
-sub register_prereqs {
-    my ($self) = @_;
-
-    my $prereqs = $self->zilla->prereqs;
-    my $raw     = $prereqs->as_string_hash;
-
-    return if !exists $raw->{develop};
-
-    my $develop = $raw->{develop};
-    $self->_develop($develop);
-
-    for my $phase ( keys %{$develop} ) {
-        for my $module ( keys %{ $develop->{$phase} } ) {
-            $prereqs->requirements_for( 'develop', $phase )->clear_requirement($module);
-        }
-    }
+    Module::CPANfile->from_prereqs($pre)->save($cpanfile);
 
     return;
 }
@@ -56,7 +46,7 @@ __END__
 
 =head1 NAME
 
-Dist::Zilla::Plugin::Author::SKIRMESS::RemoveDevelopPrereqs - remove the develop prereqs because they make no sense in the META.* files
+Dist::Zilla::Plugin::Author::SKIRMESS::CPANFile::Project - create a cpanfile in the project
 
 =head1 VERSION
 

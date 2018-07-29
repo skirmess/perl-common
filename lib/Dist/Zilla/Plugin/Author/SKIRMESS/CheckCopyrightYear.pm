@@ -10,13 +10,13 @@ use Moose;
 
 with qw(Dist::Zilla::Role::BeforeBuild);
 
+use namespace::autoclean;
+
 has whitelisted_licenses => (
     is      => 'ro',
     isa     => 'ArrayRef[Str]',
     default => sub { [qw(Software::License::FreeBSD)] },
 );
-
-use namespace::autoclean;
 
 sub before_build {
     my ($self) = @_;

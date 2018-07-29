@@ -16,6 +16,8 @@ with qw(
 use File::Compare;
 use Path::Tiny;
 
+use namespace::autoclean;
+
 sub mvp_multivalue_args { return (qw( skip_file )) }
 
 has skip_file => (
@@ -23,8 +25,6 @@ has skip_file => (
     isa     => 'ArrayRef[Str]',
     default => sub { [] },
 );
-
-use namespace::autoclean;
 
 sub after_build {
     my ( $self, $data ) = @_;

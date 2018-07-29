@@ -15,15 +15,15 @@ with qw(
   Dist::Zilla::Role::FileMunger
 );
 
+use Dist::Zilla::File::InMemory;
+
+use namespace::autoclean;
+
 has _filename => (
     is      => 'ro',
     isa     => 'Str',
     default => 'CONTRIBUTING',
 );
-
-use Dist::Zilla::File::InMemory;
-
-use namespace::autoclean;
 
 sub gather_files {
     my ($self) = @_;
@@ -126,6 +126,10 @@ cloned project to install them:
 
   $ cpanm --installdeps --with-develop .
 
+Or if you plan on using Dist::Zilla, install all author dependencies with:
+
+  $ cpanm --installdeps --with-develop --with-feature dzil .
+
 You can run tests directly using the prove tool:
 
   $ prove -l
@@ -136,7 +140,7 @@ Including the author tests:
 
   $ prove -lvr xt/
 
-or with Dist::Zilla
+or with Dist::Zilla:
 
   $ dzil test
   $ dzil test --release

@@ -1,4 +1,4 @@
-package Dist::Zilla::Plugin::Author::SKIRMESS::RemoveWhitespaceFromEndOfLine;
+package Dist::Zilla::Plugin::Author::SKIRMESS::MetaJSON::RemoveDevelopPrereqs;
 
 use 5.006;
 use strict;
@@ -8,33 +8,40 @@ our $VERSION = '1.000';
 
 use Moose;
 
-with 'Dist::Zilla::Role::FileMunger';
+with qw(Dist::Zilla::Role::FileMunger);
 
-use Path::Tiny;
+use JSON::MaybeXS qw();
+use Scalar::Util qw(blessed);
 
 use namespace::autoclean;
 
-sub mvp_multivalue_args { return (qw( file )) }
-
-has file => (
+has filename => (
     is      => 'ro',
-    isa     => 'ArrayRef',
-    default => sub { [] },
+    isa     => 'Str',
+    default => 'META.json',
 );
 
 sub munge_file {
     my ( $self, $file ) = @_;
 
-    my %file;
-    @file{ @{ $self->file } } = 1;
+    return if $file->name ne $self->filename;
 
-    # stringify returns the path standardized with Unix-style / directory
-    # separators.
-    return if !exists $file{ path( $file->name )->stringify() };
+    $self->log_fatal( q{'} . $file->name . q{' is not a 'Dist::Zilla::File::FromCode'} ) if blessed($file) ne 'Dist::Zilla::File::FromCode';
 
-    my $content = $file->content;
-    $content =~ s{ [ \t]+ \n }{\n}xsmg;
-    $file->content($content);
+    my $orig_coderef = $file->code();
+    $file->code(
+        sub {
+            $self->log_debug( [ 'Removing develop prereqs from %s', $file->name ] );
+
+            my $json = JSON::MaybeXS->new( canonical => 1, pretty => 1, ascii => 1 );
+
+            my $meta_json = $json->decode( $file->$orig_coderef() );
+            delete $meta_json->{prereqs}->{develop};
+
+            my $content = $json->encode($meta_json) . "\n";
+            return $content;
+        },
+    );
 
     return;
 }
@@ -51,7 +58,7 @@ __END__
 
 =head1 NAME
 
-Dist::Zilla::Plugin::Author::SKIRMESS::RemoveWhitespaceFromEndOfLine - remove whitespace at end of line
+Dist::Zilla::Plugin::Author::SKIRMESS::MetaJSON::RemoveDevelopPrereqs - Remove develop prereqs from META.json file
 
 =head1 VERSION
 

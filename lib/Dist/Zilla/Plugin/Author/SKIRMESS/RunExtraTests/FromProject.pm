@@ -14,9 +14,11 @@ with qw(
 );
 
 use App::Prove ();
-use Dist::Zilla::Types qw(Path);
+use Dist::Zilla::Types 6.000 qw(Path);
 use File::pushd ();
 use Path::Tiny;
+
+use namespace::autoclean;
 
 sub mvp_multivalue_args { return (qw( skip_build skip_project )) }
 
@@ -36,8 +38,6 @@ has _project_root => (
     is  => 'rw',
     isa => Path,
 );
-
-use namespace::autoclean;
 
 sub before_build {
     my ($self) = @_;

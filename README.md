@@ -20,6 +20,7 @@ Create a new repository on Github and clone it.
     lib = dzil-inc/lib
 
     [@Author::SKIRMESS]
+    :version = 1.000
 
 ## Clone a project which already contains this submodule
 
@@ -45,7 +46,20 @@ included as Git submodule in the project that will use it.
 To use this PluginBundle, include it as Git submodule in your project and
 add it to your dist.ini. You can provide the following options:
 
-- `set_script_shebang` - this indicates whether `SetScriptShebang` should be used or not
+- `appveyor_earliest_perl` - Earliest version of Perl to use on AppVeyor.
+(default: ci\_earliest\_perl)
+- `appveyor_test_on_cygwin` - Test with Cygwin 32 bit on AppVeyor. (default:
+true)
+- `appveyor_test_on_cygwin64` - Test with Cygwin 64 bit on AppVeyor. (default:
+true)
+- `appveyor_test_on_strawberry` - Test with Strawberry Perl on AppVeyor.
+(default: true)
+- `ci_earliest_perl` - The earliest version of Perl to test on Travis CI and
+AppVeyor. (default: 5.8)
+- `debug` - Enables debug output of the Bundle itself (unfortunately the
+status of `dzil -v` is unknown to a plugin bundle). (default: false)
+- `set_script_shebang` - This indicates whether `SetScriptShebang` should be
+used or not. (default: true)
 
 # SUPPORT
 

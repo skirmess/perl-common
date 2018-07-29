@@ -23,16 +23,16 @@ with(
     'Dist::Zilla::Role::TextTemplate',
 );
 
+use Dist::Zilla::File::InMemory;
+use File::Spec;
+
+use namespace::autoclean;
+
 has _generated_string => (
     is      => 'ro',
     isa     => 'Str',
     default => 'Automatically generated file; DO NOT EDIT.',
 );
-
-use Dist::Zilla::File::InMemory;
-use File::Spec;
-
-use namespace::autoclean;
 
 sub gather_files {
     my ($self) = @_;

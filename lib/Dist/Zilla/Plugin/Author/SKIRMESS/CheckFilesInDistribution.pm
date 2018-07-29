@@ -14,6 +14,8 @@ use File::pushd;
 use File::Spec;
 use Path::Tiny;
 
+use namespace::autoclean;
+
 sub mvp_multivalue_args { return (qw( required_file )) }
 
 has required_file => (
@@ -21,8 +23,6 @@ has required_file => (
     isa     => 'ArrayRef[Str]',
     default => sub { [] },
 );
-
-use namespace::autoclean;
 
 sub after_build {
     my ( $self, $data ) = @_;
