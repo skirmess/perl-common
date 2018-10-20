@@ -35,6 +35,8 @@ matrix:
 
     - perl: '5.26'
 
+    - perl: '5.28'
+
 before_install:
   - |
     case "${TRAVIS_OS_NAME}" in

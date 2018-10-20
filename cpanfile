@@ -178,7 +178,7 @@ on develop => sub {
     requires 'Perl::Critic::Policy::ValuesAndExpressions::ProhibitUnknownBackslash', '96';
     requires 'Perl::Critic::Policy::ValuesAndExpressions::RequireNumericVersion', '96';
     requires 'Perl::Critic::Policy::ValuesAndExpressions::UnexpandedSpecialLiteral', '96';
-    requires 'Perl::Critic::Policy::Variables::ProhibitLoopOnHash', '0.006';
+    requires 'Perl::Critic::Policy::Variables::ProhibitLoopOnHash', '0.007';
     requires 'Perl::Critic::Policy::Variables::ProhibitUnusedVarsStricter', '0.102';
     requires 'Perl::Critic::Policy::Variables::ProhibitUselessInitialization', '0.02';
     requires 'Pod::Wordlist';

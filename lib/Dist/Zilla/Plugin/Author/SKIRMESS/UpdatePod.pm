@@ -117,7 +117,22 @@ sub _update_pod_section_author {
     my $filename = $file->name;
     my $content  = $file->content;
 
-    my $section = "\n\n=head1 AUTHOR\n\n" . join( "\n", @{ $self->zilla->authors } ) . "\n";
+    my $section = "\n\n=head1 AUTHOR\n\n" . join( "\n", @{ $self->zilla->authors } ) . "\n\n";
+
+    # remove old CONTRIBUTORS section, they will be added back after the AUTHORS section
+    $content =~ s{
+        [\s\n]*
+        ^ =head1 \s+ CONTRIBUTORS [^\n]* $
+        .*?
+        ^ (?= = (?: head1 | cut ) )
+    }{\n\n}xsm;
+
+    my $contributors = $self->zilla->distmeta->{x_contributors};
+    if ( defined $contributors ) {
+        $section .= "=head1 CONTRIBUTORS\n\n=over\n\n";
+        $section .= join "\n\n", map { "=item $_" } @{$contributors};
+        $section .= "\n\n=back\n\n";
+    }
 
     if (
         $content !~ s{
