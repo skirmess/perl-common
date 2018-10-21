@@ -130,7 +130,7 @@ sub _update_pod_section_author {
     my $contributors = $self->zilla->distmeta->{x_contributors};
     if ( defined $contributors ) {
         $section .= "=head1 CONTRIBUTORS\n\n=over\n\n";
-        $section .= join "\n\n", map { "=item $_" } @{$contributors};
+        $section .= join "\n\n", map { "=item *\n\n$_" } @{$contributors};
         $section .= "\n\n=back\n\n";
     }
 
