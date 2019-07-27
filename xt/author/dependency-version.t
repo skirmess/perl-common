@@ -17,6 +17,9 @@ if ( __CONFIG__()->{':skip'} ) {
 Test::RequiredMinimumDependencyVersion->new(
     module => {
 
+        # Unknown constructor arguments are ignored rather than fatal
+        'Class::Tiny' => '1',
+
         # the done_testing sub was added on 0.88
         'Test::More' => '0.88',
 
