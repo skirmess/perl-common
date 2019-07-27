@@ -23,7 +23,7 @@ use Dist::Zilla::Util::CurrentCmd qw(is_build);
 use File::HomeDir ();
 use File::Spec    ();
 use File::Temp qw(tempfile);
-use HTTP::Tiny::Mech ();
+use HTTP::Tiny ();
 use JSON::MaybeXS qw(decode_json);
 use Module::CPANfile 1.1004 ();
 use Module::Metadata ();
@@ -32,7 +32,6 @@ use Perl::Critic::MergeProfile;
 use Term::ANSIColor qw(colored);
 use Text::Template qw(fill_in_file fill_in_string);
 use version 0.77 ();
-use WWW::Mechanize::Cached ();
 
 use namespace::autoclean 0.09;
 
@@ -1168,7 +1167,7 @@ sub log {    ## no critic (Subroutines::ProhibitBuiltinHomonyms)
     my ( $self, $msg ) = @_;
 
     my $name = $self->name;
-    my $log = sprintf '[%s] %s', $name, $msg;
+    my $log  = sprintf '[%s] %s', $name, $msg;
     warn "$log\n";
 
     return;
@@ -1649,9 +1648,9 @@ sub _strawberry_releases {
         ## no critic (RegularExpressions::RequireLineBoundaryMatching)
         my @name = split /\s*\/\s*/, $release->{name};
 
-        $self->log_fatal("Unable to parse name: $release->{name}") if ( @name < 3 ) || ( @name > 4 );
+        $self->log_fatal("Unable to parse name: $release->{name}")                 if ( @name < 3 ) || ( @name > 4 );
         $self->log_fatal("Version '$version' does not version in name '$name[1]'") if $version ne $name[1];
-        $self->log_fatal("Unable to parse version '$version'") if $version !~ m{ ^ ( ( 5 [.] [1-9][0-9]* ) [.] [0-9]+ ) [.] [0-9]+ $ }xsm;
+        $self->log_fatal("Unable to parse version '$version'")                     if $version !~ m{ ^ ( ( 5 [.] [1-9][0-9]* ) [.] [0-9]+ ) [.] [0-9]+ $ }xsm;
 
         my @release = ( $2, $1, $version );    ## no critic (RegularExpressions::ProhibitCaptureWithoutTest)
 
@@ -1705,17 +1704,7 @@ sub _update_project {
 sub _build_ua {
     my ($self) = @_;
 
-    my $dist_dir = __PACKAGE__;
-    $dist_dir =~ s{::}{-}xsmg;
-
-    my $ua = HTTP::Tiny::Mech->new(
-        mechua => WWW::Mechanize::Cached->new(
-            cache => CHI->new(
-                driver   => 'File',
-                root_dir => File::Spec->catdir( File::HomeDir->my_dist_data( $dist_dir, { create => 1 } ), '.cache' ),
-            ),
-        ),
-    );
+    my $ua = HTTP::Tiny->new;
 
     return $ua;
 }
@@ -1841,7 +1830,7 @@ Sven Kirmess <sven.kirmess@kzone.ch>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2017-2018 by Sven Kirmess.
+This software is Copyright (c) 2017-2019 by Sven Kirmess.
 
 This is free software, licensed under:
 

@@ -74,7 +74,7 @@ sub test {
         $self->_run_prove( $prove_arg_ref, \@build_tests );
     }
 
-    my %skip_project = map { $_ => 1 } @{ $self->skip_project };
+    my %skip_project  = map  { $_ => 1 } @{ $self->skip_project };
     my @project_tests = grep { !exists $skip_project{$_} } @tests;
 
     if ( !@project_tests ) {
@@ -243,7 +243,7 @@ Sven Kirmess <sven.kirmess@kzone.ch>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2017-2018 by Sven Kirmess.
+This software is Copyright (c) 2017-2019 by Sven Kirmess.
 
 This is free software, licensed under:
 

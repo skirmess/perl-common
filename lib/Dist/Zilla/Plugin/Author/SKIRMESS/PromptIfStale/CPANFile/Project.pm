@@ -70,7 +70,7 @@ sub _check_modules_from_cpanfile {
     }
     @types = uniq sort @types;
 
-    my $req = $prereqs->merged_requirements( \@phases, \@types );
+    my $req     = $prereqs->merged_requirements( \@phases, \@types );
     my @modules = sort $req->required_modules;
 
     return if !@modules;
@@ -121,7 +121,7 @@ Sven Kirmess <sven.kirmess@kzone.ch>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2017-2018 by Sven Kirmess.
+This software is Copyright (c) 2017-2019 by Sven Kirmess.
 
 This is free software, licensed under:
 
