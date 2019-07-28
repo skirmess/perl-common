@@ -26,7 +26,7 @@ eval {
         $rc_file .= $1;
     }
     else {
-        BAIL_OUT("Invalid test file name: $Script");
+        die "Invalid test file name: $Script";
     }
 
     if ( -f $rc_file ) {
@@ -41,7 +41,7 @@ eval {
     1;
 } || do {
     my $error = $@;
-    BAIL_OUT($error);
+    die $error;
 };
 
 all_critic_ok( grep { -d } qw(t xt) );
