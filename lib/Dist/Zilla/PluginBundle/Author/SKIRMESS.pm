@@ -826,7 +826,7 @@ APPVEYOR_YML
         - PERL_TYPE: cygwin
 
     install:
-      - c:\cygwin\setup-x86.exe -q -C devel -C perl -P libcrypt-devel -P openssl-devel
+      - c:\cygwin\setup-x86.exe -q -C devel -C perl -P libcrypt-devel -P libssl-devel
       - set PATH=C:\cygwin\bin;C:\cygwin\usr\local\bin;%PATH%
 
 APPVEYOR_YML
@@ -840,7 +840,7 @@ APPVEYOR_YML
         - PERL_TYPE: cygwin64
 
     install:
-      - c:\cygwin64\setup-x86_64.exe -q -C devel -C perl -P libcrypt-devel -P openssl-devel
+      - c:\cygwin64\setup-x86_64.exe -q -C devel -C perl -P libcrypt-devel -P libssl-devel
       - set PATH=C:\cygwin64\bin;C:\cygwin64\usr\local\bin;%PATH%
 
 APPVEYOR_YML
