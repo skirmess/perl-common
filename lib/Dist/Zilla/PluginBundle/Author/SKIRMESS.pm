@@ -52,6 +52,7 @@ use constant STRAWBERRY_PERL_RELEASES_URL => 'http://strawberryperl.com/releases
 # Template files copied from the submodule to the project
 use constant TEMPLATE_FILES => qw(
   .perltidyrc
+  .xtfilesrc
   xt/author/clean-namespaces.t
   xt/author/comment-spell.t
   xt/author/dependency-version.t
