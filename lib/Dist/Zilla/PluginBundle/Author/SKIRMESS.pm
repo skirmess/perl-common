@@ -1009,6 +1009,17 @@ TRAVIS_YML
         for my $os (@os) {
             $travis_yml .= "    - perl: '$perl'\n";
 
+            # Ubuntu 16.04 (xenial) does not have Perl <= 5.20 images
+            my $dist = 'xenial';
+
+            if ( $perl =~ m{ ^ 5 [.] ( [1-9][0-9]* ) $ }xsm ) {
+                if ( $1 <= 20 ) {
+
+                    # Ubuntu 14.04 (trusty) has all Perl versions
+                    $dist = 'trusty';
+                }
+            }
+
             if ( $perl =~ m{ ^ 5 [.] ( [1-9][0-9]* ) [.] ( [0-9]+ ) $ }xsm ) {
                 $perl_helper_used = 1;
             }
@@ -1024,6 +1035,11 @@ TRAVIS_YML
 
             if ( defined $os ) {
                 $travis_yml .= "      os: $os\n";
+                $dist = undef;
+            }
+
+            if ( defined $dist ) {
+                $travis_yml .= "      dist: '$dist'\n";
             }
 
             $travis_yml .= "\n";
