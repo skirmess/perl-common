@@ -200,7 +200,7 @@ on develop => sub {
     requires 'Test::PerlTidy';
     requires 'Test::Pod', '1.26';
     requires 'Test::Pod::LinkCheck';
-    requires 'Test::Pod::Links';
+    requires 'Test::Pod::Links', '0.003';
     requires 'Test::Portability::Files';
     requires 'Test::RequiredMinimumDependencyVersion';
     requires 'Test::Spelling', '0.12';
