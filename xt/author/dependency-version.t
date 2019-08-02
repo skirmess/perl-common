@@ -6,7 +6,7 @@ use 5.006;
 use strict;
 use warnings;
 
-use Test::RequiredMinimumDependencyVersion;
+use Test::RequiredMinimumDependencyVersion 0.003;
 use XT::Util;
 
 if ( __CONFIG__()->{':skip'} ) {
@@ -29,4 +29,4 @@ Test::RequiredMinimumDependencyVersion->new(
         # the version pod page "strongly urges" us to use at least 0.77
         'version' => '0.77',
     },
-)->all_files_ok( grep { -d } qw(bin lib t xt) );
+)->all_files_ok;
