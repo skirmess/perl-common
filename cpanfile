@@ -204,7 +204,7 @@ on develop => sub {
     requires 'Test::Portability::Files';
     requires 'Test::RequiredMinimumDependencyVersion', '0.003';
     requires 'Test::Spelling', '0.12';
-    requires 'Test::Spelling::Comment', '0.003';
+    requires 'Test::Spelling::Comment', '0.005';
     requires 'Test::Version', '0.04';
     requires 'XT::Util';
     requires 'lib';
