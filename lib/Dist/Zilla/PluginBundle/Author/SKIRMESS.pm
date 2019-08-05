@@ -1771,7 +1771,7 @@ Create a new repository on Github and clone it.
 
 =head2 Update the submodule
 
-  $ cd dzil-inv && git pull
+  $ cd dzil-inc && git pull
 
 =head1 DESCRIPTION
 

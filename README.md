@@ -32,7 +32,7 @@ Create a new repository on Github and clone it.
 
 ## Update the submodule
 
-    $ cd dzil-inv && git pull
+    $ cd dzil-inc && git pull
 
 # DESCRIPTION
 
