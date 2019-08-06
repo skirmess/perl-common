@@ -197,7 +197,7 @@ on develop => sub {
     requires 'Test::More', '0.88';
     requires 'Test::NoTabs';
     requires 'Test::Perl::Critic';
-    requires 'Test::PerlTidy';
+    requires 'Test::PerlTidy::XTFiles';
     requires 'Test::Pod', '1.26';
     requires 'Test::Pod::LinkCheck';
     requires 'Test::Pod::Links', '0.003';
