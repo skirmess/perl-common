@@ -181,7 +181,7 @@ on develop => sub {
     requires 'Perl::Critic::Policy::ValuesAndExpressions::RequireNumericVersion', '96';
     requires 'Perl::Critic::Policy::ValuesAndExpressions::UnexpandedSpecialLiteral', '96';
     requires 'Perl::Critic::Policy::Variables::ProhibitLoopOnHash', '0.008';
-    requires 'Perl::Critic::Policy::Variables::ProhibitUnusedVarsStricter', '0.102';
+    requires 'Perl::Critic::Policy::Variables::ProhibitUnusedVarsStricter', '0.103';
     requires 'Perl::Critic::Policy::Variables::ProhibitUselessInitialization', '0.02';
     requires 'Pod::Wordlist';
     requires 'Test2::V0';
