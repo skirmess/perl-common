@@ -60,8 +60,7 @@ use constant TEMPLATE_FILES => qw(
   xt/author/minimum-version.t
   xt/author/mojibake.t
   xt/author/no-tabs.t
-  xt/author/perlcritic-code.t
-  xt/author/perlcritic-tests.t
+  xt/author/perlcritic.t
   xt/author/perlcriticrc
   xt/author/perltidy.t
   xt/author/pod-linkcheck.t
@@ -591,7 +590,7 @@ sub configure {
                     qw(
                       xt/author/clean-namespaces.t
                       xt/author/minimum_version.t
-                      xt/author/perlcritic-code.t
+                      xt/author/perlcritic.t
                       xt/author/pod-no404s.t
                       xt/author/pod-spell.t
                       xt/author/pod-syntax.t

@@ -96,6 +96,7 @@ on develop => sub {
     requires 'Dist::Zilla::Plugin::UploadToCPAN';
     requires 'Dist::Zilla::Plugin::VerifyPhases';
     requires 'FindBin';
+    requires 'Module::Info';
     requires 'Perl::Critic', '1.134';
     requires 'Perl::Critic::Policy::Bangs::ProhibitBitwiseOperators', '1.12';
     requires 'Perl::Critic::Policy::Bangs::ProhibitDebuggingModules', '1.12';
@@ -196,7 +197,7 @@ on develop => sub {
     requires 'Test::Mojibake';
     requires 'Test::More', '0.88';
     requires 'Test::NoTabs';
-    requires 'Test::Perl::Critic';
+    requires 'Test::Perl::Critic::XTFiles';
     requires 'Test::PerlTidy::XTFiles';
     requires 'Test::Pod', '1.26';
     requires 'Test::Pod::LinkCheck';
@@ -206,6 +207,8 @@ on develop => sub {
     requires 'Test::Spelling', '0.12';
     requires 'Test::Spelling::Comment', '0.005';
     requires 'Test::Version', '0.04';
+    requires 'Test::XTFiles';
+    requires 'XT::Files';
     requires 'XT::Util';
     requires 'lib';
 };
