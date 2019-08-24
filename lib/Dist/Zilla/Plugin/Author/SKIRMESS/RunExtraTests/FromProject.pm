@@ -122,6 +122,8 @@ sub _run_prove {
 
     my @cmd = ( @{$prove_arg_ref}, @{$tests_ref} );
 
+    local $ENV{XT_FILES_DEFAULT_CONFIG_FILE} = path( $self->_project_root )->child('.xtfilesrc')->stringify;
+
     my $app = App::Prove->new;
     $self->log_debug( [ 'running prove with args: %s', join q{ }, @cmd ] );
     $app->process_args(@cmd);
