@@ -16,7 +16,7 @@ if ( __CONFIG__()->{':skip'} ) {
     exit 0;
 }
 
-foreach my $file ( Test::XTFiles->new->all_perl_files() ) {
+for my $file ( Test::XTFiles->new->all_perl_files() ) {
     notabs_ok( $file, "No tabs in '$file'" );
 }
 
