@@ -7,9 +7,9 @@ use strict;
 use warnings;
 
 use Module::Info;
-use Test::More 0.88;
 use Test::CleanNamespaces;
 use Test::XTFiles;
+use Test2::V0;
 use XT::Util;
 use lib ();
 
@@ -18,7 +18,13 @@ if ( __CONFIG__()->{':skip'} ) {
     exit 0;
 }
 
-for my $file ( Test::XTFiles->new->all_module_files() ) {
+my @files = Test::XTFiles->new->all_module_files;
+if ( !@files ) {
+    skip_all('no module files found');
+    exit 0;
+}
+
+for my $file (@files) {
     note("file    = $file");
     my @packages = Module::Info->new_from_file($file)->packages_inside;
 
