@@ -271,7 +271,6 @@ sub configure {
     if ( !$self_build ) {
         push @generated_files, qw(
           CONTRIBUTING
-          INSTALL
           Makefile.PL
           META.json
           META.yml
@@ -535,7 +534,7 @@ sub configure {
             {
                 required_file => [
                     qw(LICENSE Makefile.PL MANIFEST README),
-                    ( $self_build ? () : qw(Changes CONTRIBUTING INSTALL META.json META.yml) ),
+                    ( $self_build ? () : qw(Changes CONTRIBUTING META.json META.yml) ),
                 ],
             },
         ],
@@ -557,18 +556,6 @@ sub configure {
 
         # Output a LICENSE file
         'License',
-
-        # Build an INSTALL file
-        (
-            $self_build
-            ? ()
-            : [
-                'InstallGuide',
-                {
-                    ':version' => '1.200007',
-                },
-            ]
-        ),
 
         # build an CONTRIBUTING file
         ( $self_build ? () : 'Author::SKIRMESS::ContributingGuide' ),
