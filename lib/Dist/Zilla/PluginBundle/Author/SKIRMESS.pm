@@ -418,12 +418,7 @@ sub configure {
         ( $self->set_script_shebang ? 'SetScriptShebang' : () ),
 
         # Detects the minimum version of Perl required for your dist
-        [
-            'MinimumPerl',
-            {
-                ':version' => '1.006',
-            },
-        ],
+        'Author::SKIRMESS::MinimumPerl',
 
         # Stop CPAN from indexing stuff
         (
@@ -1384,6 +1379,11 @@ sub _perl_critic_policy_default_enabled {
         # Perl::Critic::Pulp
         'CodeLayout::ProhibitIfIfSameLine',
         'Compatibility::Gtk2Constants',
+
+        # Disable the Compatibility::PerlMinimumVersionAndWhy policy because
+        # it injects stuff into the Perl::MinimumVersion module that causes
+        # hard to debug problems.
+        'Compatibility::PerlMinimumVersionAndWhy',
         'Compatibility::PodMinimumVersion',
         'Documentation::ProhibitDuplicateSeeAlso',
         'Documentation::RequireFinalCut',
@@ -1833,7 +1833,7 @@ Sven Kirmess <sven.kirmess@kzone.ch>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2017-2019 by Sven Kirmess.
+This software is Copyright (c) 2017-2020 by Sven Kirmess.
 
 This is free software, licensed under:
 
