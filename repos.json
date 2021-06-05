@@ -1,0 +1,69 @@
+[
+   {
+      "push_url" : "git@github.com:skirmess/perl-dzil-bundle.git",
+      "repo" : "https://github.com/skirmess/perl-dzil-bundle.git"
+   },
+   {
+      "push_url" : "git@github.com:skirmess/App-ReportPrereqs.git",
+      "repo" : "https://github.com/skirmess/App-ReportPrereqs.git"
+   },
+   {
+      "push_url" : "git@github.com:skirmess/App-SSH-SwitchShell.git",
+      "repo" : "https://github.com/skirmess/App-SSH-SwitchShell.git"
+   },
+   {
+      "push_url" : "git@github.com:skirmess/Dist-Zilla-Plugin-Code.git",
+      "repo" : "https://github.com/skirmess/Dist-Zilla-Plugin-Code.git"
+   },
+   {
+      "push_url" : "git@github.com:skirmess/Dist-Zilla-Plugin-Git-Checkout.git",
+      "repo" : "https://github.com/skirmess/Dist-Zilla-Plugin-Git-Checkout.git"
+   },
+   {
+      "push_url" : "git@github.com:skirmess/Dist-Zilla-Role-PluginBundle-Zilla.git",
+      "repo" : "https://github.com/skirmess/Dist-Zilla-Role-PluginBundle-Zilla.git"
+   },
+   {
+      "push_url" : "git@github.com:skirmess/Perl-Critic-MergeProfile.git",
+      "repo" : "https://github.com/skirmess/Perl-Critic-MergeProfile.git"
+   },
+   {
+      "push_url" : "git@github.com:skirmess/Test-Perl-Critic-XTFiles.git",
+      "repo" : "https://github.com/skirmess/Test-Perl-Critic-XTFiles.git"
+   },
+   {
+      "push_url" : "git@github.com:skirmess/Test-PerlTidy-XTFiles.git",
+      "repo" : "https://github.com/skirmess/Test-PerlTidy-XTFiles.git"
+   },
+   {
+      "push_url" : "git@github.com:skirmess/Test-Pod-Links.git",
+      "repo" : "https://github.com/skirmess/Test-Pod-Links.git"
+   },
+   {
+      "push_url" : "git@github.com:skirmess/Test-RequiredMinimumDependencyVersion.git",
+      "repo" : "https://github.com/skirmess/Test-RequiredMinimumDependencyVersion.git"
+   },
+   {
+      "push_url" : "git@github.com:skirmess/Test-Spelling-Comment.git",
+      "repo" : "https://github.com/skirmess/Test-Spelling-Comment.git"
+   },
+   {
+      "push_url" : "git@github.com:skirmess/Dist-Zilla-Plugin-Git-RequireUnixEOL.git",
+      "repo" : "https://github.com/skirmess/Dist-Zilla-Plugin-Git-RequireUnixEOL.git"
+   },
+   {
+      "push_url" : "git@github.com:skirmess/Dist-Zilla-Plugin-Git-FilePermissions.git",
+      "repo" : "https://github.com/skirmess/Dist-Zilla-Plugin-Git-FilePermissions.git"
+   },
+   {
+      "push_url" : "git@github.com:skirmess/Dist-Zilla-Plugin-AutoPrereqs-Perl-Critic.git",
+      "repo" : "https://github.com/skirmess/Dist-Zilla-Plugin-AutoPrereqs-Perl-Critic.git"
+   },
+   {
+      "push_url" : "git@github.com:skirmess/App-Dotfiles.git",
+      "repo" : "https://github.com/skirmess/App-Dotfiles.git",
+      "skip" : [
+         "xt/author/portability.t"
+      ]
+   }
+]
