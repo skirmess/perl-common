@@ -22,7 +22,7 @@ sub fill_in_file {
 
     my %config = (
         plugin    => \$self,
-        generated => GENERATED_TEXT(),
+        generated => GENERATED_TEXT,
     );
 
     my $content = Text::Template::fill_in_file(
