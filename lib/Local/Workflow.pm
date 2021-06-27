@@ -134,6 +134,7 @@ sub job_actions_setup_cygwin {
           packages: >-
             gcc-core
             gcc-g++
+            git
             libcrypt-devel
             libssl-devel
             make
@@ -607,6 +608,7 @@ sub job_matrix {
             packages: >-
               g++
               gcc
+              git
               libio-socket-ssl-perl
               liblwp-protocol-https-perl
               libnet-ssleay-perl
@@ -617,6 +619,7 @@ sub job_matrix {
             packages: >-
               gcc
               gcc-c++
+              git
               make
               perl-IO-Socket-SSL
               perl-Net-SSLeay
