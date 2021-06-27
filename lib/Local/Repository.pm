@@ -31,11 +31,6 @@ has github_actions_min_perl_linux => (
     default => sub { $_[0]->github_actions_min_perl },
 );
 
-has github_actions_min_perl_windows => (
-    is      => 'ro',
-    default => sub { $_[0]->github_actions_min_perl },
-);
-
 has github_actions_min_perl_strawberry => (
     is      => 'ro',
     default => sub { $_[0]->github_actions_min_perl },
@@ -150,7 +145,6 @@ sub _create_github_actions {
     for my $x (
         qw(
         github_actions_min_perl_linux
-        github_actions_min_perl_windows
         github_actions_min_perl_strawberry
         )
       )
@@ -161,7 +155,6 @@ sub _create_github_actions {
 
     my $actions = Local::Workflow->new(
         min_perl_linux      => $self->github_actions_min_perl_linux,
-        min_perl_windows    => $self->github_actions_min_perl_windows,
         min_perl_strawberry => $self->github_actions_min_perl_strawberry,
     )->create;
 

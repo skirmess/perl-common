@@ -15,11 +15,6 @@ has min_perl_linux => (
     required => 1,
 );
 
-has min_perl_windows => (
-    is       => 'ro',
-    required => 1,
-);
-
 has min_perl_strawberry => (
     is       => 'ro',
     required => 1,
@@ -31,7 +26,7 @@ sub create {
     my @test;
     push @test, $self->matrix();
 
-    for my $type (qw(author linux macos-cellar macos cygwin windows wsl1)) {
+    for my $type (qw(author linux macos-cellar macos cygwin strawberry wsl1)) {
         push @test, "  $type:";
         push @test, $self->job_name($type);
         push @test, $self->job_runs_on($type);
@@ -155,7 +150,7 @@ sub job_actions_setup_perl {
     return if $type eq 'cygwin';
     return if $type eq 'wsl1';
 
-    die "unknown type $type" if $type ne 'author' && $type ne 'linux' && $type ne 'macos' && $type ne 'windows';
+    die "unknown type $type" if $type ne 'author' && $type ne 'linux' && $type ne 'macos' && $type ne 'strawberry';
 
     my @result;
     push @result, <<'EOF';
@@ -169,10 +164,10 @@ EOF
     elsif ( $type eq 'linux' || $type eq 'macos' ) {
         push @result, '          perl-version: ${{ matrix.perl }}';
     }
-    elsif ( $type eq 'windows' ) {
+    elsif ( $type eq 'strawberry' ) {
         push @result, <<'EOF';
           perl-version: ${{ matrix.perl }}
-          distribution: ${{ matrix.distribution }}
+          distribution: strawberry
 EOF
     }
 
@@ -201,7 +196,7 @@ sub job_check_perl_version {
     return if $type eq 'cygwin';
     return if $type eq 'wsl1';
 
-    die "unknown type $type" if $type ne 'linux' && $type ne 'macos' && $type ne 'windows';
+    die "unknown type $type" if $type ne 'linux' && $type ne 'macos' && $type ne 'strawberry';
 
     return <<'EOF';
       - name: check perl version
@@ -238,7 +233,7 @@ sub job_cpanm_installdeps {
     }
     else {
         push @result, '      - name: cpanm --installdeps --notest .';
-        push @result, '        run: ${{ steps.perl.outputs.bin }} ${{ steps.installsitebin.outputs.path }}' . ( $type eq 'windows' ? '\\' : '/' ) . 'cpanm --verbose --installdeps --notest .';
+        push @result, '        run: ${{ steps.perl.outputs.bin }} ${{ steps.installsitebin.outputs.path }}' . ( $type eq 'strawberry' ? '\\' : '/' ) . 'cpanm --verbose --installdeps --notest .';
     }
 
     push @result, '        working-directory: ${{ github.event.repository.name }}';
@@ -259,7 +254,7 @@ sub job_cpanm_install_reportprereqs {
 
     my @result;
     push @result, '      - name: cpanm --notest App::ReportPrereqs';
-    push @result, '        run: ${{ steps.perl.outputs.bin }} ${{ steps.installsitebin.outputs.path }}' . ( $type eq 'windows' ? '\\' : '/' ) . 'cpanm --verbose --notest App::ReportPrereqs';
+    push @result, '        run: ${{ steps.perl.outputs.bin }} ${{ steps.installsitebin.outputs.path }}' . ( $type eq 'strawberry' ? '\\' : '/' ) . 'cpanm --verbose --notest App::ReportPrereqs';
 
     if ( $type eq 'cygwin' ) {
         push @result, <<'EOF';
@@ -277,7 +272,7 @@ sub job_cpanm_version {
 
     my @result;
     push @result, '      - name: cpanm --version';
-    push @result, '        run: ${{ steps.perl.outputs.bin }} ${{ steps.installsitebin.outputs.path }}' . ( $type eq 'windows' ? '\\' : '/' ) . 'cpanm --version';
+    push @result, '        run: ${{ steps.perl.outputs.bin }} ${{ steps.installsitebin.outputs.path }}' . ( $type eq 'strawberry' ? '\\' : '/' ) . 'cpanm --version';
 
     if ( $type eq 'cygwin' ) {
         push @result, <<'EOF';
@@ -324,22 +319,7 @@ sub job_find_perl {
     my @result;
     push @result, <<'EOF';
       - name: find perl
-        run: |
-EOF
-
-    if ( $type eq 'author' || $type eq 'linux' || $type eq 'macos-cellar' || $type eq 'macos' || $type eq 'cygwin' || $type eq 'wsl1' ) {
-        push @result, '          perl=$(which perl)';
-    }
-    elsif ( $type eq 'windows' ) {
-        push @result, '          $perl = (Get-Command perl | select -first 1).path';
-    }
-    else {
-        die "unknown type $type";
-    }
-
-    push @result, <<'EOF';
-          echo "perl = $perl"
-          echo "::set-output name=bin::$perl"
+        run: perl -e 'print qq{perl = $^X\n::set-output name=bin::$^X\n}'
 EOF
 
     if ( $type eq 'cygwin' ) {
@@ -358,7 +338,7 @@ EOF
 sub job_find_home {
     my ( $self, $type ) = @_;
 
-    return if $type ne 'windows';
+    return if $type ne 'strawberry';
 
     return <<'EOF';
       - name: find home
@@ -382,7 +362,7 @@ EOF
     if ( $type eq 'author' || $type eq 'linux' || $type eq 'macos-cellar' || $type eq 'macos' || $type eq 'cygwin' || $type eq 'wsl1' ) {
         push @result, q{          make=$(which $(${{ steps.perl.outputs.bin }} -MConfig -e 'print $Config{make}'))};
     }
-    elsif ( $type eq 'windows' ) {
+    elsif ( $type eq 'strawberry' ) {
         push @result, <<'EOF';
           $make = ${{ steps.perl.outputs.bin }} -MConfig -e 'print $Config{make}'
           $make = (Get-Command $make | select -first 1).path
@@ -432,7 +412,7 @@ EOF
 EOF
         }
     }
-    elsif ( $type eq 'windows' ) {
+    elsif ( $type eq 'strawberry' ) {
         push @result, <<"EOF";
           (Get-Command $cmd | select -first 1).path
           $cmd --version
@@ -455,7 +435,7 @@ sub job_install_cpanm {
         run: |
 EOF
 
-    if ( $type eq 'windows' ) {
+    if ( $type eq 'strawberry' ) {
         push @result, '          Invoke-WebRequest https://cpanmin.us/ -OutFile cpanm.pl';
     }
     else {
@@ -475,7 +455,7 @@ EOF
 
     push @result, '          ${{ steps.perl.outputs.bin }} cpanm.pl --reinstall App::cpanminus';
 
-    if ( $type eq 'windows' ) {
+    if ( $type eq 'strawberry' ) {
         push @result, <<'EOF';
           erase cpanm.pl
 EOF
@@ -504,7 +484,7 @@ sub job_installsitebin {
         run: |
 EOF
 
-    if ( $type eq 'windows' ) {
+    if ( $type eq 'strawberry' ) {
         push @result, q{          $installsitebin = ${{ steps.perl.outputs.bin }} -MConfig -e 'print $Config{installsitebin};'};
     }
     else {
@@ -616,46 +596,51 @@ EOF
 sub job_matrix {
     my ( $self, $type ) = @_;
 
-    return '      matrix: ${{ fromJson(needs.matrix.outputs.linux) }}'   if $type eq 'linux';
-    return '      matrix: ${{ fromJson(needs.matrix.outputs.macos) }}'   if $type eq 'macos';
-    return "      matrix:\n        platform: [ 'x86', 'x86_64' ]"        if $type eq 'cygwin';
-    return '      matrix: ${{ fromJson(needs.matrix.outputs.windows) }}' if $type eq 'windows';
-    return <<'EOF'                                                       if $type eq 'wsl1';
+    return '      matrix: ${{ fromJson(needs.matrix.outputs.linux) }}'      if $type eq 'linux';
+    return '      matrix: ${{ fromJson(needs.matrix.outputs.macos) }}'      if $type eq 'macos';
+    return "      matrix:\n        platform: [ 'x86', 'x86_64' ]"           if $type eq 'cygwin';
+    return '      matrix: ${{ fromJson(needs.matrix.outputs.strawberry) }}' if $type eq 'strawberry';
+    return <<'EOF'                                                          if $type eq 'wsl1';
       matrix:
         include:
           - distribution: 'Debian'
             packages: >-
               g++
               gcc
+              libio-socket-ssl-perl
+              liblwp-protocol-https-perl
+              libnet-ssleay-perl
               libperl-dev
               make
               wget
-          - distribution: 'kali-linux'
-            packages: >-
-              g++
-              gcc
-              libperl-dev
-              make
           - distribution: 'openSUSE-Leap-15.2'
             packages: >-
               gcc
               gcc-c++
               make
+              perl-IO-Socket-SSL
+              perl-Net-SSLeay
               which
           - distribution: 'Ubuntu-16.04'
             packages: >-
               g++
               gcc
+              libio-socket-ssl-perl
+              libnet-ssleay-perl
               make
           - distribution: 'Ubuntu-18.04'
             packages: >-
               g++
               gcc
+              libio-socket-ssl-perl
+              libnet-ssleay-perl
               make
           - distribution: 'Ubuntu-20.04'
             packages: >-
               g++
               gcc
+              libio-socket-ssl-perl
+              libnet-ssleay-perl
               make
 EOF
 
@@ -670,7 +655,7 @@ sub job_name {
     return '    name: macOS Cellar'                    if $type eq 'macos-cellar';
     return '    name: macOS Perl ${{ matrix.perl }}'   if $type eq 'macos';
     return '    name: Cygwin ${{ matrix.platform }}'   if $type eq 'cygwin';
-    return '    name: ${{ matrix.job_name }}'          if $type eq 'windows';
+    return '    name: Strawberry ${{ matrix.perl }}'   if $type eq 'strawberry';
     return '    name: WSL1 ${{ matrix.distribution }}' if $type eq 'wsl1';
 
     die "unknown type $type";
@@ -679,7 +664,7 @@ sub job_name {
 sub job_needs {
     my ( $self, $type ) = @_;
 
-    return "    needs: matrix" if $type eq 'linux' || $type eq 'macos' || $type eq 'windows';
+    return "    needs: matrix" if $type eq 'linux' || $type eq 'macos' || $type eq 'strawberry';
     return;
 }
 
@@ -702,7 +687,7 @@ sub job_reportprereqs {
 
     my @result;
     push @result, '      - name: report-prereqs';
-    push @result, '        run: ${{ steps.perl.outputs.bin }} ${{ steps.installsitebin.outputs.path }}' . ( $type eq 'windows' ? '\\' : '/' ) . 'report-prereqs' . ( $type eq 'author' ? ' --with-develop' : q{} );
+    push @result, '        run: ${{ steps.perl.outputs.bin }} ${{ steps.installsitebin.outputs.path }}' . ( $type eq 'strawberry' ? '\\' : '/' ) . 'report-prereqs' . ( $type eq 'author' ? ' --with-develop' : q{} );
     push @result, '        working-directory: ${{ github.event.repository.name }}';
 
     if ( $type eq 'cygwin' ) {
@@ -721,7 +706,7 @@ sub job_runs_on {
 
     return "    runs-on: ubuntu-latest"  if $type eq 'author' || $type eq 'linux';
     return "    runs-on: macos-latest"   if $type eq 'macos'  || $type eq 'macos-cellar';
-    return "    runs-on: windows-latest" if $type eq 'cygwin' || $type eq 'windows' || $type eq 'wsl1';
+    return "    runs-on: windows-latest" if $type eq 'cygwin' || $type eq 'strawberry' || $type eq 'wsl1';
 
     die "unknown type $type";
 }
@@ -766,7 +751,7 @@ sub job_uname {
     my ( $self, $type ) = @_;
 
     return if $type eq 'cygwin';
-    return if $type eq 'windows';
+    return if $type eq 'strawberry';
     return if $type eq 'wsl1';
 
     return '      - run: uname -a';
@@ -786,9 +771,9 @@ EOF
           path: c:/cygwin/home/runneradmin/.cpanm/work/*/build.log
 EOF
     }
-    elsif ( $type eq 'windows' ) {
+    elsif ( $type eq 'strawberry' ) {
         push @result, <<'EOF';
-          name: windows-${{ matrix.distribution }}-perl_${{ matrix.perl }}
+          name: strawberry-perl_${{ matrix.perl }}
           path: ${{ steps.home.outputs.path }}/.cpanm/work/*/build.log
 EOF
     }
@@ -869,58 +854,36 @@ EOF
           set_output( matrix => { perl => [ ( perl_versions( platform => 'darwin' ) )[0] ] } );
         shell: perl {0}
 
-      - id: windows
+      - id: strawberry
         run: |
           use Actions::Core;
           use version 0.77;
 
-          # Windows has problems installing dependencies on Perl 5.8.
-          # Don't test on 5.8 as we don't want to test other modules'
-          # problems
 EOF
 
+    # The non-Strawberry Windows Perl of the Github Action has a lot of
+    # problems installing CPAN modules. We don't test with this Perl as we
+    # don't want to debug module installation. Testing on Strawberry should be enough
+
     push @result, q{};
-    push @result, q{          my $min_perl = '} . $self->min_perl_windows . q{';};
+    push @result, q{          my $min_perl = '} . $self->min_perl_strawberry . q{';};
     push @result, q{};
 
     push @result, <<'EOF';
           sub perl {
               my @perl =
-                grep { version->parse("v$_") >= version->parse('v5.12.0') }
-                grep { version->parse("v$_") >= version->parse("v$min_perl") } perl_versions( platform => 'win32' );
-
-              for my $v (qw(5.10.1 5.10.0)) {
-                  return @perl if version->parse("v$min_perl") > version->parse("v$v");
-                  push @perl, $v;
-              }
-
-              return @perl;
-          }
-EOF
-
-    push @result, q{};
-    push @result, q{          my $min_perl_strawberry = '} . $self->min_perl_strawberry . q{';};
-    push @result, q{};
-
-    push @result, <<'EOF';
-          sub perl_strawberry {
-              my @perl =
-                grep { version->parse("v$_") >= version->parse("v$min_perl_strawberry") } perl_versions( platform => 'win32', distribution => 'strawberry' );
+                grep { version->parse("v$_") >= version->parse("v$min_perl") } perl_versions( platform => 'win32', distribution => 'strawberry' );
 
               return @perl;
           }
 
-          my @matrix;
-          push @matrix, map { { perl => $_, distribution => 'default',    job_name => "Windows Perl $_" } } perl();
-          push @matrix, map { { perl => $_, distribution => 'strawberry', job_name => "Strawberry Perl $_" } } perl_strawberry();
-
-          set_output( matrix => { include => [@matrix] } );
+          set_output( matrix => { perl => [ perl() ] } );
         shell: perl {0}
 
     outputs:
       linux: ${{ steps.linux.outputs.matrix }}
       macos: ${{ steps.macos.outputs.matrix }}
-      windows: ${{ steps.windows.outputs.matrix }}
+      strawberry: ${{ steps.strawberry.outputs.matrix }}
 EOF
 
     push @result, q{};
