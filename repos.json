@@ -62,7 +62,14 @@
    },
    {
       "push_url" : "git@github.com:skirmess/perl-dzil-bundle.git",
-      "repo" : "https://github.com/skirmess/perl-dzil-bundle.git"
+      "repo" : "https://github.com/skirmess/perl-dzil-bundle.git",
+      "skip" : [
+         "xt/release/changes.t",
+         "xt/release/distmeta.t",
+         "xt/release/manifest.t",
+         "xt/release/meta-json.t",
+         "xt/release/meta-yaml.t"
+      ]
    },
    {
       "push_url" : "git@github.com:skirmess/Test-Perl-Critic-XTFiles.git",
