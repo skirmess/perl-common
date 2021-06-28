@@ -69,6 +69,7 @@
       "repo" : "https://github.com/skirmess/Test-Perl-Critic-XTFiles.git"
    },
    {
+      "github_actions_min_perl" : "5.14.0",
       "push_url" : "git@github.com:skirmess/Test-PerlTidy-XTFiles.git",
       "repo" : "https://github.com/skirmess/Test-PerlTidy-XTFiles.git"
    },
