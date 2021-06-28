@@ -83,6 +83,7 @@
       "repo" : "https://github.com/skirmess/Test-RequiredMinimumDependencyVersion.git"
    },
    {
+      "github_actions_min_perl" : "5.8.8",
       "push_url" : "git@github.com:skirmess/Test-Spelling-Comment.git",
       "repo" : "https://github.com/skirmess/Test-Spelling-Comment.git"
    },
