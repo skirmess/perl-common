@@ -21,6 +21,11 @@ use Local::Workflow;
 
 use namespace::autoclean 0.09;
 
+has github_workflow => (
+    is      => 'ro',
+    default => 1,
+);
+
 has github_workflow_min_perl => (
     is      => 'ro',
     default => '5.8.1',
@@ -189,7 +194,9 @@ sub update_project {
 
     $self->_clone_or_update_project;
     $self->_remove_files;
-    $self->_create_github_workflow;
+    if ( $self->github_workflow ) {
+        $self->_create_github_workflow;
+    }
     $self->_copy_files_from_submodule_to_project;
 
     return;

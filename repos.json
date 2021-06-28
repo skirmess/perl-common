@@ -61,6 +61,7 @@
       "repo" : "https://github.com/skirmess/Perl-Critic-MergeProfile.git"
    },
    {
+      "github_workflow" : false,
       "push_url" : "git@github.com:skirmess/perl-dzil-bundle.git",
       "repo" : "https://github.com/skirmess/perl-dzil-bundle.git",
       "skip" : [
