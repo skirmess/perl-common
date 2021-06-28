@@ -8,6 +8,8 @@ our $VERSION = '0.001';
 
 use Moo;
 
+use Carp;
+
 use namespace::autoclean 0.09;
 
 has min_perl_linux => (
@@ -151,7 +153,7 @@ sub job_actions_setup_perl {
     return if $type eq 'cygwin';
     return if $type eq 'wsl1';
 
-    die "unknown type $type" if $type ne 'author' && $type ne 'linux' && $type ne 'macos' && $type ne 'strawberry';
+    croak "unknown type $type" if $type ne 'author' && $type ne 'linux' && $type ne 'macos' && $type ne 'strawberry';
 
     my @result;
     push @result, <<'EOF';
@@ -197,7 +199,7 @@ sub job_check_perl_version {
     return if $type eq 'cygwin';
     return if $type eq 'wsl1';
 
-    die "unknown type $type" if $type ne 'linux' && $type ne 'macos' && $type ne 'strawberry';
+    croak "unknown type $type" if $type ne 'linux' && $type ne 'macos' && $type ne 'strawberry';
 
     return <<'EOF';
       - name: check perl version
@@ -234,7 +236,7 @@ sub job_cpanm_installdeps {
     }
     else {
         push @result, '      - name: cpanm --installdeps --notest .';
-        push @result, '        run: ${{ steps.perl.outputs.bin }} ${{ steps.installsitebin.outputs.path }}' . ( $type eq 'strawberry' ? '\\' : '/' ) . 'cpanm --verbose --installdeps --notest .';
+        push @result, '        run: ${{ steps.perl.outputs.bin }} ${{ steps.installsitebin.outputs.path }}' . ( $type eq 'strawberry' ? q{\\} : q{/} ) . 'cpanm --verbose --installdeps --notest .';
     }
 
     push @result, '        working-directory: ${{ github.event.repository.name }}';
@@ -255,7 +257,7 @@ sub job_cpanm_install_reportprereqs {
 
     my @result;
     push @result, '      - name: cpanm --notest App::ReportPrereqs';
-    push @result, '        run: ${{ steps.perl.outputs.bin }} ${{ steps.installsitebin.outputs.path }}' . ( $type eq 'strawberry' ? '\\' : '/' ) . 'cpanm --verbose --notest App::ReportPrereqs';
+    push @result, '        run: ${{ steps.perl.outputs.bin }} ${{ steps.installsitebin.outputs.path }}' . ( $type eq 'strawberry' ? q{\\} : q{/} ) . 'cpanm --verbose --notest App::ReportPrereqs';
 
     if ( $type eq 'cygwin' ) {
         push @result, <<'EOF';
@@ -273,7 +275,7 @@ sub job_cpanm_version {
 
     my @result;
     push @result, '      - name: cpanm --version';
-    push @result, '        run: ${{ steps.perl.outputs.bin }} ${{ steps.installsitebin.outputs.path }}' . ( $type eq 'strawberry' ? '\\' : '/' ) . 'cpanm --version';
+    push @result, '        run: ${{ steps.perl.outputs.bin }} ${{ steps.installsitebin.outputs.path }}' . ( $type eq 'strawberry' ? q{\\} : q{/} ) . 'cpanm --version';
 
     if ( $type eq 'cygwin' ) {
         push @result, <<'EOF';
@@ -370,7 +372,7 @@ EOF
 EOF
     }
     else {
-        die "unknown type $type";
+        croak "unknown type $type";
     }
 
     push @result, <<'EOF';
@@ -420,7 +422,7 @@ EOF
 EOF
     }
     else {
-        die "unknown type $type";
+        croak "unknown type $type";
     }
 
     chomp @result;
@@ -661,7 +663,7 @@ sub job_name {
     return '    name: Strawberry ${{ matrix.perl }}'   if $type eq 'strawberry';
     return '    name: WSL1 ${{ matrix.distribution }}' if $type eq 'wsl1';
 
-    die "unknown type $type";
+    croak "unknown type $type";
 }
 
 sub job_needs {
@@ -690,7 +692,7 @@ sub job_reportprereqs {
 
     my @result;
     push @result, '      - name: report-prereqs';
-    push @result, '        run: ${{ steps.perl.outputs.bin }} ${{ steps.installsitebin.outputs.path }}' . ( $type eq 'strawberry' ? '\\' : '/' ) . 'report-prereqs' . ( $type eq 'author' ? ' --with-develop' : q{} );
+    push @result, '        run: ${{ steps.perl.outputs.bin }} ${{ steps.installsitebin.outputs.path }}' . ( $type eq 'strawberry' ? q{\\} : q{/} ) . 'report-prereqs' . ( $type eq 'author' ? ' --with-develop' : q{} );
     push @result, '        working-directory: ${{ github.event.repository.name }}';
 
     if ( $type eq 'cygwin' ) {
@@ -711,7 +713,7 @@ sub job_runs_on {
     return "    runs-on: macos-latest"   if $type eq 'macos'  || $type eq 'macos-cellar';
     return "    runs-on: windows-latest" if $type eq 'cygwin' || $type eq 'strawberry' || $type eq 'wsl1';
 
-    die "unknown type $type";
+    croak "unknown type $type";
 }
 
 sub job_strategy {
@@ -797,7 +799,7 @@ EOF
             push @result, '          name: wsl1-${{ matrix.distribution }}';
         }
         else {
-            die "unknown type $type";
+            croak "unknown type $type";
         }
 
         push @result, '          path: ~/.cpanm/work/*/build.log';

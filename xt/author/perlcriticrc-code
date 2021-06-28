@@ -1,0 +1,4 @@
+[-ControlStructures::ProhibitCascadingIfElse]
+[-NamingConventions::Capitalization]
+[-ValuesAndExpressions::ProhibitInterpolationOfLiterals]
+[-ValuesAndExpressions::RequireInterpolationOfMetachars]

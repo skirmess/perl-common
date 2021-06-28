@@ -150,7 +150,7 @@ sub _create_github_actions {
       )
     {
         my $version = $self->$x;
-        die "Version must be major.minor.patch but is $version" if $version !~ m{ ^ [1-9][0-9]* [.] [0-9]+ [.] [0-9]+ $ }xsm;
+        croak "Version must be major.minor.patch but is $version" if $version !~ m{ ^ [1-9][0-9]* [.] [0-9]+ [.] [0-9]+ $ }xsm;
     }
 
     my $actions = Local::Workflow->new(
@@ -170,13 +170,13 @@ sub _create_github_actions {
 sub _remove_files {
     my ($self) = @_;
 
-    my $wd = pushd( path('repos')->child( $self->repo_dir )->stringify );
+    my $wd = pushd( path('repos')->child( $self->repo_dir )->stringify );    ## no critic (Variables::ProhibitUnusedVarsStricter)
 
   FILE:
     for my $file ( qw(.appveyor.yml .travis.yml), glob q{xt/*/*.t} ) {
         next FILE if !-f $file;
 
-        unlink $file;
+        unlink $file or croak "Cannot remove file $file: $!";
     }
 
     return;
