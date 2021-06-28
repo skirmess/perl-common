@@ -21,19 +21,19 @@ use Local::Workflow;
 
 use namespace::autoclean 0.09;
 
-has github_actions_min_perl => (
+has github_workflow_min_perl => (
     is      => 'ro',
     default => '5.8.1',
 );
 
-has github_actions_min_perl_linux => (
+has github_workflow_min_perl_linux => (
     is      => 'ro',
-    default => sub { $_[0]->github_actions_min_perl },
+    default => sub { $_[0]->github_workflow_min_perl },
 );
 
-has github_actions_min_perl_strawberry => (
+has github_workflow_min_perl_strawberry => (
     is      => 'ro',
-    default => sub { $_[0]->github_actions_min_perl },
+    default => sub { $_[0]->github_workflow_min_perl },
 );
 
 has makefile_pl_exists => (
@@ -139,13 +139,13 @@ sub _copy_files_from_submodule_to_project {
     return;
 }
 
-sub _create_github_actions {
+sub _create_github_workflow {
     my ($self) = @_;
 
     for my $x (
         qw(
-        github_actions_min_perl_linux
-        github_actions_min_perl_strawberry
+        github_workflow_min_perl_linux
+        github_workflow_min_perl_strawberry
         )
       )
     {
@@ -153,16 +153,16 @@ sub _create_github_actions {
         croak "Version must be major.minor.patch but is $version" if $version !~ m{ ^ [1-9][0-9]* [.] [0-9]+ [.] [0-9]+ $ }xsm;
     }
 
-    my $actions = Local::Workflow->new(
-        min_perl_linux      => $self->github_actions_min_perl_linux,
-        min_perl_strawberry => $self->github_actions_min_perl_strawberry,
+    my $workflow = Local::Workflow->new(
+        min_perl_linux      => $self->github_workflow_min_perl_linux,
+        min_perl_strawberry => $self->github_workflow_min_perl_strawberry,
     )->create;
 
-    my $actions_path = path('repos')->child( $self->repo_dir )->child('.github/workflows');
-    $actions_path->mkpath;
+    my $workflow_path = path('repos')->child( $self->repo_dir )->child('.github/workflows');
+    $workflow_path->mkpath;
 
     say " ==> Creating Github Actions Workflow";
-    $actions_path->child('test.yml')->spew($actions);
+    $workflow_path->child('test.yml')->spew($workflow);
 
     return;
 }
@@ -189,7 +189,7 @@ sub update_project {
 
     $self->_clone_or_update_project;
     $self->_remove_files;
-    $self->_create_github_actions;
+    $self->_create_github_workflow;
     $self->_copy_files_from_submodule_to_project;
 
     return;

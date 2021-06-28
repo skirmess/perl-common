@@ -23,32 +23,32 @@
       "repo" : "https://github.com/skirmess/dcmp.git"
    },
    {
-      "github_actions_min_perl" : "5.20.0",
+      "github_workflow_min_perl" : "5.20.0",
       "push_url" : "git@github.com:skirmess/Dist-Zilla-Plugin-AutoPrereqs-Perl-Critic.git",
       "repo" : "https://github.com/skirmess/Dist-Zilla-Plugin-AutoPrereqs-Perl-Critic.git"
    },
    {
-      "github_actions_min_perl" : "5.20.0",
+      "github_workflow_min_perl" : "5.20.0",
       "push_url" : "git@github.com:skirmess/Dist-Zilla-Plugin-Code.git",
       "repo" : "https://github.com/skirmess/Dist-Zilla-Plugin-Code.git"
    },
    {
-      "github_actions_min_perl" : "5.20.0",
+      "github_workflow_min_perl" : "5.20.0",
       "push_url" : "git@github.com:skirmess/Dist-Zilla-Plugin-Git-Checkout.git",
       "repo" : "https://github.com/skirmess/Dist-Zilla-Plugin-Git-Checkout.git"
    },
    {
-      "github_actions_min_perl" : "5.20.0",
+      "github_workflow_min_perl" : "5.20.0",
       "push_url" : "git@github.com:skirmess/Dist-Zilla-Plugin-Git-FilePermissions.git",
       "repo" : "https://github.com/skirmess/Dist-Zilla-Plugin-Git-FilePermissions.git"
    },
    {
-      "github_actions_min_perl" : "5.20.0",
+      "github_workflow_min_perl" : "5.20.0",
       "push_url" : "git@github.com:skirmess/Dist-Zilla-Plugin-Git-RequireUnixEOL.git",
       "repo" : "https://github.com/skirmess/Dist-Zilla-Plugin-Git-RequireUnixEOL.git"
    },
    {
-      "github_actions_min_perl" : "5.20.0",
+      "github_workflow_min_perl" : "5.20.0",
       "push_url" : "git@github.com:skirmess/Dist-Zilla-Role-PluginBundle-Zilla.git",
       "repo" : "https://github.com/skirmess/Dist-Zilla-Role-PluginBundle-Zilla.git"
    },
@@ -76,7 +76,7 @@
       "repo" : "https://github.com/skirmess/Test-Perl-Critic-XTFiles.git"
    },
    {
-      "github_actions_min_perl" : "5.14.0",
+      "github_workflow_min_perl" : "5.14.0",
       "push_url" : "git@github.com:skirmess/Test-PerlTidy-XTFiles.git",
       "repo" : "https://github.com/skirmess/Test-PerlTidy-XTFiles.git"
    },
@@ -85,12 +85,12 @@
       "repo" : "https://github.com/skirmess/Test-Pod-Links.git"
    },
    {
-      "github_actions_min_perl" : "5.10.1",
+      "github_workflow_min_perl" : "5.10.1",
       "push_url" : "git@github.com:skirmess/Test-RequiredMinimumDependencyVersion.git",
       "repo" : "https://github.com/skirmess/Test-RequiredMinimumDependencyVersion.git"
    },
    {
-      "github_actions_min_perl" : "5.8.8",
+      "github_workflow_min_perl" : "5.8.8",
       "push_url" : "git@github.com:skirmess/Test-Spelling-Comment.git",
       "repo" : "https://github.com/skirmess/Test-Spelling-Comment.git"
    },
