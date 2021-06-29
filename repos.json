@@ -15,14 +15,6 @@
       "repo" : "https://github.com/skirmess/App-SSH-SwitchShell.git"
    },
    {
-      "push_url" : "git@github.com:skirmess/compare-flac.git",
-      "repo" : "https://github.com/skirmess/compare-flac.git"
-   },
-   {
-      "push_url" : "git@github.com:skirmess/dcmp.git",
-      "repo" : "https://github.com/skirmess/dcmp.git"
-   },
-   {
       "github_workflow_min_perl" : "5.20.0",
       "push_url" : "git@github.com:skirmess/Dist-Zilla-Plugin-AutoPrereqs-Perl-Critic.git",
       "repo" : "https://github.com/skirmess/Dist-Zilla-Plugin-AutoPrereqs-Perl-Critic.git"
@@ -51,10 +43,6 @@
       "github_workflow_min_perl" : "5.20.0",
       "push_url" : "git@github.com:skirmess/Dist-Zilla-Role-PluginBundle-Zilla.git",
       "repo" : "https://github.com/skirmess/Dist-Zilla-Role-PluginBundle-Zilla.git"
-   },
-   {
-      "push_url" : "git@github.com:skirmess/dzil-inc.git",
-      "repo" : "https://github.com/skirmess/dzil-inc.git"
    },
    {
       "push_url" : "git@github.com:skirmess/Perl-Critic-MergeProfile.git",
