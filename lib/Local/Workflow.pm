@@ -589,7 +589,7 @@ sub job_prove_xt {
     return if $type ne 'author';
 
     return <<'EOF';
-      - run: ${{ steps.installsitebin.outputs.path }}/prove -lr xt/author
+      - run: ${{ steps.perl.outputs.bin }} ${{ steps.installsitebin.outputs.path }}/prove -lr xt/author
         working-directory: ${{ github.event.repository.name }}
         env:
           PERL_USE_UNSAFE_INC: 0
