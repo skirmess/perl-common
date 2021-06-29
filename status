@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+cd -- "$(dirname -- "$0")"/repos || exit 1
+for i in *
+do
+	echo "### $i"
+	(cd $i && git status -s )
+done
+
