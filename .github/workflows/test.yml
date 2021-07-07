@@ -1,0 +1,88 @@
+name: test
+on: push
+jobs:
+  author:
+    name: Author Tests
+    runs-on: ubuntu-latest
+
+    env:
+      AUTOMATED_TESTING: 1
+      TAR_OPTIONS: --warning=no-unknown-keyword
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          path: ${{ github.event.repository.name }}
+
+      - uses: shogo82148/actions-setup-perl@v1
+        with:
+          perl-version: latest
+
+      - run: uname -a
+
+      - name: find perl
+        run: perl -e 'print qq{perl = $^X\n::set-output name=bin::$^X\n}'
+        id: perl
+
+      - name: perl -V
+        run: ${{ steps.perl.outputs.bin }} -V
+
+      - name: find make
+        run: |
+          make=$(which $(${{ steps.perl.outputs.bin }} -MConfig -e 'print $Config{make}'))
+          echo "make = $make"
+          echo "::set-output name=bin::$make"
+        id: make
+
+      - name: gcc --version
+        run: |
+          which gcc
+          gcc --version
+
+      - name: g++ --version
+        run: |
+          which g++
+          g++ --version
+
+      - name: install cpanm
+        run: |
+          wget --no-check-certificate -O cpanm.pl https://cpanmin.us/
+          ${{ steps.perl.outputs.bin }} cpanm.pl --reinstall App::cpanminus
+          rm -f cpanm.pl
+
+      - name: installsitebin
+        run: |
+          installsitebin=$(${{ steps.perl.outputs.bin }} -MConfig -e 'print $Config{installsitebin};')
+          echo "installsitebin = $installsitebin"
+          echo "::set-output name=path::$installsitebin"
+        id: installsitebin
+
+      - name: cpanm --version
+        run: ${{ steps.perl.outputs.bin }} ${{ steps.installsitebin.outputs.path }}/cpanm --version
+
+      - name: cpanm --installdeps --notest --with-develop .
+        run: ${{ steps.perl.outputs.bin }} ${{ steps.installsitebin.outputs.path }}/cpanm --verbose --installdeps --notest --with-develop .
+        working-directory: ${{ github.event.repository.name }}
+
+      - name: cpanm --notest App::ReportPrereqs
+        run: ${{ steps.perl.outputs.bin }} ${{ steps.installsitebin.outputs.path }}/cpanm --verbose --notest App::ReportPrereqs
+
+      - name: report-prereqs
+        run: ${{ steps.perl.outputs.bin }} ${{ steps.installsitebin.outputs.path }}/report-prereqs --with-develop
+        working-directory: ${{ github.event.repository.name }}
+
+      - run: ${{ steps.installsitebin.outputs.path }}/prove -lr t
+        working-directory: ${{ github.event.repository.name }}
+        env:
+          PERL_USE_UNSAFE_INC: 0
+
+      - run: ${{ steps.installsitebin.outputs.path }}/prove -lr xt
+        working-directory: ${{ github.event.repository.name }}
+        env:
+          PERL_USE_UNSAFE_INC: 0
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: author-tests
+          path: ~/.cpanm/work/*/build.log
+        if: failure()

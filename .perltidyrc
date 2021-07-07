@@ -1,1 +1,4 @@
-templates/.perltidyrc
+--maximum-line-length=0
+--break-at-old-comma-breakpoints
+--backup-and-modify-in-place
+--output-line-ending=unix
