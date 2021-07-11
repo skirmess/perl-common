@@ -236,14 +236,18 @@ sub job_cpanm_installdeps {
     }
     else {
         push @result, '      - name: cpanm --installdeps --notest .';
-        push @result, '        run: ${{ steps.perl.outputs.bin }} ${{ steps.installsitebin.outputs.path }}' . ( $type eq 'strawberry' ? q{\\} : q{/} ) . 'cpanm --verbose --installdeps --notest .';
+        push @result, '        run: |';
+        push @result, '          mv cpanfile .cpanfile.disabled';
+        push @result, '          ${{ steps.perl.outputs.bin }} ${{ steps.installsitebin.outputs.path }}' . ( $type eq 'strawberry' ? q{\\} : q{/} ) . 'cpanm --verbose --installdeps --notest .';
+        push @result, '          mv .cpanfile.disabled cpanfile';
     }
 
     push @result, '        working-directory: ${{ github.event.repository.name }}';
+    push @result, '        env:';
+    push @result, '          AUTOMATED_TESTING: 1';
 
     if ( $type eq 'cygwin' ) {
         push @result, <<'EOF';
-        env:
           PATH: /usr/local/bin:/usr/bin
 EOF
     }
@@ -311,7 +315,6 @@ sub job_env {
 
     return <<'EOF';
     env:
-      AUTOMATED_TESTING: 1
       TAR_OPTIONS: --warning=no-unknown-keyword
 EOF
 }
@@ -531,6 +534,10 @@ sub job_make {
         env:
 EOF
 
+    if ( defined $cmd && $cmd eq 'test' ) {
+        push @result, '          AUTOMATED_TESTING: 1';
+    }
+
     if ( $type eq 'cygwin' ) {
         push @result, '          PATH: /usr/local/bin:/usr/bin';
     }
@@ -550,6 +557,7 @@ sub job_perl_MakefilePL {
         run: ${{ steps.perl.outputs.bin }} Makefile.PL
         working-directory: ${{ github.event.repository.name }}
         env:
+          AUTOMATED_TESTING: 1
 EOF
 
     if ( $type eq 'cygwin' ) {
@@ -592,6 +600,7 @@ sub job_prove_xt {
       - run: ${{ steps.perl.outputs.bin }} ${{ steps.installsitebin.outputs.path }}/prove -lr xt/author
         working-directory: ${{ github.event.repository.name }}
         env:
+          AUTOMATED_TESTING: 1
           PERL_USE_UNSAFE_INC: 0
 EOF
 }
