@@ -178,7 +178,7 @@ sub _remove_files {
     my $wd = pushd( path('repos')->child( $self->repo_dir )->stringify );    ## no critic (Variables::ProhibitUnusedVarsStricter)
 
   FILE:
-    for my $file ( qw(.appveyor.yml .travis.yml), glob q{xt/*/*.t} ) {
+    for my $file ( qw(.appveyor.yml .travis.yml), glob q{xt/(?!smoke/)*/*.t} ) {
         next FILE if !-f $file;
 
         unlink $file or croak "Cannot remove file $file: $!";
