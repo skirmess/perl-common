@@ -7,6 +7,11 @@
       ]
    },
    {
+      "github_workflow_min_perl" : "5.12.0",
+      "push_url" : "git@github.com:skirmess/Perl-PrereqScanner-Scanner-TestNeeds.git",
+      "repo" : "https://github.com/skirmess/Perl-PrereqScanner-Scanner-TestNeeds.git"
+   },
+   {
       "push_url" : "git@github.com:skirmess/App-ReportPrereqs.git",
       "repo" : "https://github.com/skirmess/App-ReportPrereqs.git"
    },
