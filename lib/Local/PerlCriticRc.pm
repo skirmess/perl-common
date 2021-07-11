@@ -201,6 +201,7 @@ sub _perl_critic_policy_default_enabled {
         'Subroutines::RequireArgUnpacking',
         'ValuesAndExpressions::ProhibitConstantPragma',
         'ValuesAndExpressions::ProhibitLeadingZeros',
+        'ValuesAndExpressions::ProhibitLongChainsOfMethodCalls',
         'ValuesAndExpressions::ProhibitMagicNumbers',
         'Variables::ProhibitPunctuationVars',
 
