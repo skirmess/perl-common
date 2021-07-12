@@ -14,6 +14,7 @@ use Carp;
 use CPAN::Meta::YAML ();
 use HTTP::Tiny       ();
 use Path::Tiny qw(path);
+use Text::Trim;
 
 use Local::Repository;
 
@@ -157,7 +158,7 @@ sub _perl_critic_policy_default_config {
           # Core Policies
             $policy eq 'ErrorHandling::RequireCarping'                 ? { allow_in_main_unless_in_subroutine => '1' }
           : $policy eq 'InputOutput::RequireCheckedSyscalls'           ? { functions                          => ':builtins', exclude_functions => 'exec print say sleep' }
-          : $policy eq 'Modules::ProhibitEvilModules'                  ? { modules                            => 'Class::ISA {Found use of Class::ISA. This module is deprecated by the Perl 5 Porters.} Pod::Plainer {Found use of Pod::Plainer. This module is deprecated by the Perl 5 Porters.} Shell {Found use of Shell. This module is deprecated by the Perl 5 Porters.} Switch {Found use of Switch. This module is deprecated by the Perl 5 Porters.} Readonly {Found use of Readonly. Please use constant.pm or Const::Fast.} base {Found use of base. Please use parent instead.} File::Slurp {Found use of File::Slurp. Please use Path::Tiny instead.} common::sense {Found use of common::sense. Please use strict and warnings instead.} Class::Load {Found use of Class::Load. Please use Module::Runtime instead.} Any::Moose {Found use of Any::Moose. Please use Moo instead.} Error {Found use of Error.pm. Please use Throwable.pm instead.} Getopt::Std {Found use of Getopt::Std. Please use Getopt::Long instead.} HTML::Template {Found use of HTML::Template. Please use Template::Toolkit.} IO::Socket::INET6 {Found use of IO::Socket::INET6. Please use IO::Socket::IP.} JSON {Found use of JSON. Please use JSON::MaybeXS or Cpanel::JSON::XS.} JSON::XS {Found use of JSON::XS. Please use JSON::MaybeXS or Cpanel::JSON::XS.} JSON::Any {Found use of JSON::Any. Please use JSON::MaybeXS.} List::MoreUtils {Found use of List::MoreUtils. Please use List::Util or List::UtilsBy.} Mouse {Found use of Mouse. Please use Moo.} Net::IRC {Found use of Net::IRC. Please use POE::Component::IRC, Net::Async::IRC, or Mojo::IRC.} XML::Simple {Found use of XML::Simple. Please use XML::LibXML, XML::TreeBuilder, XML::Twig, or Mojo::DOM.} Sub::Infix {Found use of Sub::Infix. Please do not use it.} vars {the vers pragma has been superseded by our declarations, available in Perl v5.6.0 or later, and use of this pragma is discouraged.}' }
+          : $policy eq 'Modules::ProhibitEvilModules'                  ? { modules                            => $self->_prohibit_evil_modules() }
           : $policy eq 'Subroutines::ProhibitUnusedPrivateSubroutines' ? { private_name_regex                 => '_(?!build_)\w+' }
           : $policy eq 'ValuesAndExpressions::ProhibitComplexVersion'  ? { forbid_use_version                 => '1' }
 
@@ -370,6 +371,45 @@ sub _perl_critic_policy_from_distribution {
         return if !@stack;
         return shift @stack;
     };
+}
+
+sub _prohibit_evil_modules {
+    my ($self) = @_;
+
+    my @evil_modules = (
+        [ 'Class::ISA'        => 'Found use of Class::ISA. This module is deprecated by the Perl 5 Porters.' ],
+        [ 'Pod::Plainer'      => 'Found use of Pod::Plainer. This module is deprecated by the Perl 5 Porters.' ],
+        [ 'Shell'             => 'Found use of Shell. This module is deprecated by the Perl 5 Porters.' ],
+        [ 'Switch'            => 'Found use of Switch. This module is deprecated by the Perl 5 Porters.' ],
+        [ 'Readonly'          => 'Found use of Readonly. Please use constant.pm or Const::Fast.' ],
+        [ 'base'              => 'Found use of base. Please use parent instead.' ],
+        [ 'File::Slurp'       => 'Found use of File::Slurp. Please use Path::Tiny instead.' ],
+        [ 'common::sense'     => 'Found use of common::sense. Please use strict and warnings instead.' ],
+        [ 'Class::Load'       => 'Found use of Class::Load. Please use Module::Runtime instead.' ],
+        [ 'Any::Moose'        => 'Found use of Any::Moose. Please use Moo instead.' ],
+        [ 'Error'             => 'Found use of Error.pm. Please use Throwable.pm instead.' ],
+        [ 'Getopt::Std'       => 'Found use of Getopt::Std. Please use Getopt::Long instead.' ],
+        [ 'HTML::Template'    => 'Found use of HTML::Template. Please use Template::Toolkit.' ],
+        [ 'IO::Socket::INET6' => 'Found use of IO::Socket::INET6. Please use IO::Socket::IP.' ],
+        [ 'JSON'              => 'Found use of JSON. Please use JSON::PP, JSON::MaybeXS, or Cpanel::JSON::XS.' ],
+        [ 'JSON::XS'          => 'Found use of JSON::XS. Please use JSON::PP, JSON::MaybeXS, or Cpanel::JSON::XS.' ],
+        [ 'JSON::Any'         => 'Found use of JSON::Any. Please use JSON::PP, JSON::MaybeXS, or Cpanel::JSON::XS.' ],
+        [ 'List::MoreUtils'   => 'Found use of List::MoreUtils. Please use List::Util or List::UtilsBy.' ],
+        [ 'Mouse'             => 'Found use of Mouse. Please use Moo.' ],
+        [ 'Net::IRC'          => 'Found use of Net::IRC. Please use POE::Component::IRC, Net::Async::IRC, or Mojo::IRC.' ],
+        [ 'XML::Simple'       => 'Found use of XML::Simple. Please use XML::LibXML, XML::TreeBuilder, XML::Twig, or Mojo::DOM.' ],
+        [ 'Sub::Infix'        => 'Found use of Sub::Infix. Please do not use it.' ],
+        [ 'vars'              => 'the vers pragma has been superseded by our declarations, available in Perl v5.6.0 or later, and use of this pragma is discouraged.' ],
+    );
+
+    my $result = q{ };
+    for my $evil_ref (@evil_modules) {
+        $result .= "$evil_ref->[0] {$evil_ref->[1]} ";
+    }
+
+    trim $result;
+
+    return $result;
 }
 
 1;
