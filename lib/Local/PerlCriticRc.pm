@@ -212,8 +212,8 @@ sub _perl_critic_policy_default_enabled {
         'Bangs::ProhibitNumberedNames',
         'Bangs::ProhibitVagueNames',
 
-        # Perl::Critic::Freenode
-        'Freenode::EmptyReturn',
+        # Perl::Critic::Community
+        'Community::EmptyReturn',
 
         # Perl::Critic::Itch
         'CodeLayout::ProhibitHashBarewords',
@@ -300,7 +300,7 @@ sub _perl_critic_policy_distributions {
     my @stack = qw(
       Perl::Critic
       Perl::Critic::Bangs
-      Perl::Critic::Freenode
+      Perl::Critic::Community
       Perl::Critic::Itch
       Perl::Critic::Lax
       Perl::Critic::Moose
@@ -354,12 +354,11 @@ sub _perl_critic_policy_from_distribution {
 
     # The Perl::Critic::Freenode dist was renamed to Community and all
     # policies added twice with an alias. Remove the duplicate policies
-    if ( $distribution eq 'Perl::Critic::Freenode' ) {
+    if ( $distribution eq 'Perl::Critic::Community' ) {
         my %policy = map { $_ => 1 } @policies;
-        for my $freenode ( grep { m{ ^ Freenode:: }xsm } @policies ) {
-            my $community = $freenode;
-            $community =~ s{ ^ Freenode:: }{Community::}xsm;
-            delete $policy{$community};
+        for my $policy ( grep { m{ ^ Community:: }xsm } @policies ) {
+            $policy =~ s{ ^ Community:: }{Freenode::}xsm;
+            delete $policy{$policy};
         }
 
         @policies = keys %policy;
