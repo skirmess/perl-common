@@ -34,7 +34,7 @@ sub run {
 
     # Update the repos
     my $repos = decode_json( path('repos.json')->slurp_utf8 );
-    path('repos.json')->spew( JSON::PP->new->pretty(1)->canonical(1)->encode($repos) );    ## no critic (ValuesAndExpressions::ProhibitLongChainsOfMethodCalls)
+    path('repos.json')->spew( JSON::PP->new->pretty(1)->canonical(1)->encode($repos) );
     for my $repo_ref ( @{$repos} ) {
         Local::Repository->new($repo_ref)->update_project;
     }
