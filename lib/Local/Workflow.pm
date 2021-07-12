@@ -313,10 +313,15 @@ EOF
 sub job_env {
     my ( $self, $type ) = @_;
 
-    return <<'EOF';
+    my $result = <<'EOF';
     env:
       TAR_OPTIONS: --warning=no-unknown-keyword
 EOF
+    if ( $type eq 'wsl1' ) {
+        $result .= '      WSLENV: AUTOMATED_TESTING:PERL_USE_UNSAFE_INC:TAR_OPTIONS';
+    }
+
+    return $result;
 }
 
 sub job_find_perl {
