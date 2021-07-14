@@ -831,7 +831,13 @@ sub matrix {
     my @result;
     push @result, <<'EOF';
 name: test
-on: push
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron:  '5 7 11 * *'
+
 jobs:
   matrix:
     runs-on: ubuntu-latest
