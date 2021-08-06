@@ -36,6 +36,11 @@
    },
    {
       "github_workflow_min_perl" : "5.20.0",
+      "push_url" : "git@github.com:skirmess/Dist-Zilla-App-Command-diffrelease.git",
+      "repo" : "https://github.com/skirmess/Dist-Zilla-App-Command-diffrelease.git"
+   },
+   {
+      "github_workflow_min_perl" : "5.20.0",
       "push_url" : "git@github.com:skirmess/Dist-Zilla-Plugin-Git-FilePermissions.git",
       "repo" : "https://github.com/skirmess/Dist-Zilla-Plugin-Git-FilePermissions.git"
    },
