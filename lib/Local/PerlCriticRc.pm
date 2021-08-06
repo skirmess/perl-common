@@ -196,6 +196,7 @@ sub _perl_critic_policy_default_enabled {
         'InputOutput::RequireBriefOpen',
         'Modules::ProhibitExcessMainComplexity',
         'Modules::RequireVersionVar',
+        'NamingConventions::Capitalization',
         'RegularExpressions::ProhibitComplexRegexes',
         'RegularExpressions::ProhibitEnumeratedClasses',
         'Subroutines::ProhibitExcessComplexity',
