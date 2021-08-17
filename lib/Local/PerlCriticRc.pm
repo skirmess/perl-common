@@ -16,8 +16,6 @@ use HTTP::Tiny       ();
 use Path::Tiny qw(path);
 use Text::Trim;
 
-use Local::Repository;
-
 use namespace::autoclean 0.09;
 
 sub create {

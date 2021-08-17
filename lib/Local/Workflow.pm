@@ -9,6 +9,8 @@ our $VERSION = '0.001';
 use Moo;
 
 use Carp;
+use CPAN::Perl::Releases qw(perl_versions);
+use version 0.77 ();
 
 use namespace::autoclean 0.09;
 

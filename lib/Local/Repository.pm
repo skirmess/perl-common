@@ -11,15 +11,18 @@ use Moo;
 with 'Local::Role::Template';
 
 use Carp;
-use CPAN::Perl::Releases qw(perl_versions);
-use File::pushd;
-use Git::Wrapper;
+
+#use Git::Wrapper;
 use Path::Tiny qw(path);
-use version 0.77 ();
 
 use Local::Workflow;
 
 use namespace::autoclean 0.09;
+
+has common_dir => (
+    is       => 'ro',
+    required => 1,
+);
 
 has github_workflow => (
     is      => 'ro',
@@ -41,11 +44,6 @@ has github_workflow_min_perl_strawberry => (
     default => sub { $_[0]->github_workflow_min_perl },
 );
 
-has makefile_pl_exists => (
-    is      => 'ro',
-    default => 1,
-);
-
 has push_url => (
     is => 'ro',
 );
@@ -60,65 +58,56 @@ has skip => (
     default => sub { [] },
 );
 
-# -----
+#sub _clone_or_update_project {
+#    my ($self) = @_;
 
-has repo_dir => (
-    is       => 'ro',
-    lazy     => 1,
-    default  => sub { path( $_[0]->repo )->basename('.git') },
-    init_arg => undef,
-);
+#    if ( !-d 'repos' ) {
+#        path('repos')->mkpath;
+#    }
 
-sub _clone_or_update_project {
-    my ($self) = @_;
+#    my $repo_dir_abs = path('repos')->absolute->child( $self->repo_dir );
+#    my $git          = Git::Wrapper->new($repo_dir_abs);
 
-    if ( !-d 'repos' ) {
-        path('repos')->mkpath;
-    }
+#    if ( -d $repo_dir_abs ) {
+#        if ( $git->status->is_dirty ) {
+#            say ' ==> Repository is dirty, skipping update';
+#            return;
+#        }
 
-    my $repo_dir_abs = path('repos')->absolute->child( $self->repo_dir );
-    my $git          = Git::Wrapper->new($repo_dir_abs);
+#        say ' ==> pulling repo';
+#        $git->pull;
+#    }
+#    else {
+#        say ' ==> cloning repo';
+#        $git->clone( $self->repo, $repo_dir_abs );
+#    }
 
-    if ( -d $repo_dir_abs ) {
-        if ( $git->status->is_dirty ) {
-            say ' ==> Repository is dirty, skipping update';
-            return;
-        }
+#    my $push_url = $self->push_url;
+#    if ( defined $push_url ) {
+#        $git->remote( 'set-url', '--push', 'origin', $push_url );
+#    }
 
-        say ' ==> pulling repo';
-        $git->pull;
-    }
-    else {
-        say ' ==> cloning repo';
-        $git->clone( $self->repo, $repo_dir_abs );
-    }
-
-    my $push_url = $self->push_url;
-    if ( defined $push_url ) {
-        $git->remote( 'set-url', '--push', 'origin', $push_url );
-    }
-
-    return;
-}
+#    return;
+#}
 
 sub _copy_files_from_submodule_to_project {
     my ($self) = @_;
 
     say ' ==> Copy files to project';
 
-    my $it = path('templates')->iterator( { recurse => 1 } );
+    my $it = path( $self->common_dir )->child('templates')->iterator( { recurse => 1 } );
 
     my %skip = map { $_ => 1 } @{ $self->skip };
   FILE:
     while ( defined( my $file_abs = $it->() ) ) {
         next FILE if -l $file_abs || !-f _;
 
-        my $file = $file_abs->relative( path('templates') );
+        my $file = $file_abs->relative( path( $self->common_dir )->child('templates') );
         confess "File '$file' is not relative" if !$file->is_relative;
 
         if ( exists $skip{$file} ) {
 
-            # say "Skipping file $file";
+            say "Skipping file $file";
             next FILE;
         }
 
@@ -126,8 +115,7 @@ sub _copy_files_from_submodule_to_project {
 
         confess "Filling in the template returned undef for file '$file': $Text::Template::ERROR" if !defined $content;
 
-        my $target        = path('repos')->child( $self->repo_dir )->child($file);
-        my $target_parent = $target->parent;
+        my $target_parent = $file->parent;
 
         if ( !-d $target_parent ) {
             confess "'$target_parent' exists but is not a directory" if -e $target_parent;
@@ -136,9 +124,9 @@ sub _copy_files_from_submodule_to_project {
             $target_parent->mkpath;
         }
 
-        # say "Creating file '$target' from template '" . $file_abs . q{'};
+        say "Creating file '$file' from template '" . $file_abs . q{'};
 
-        $target->spew($content);
+        $file->spew($content);
     }
 
     return;
@@ -163,7 +151,7 @@ sub _create_github_workflow {
         min_perl_strawberry => $self->github_workflow_min_perl_strawberry,
     )->create;
 
-    my $workflow_path = path('repos')->child( $self->repo_dir )->child('.github/workflows');
+    my $workflow_path = path('.github/workflows');
     $workflow_path->mkpath;
 
     say " ==> Creating Github Actions Workflow";
@@ -174,8 +162,6 @@ sub _create_github_workflow {
 
 sub _remove_files {
     my ($self) = @_;
-
-    my $wd = pushd( path('repos')->child( $self->repo_dir )->stringify );    ## no critic (Variables::ProhibitUnusedVarsStricter)
 
   FILE:
     for my $file ( qw(.appveyor.yml .travis.yml), glob q{xt/(?!smoke/)*/*.t} ) {
@@ -192,11 +178,14 @@ sub update_project {
 
     say '===> ', $self->repo;
 
-    $self->_clone_or_update_project;
+    #$self->_clone_or_update_project;
+
     $self->_remove_files;
+
     if ( $self->github_workflow ) {
         $self->_create_github_workflow;
     }
+
     $self->_copy_files_from_submodule_to_project;
 
     return;
