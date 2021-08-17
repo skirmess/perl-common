@@ -1,9 +1,14 @@
 #!/usr/bin/env bash
 
-cd -- "$(dirname -- "$0")"/repos || exit 1
-for i in *
+cd -- "$(dirname -- "$0")" || exit 1
+for i in  $(json -f repos.json -a push_url | sed -n -e 's,\.git$,,' -e 's/^git@github.com:skirmess\///p')
 do
 	echo "### $i"
-	(cd $i && git status -s )
+	if [[ ! -d ../$i ]]
+	then
+		echo "ERROR: $i does not exist"
+	else
+		(cd ../$i && git status -s )
+	fi
 done
 
