@@ -8,6 +8,7 @@ our $VERSION = '0.001';
 
 use Moo;
 
+use Carp qw(croak);
 use File::pushd;
 use Git::Wrapper;
 use JSON::PP qw(decode_json);
@@ -29,14 +30,14 @@ sub run {
     my ($self) = @_;
 
     my ($remote) = Git::Wrapper->new(q{.})->remote(qw{get-url --push origin});
-    die 'Cannot get the remote' if !defined $remote;
+    croak 'Cannot get the remote' if !defined $remote;
 
-    $remote =~ s{ ^ git[@]github[.]com:skirmess/ }{}xsm or die "Unknown remote $remote";
+    $remote =~ s{ ^ git[@]github[.]com:skirmess/ }{}xsm or croak "Unknown remote $remote";
 
-    die "Cwd is not a dzil working directory" if !-f 'dist.ini';
+    croak "Cwd is not a dzil working directory" if !-f 'dist.ini';
 
     {
-        my $wd = pushd( $self->common_dir->stringify );
+        my $wd = pushd( $self->common_dir->stringify );    ## no critic (Variables::ProhibitUnusedVarsStricter)
 
         # Create new perlcriticrc in templates
         Local::PerlCriticRc->create('templates/xt/author/perlcriticrc');
@@ -49,7 +50,7 @@ sub run {
   REPO:
     for my $repo_ref ( @{$repos} ) {
         my $this_remote = $repo_ref->{push_url};
-        $this_remote =~ s{ ^ git[@]github[.]com:skirmess/ }{}xsm or die "Unknown remote $this_remote";
+        $this_remote =~ s{ ^ git[@]github[.]com:skirmess/ }{}xsm or croak "Unknown remote $this_remote";
 
         next REPO if $this_remote ne $remote;
 
