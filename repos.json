@@ -84,7 +84,7 @@
       "repo" : "https://github.com/skirmess/Test-Pod-Links.git"
    },
    {
-      "github_workflow_min_perl" : "5.10.1",
+      "github_workflow_min_perl" : "5.12.0",
       "push_url" : "git@github.com:skirmess/Test-RequiredMinimumDependencyVersion.git",
       "repo" : "https://github.com/skirmess/Test-RequiredMinimumDependencyVersion.git"
    },
