@@ -27,7 +27,7 @@ on test => sub {
 };
 
 on develop => sub {
-    requires 'CPANPLUS';
+    requires 'CPAN';
     requires 'JSON::PP';
     requires 'Path::Tiny';
     requires 'Perl::Critic';
@@ -163,7 +163,6 @@ on develop => sub {
     requires 'Perl::Critic::Policy::Moose::ProhibitNewMethod';
     requires 'Perl::Critic::Policy::Moose::RequireCleanNamespace';
     requires 'Perl::Critic::Policy::Moose::RequireMakeImmutable';
-    requires 'Perl::Critic::Policy::NamingConventions::Capitalization';
     requires 'Perl::Critic::Policy::NamingConventions::ProhibitAmbiguousNames';
     requires 'Perl::Critic::Policy::Objects::ProhibitIndirectSyntax';
     requires 'Perl::Critic::Policy::Perlsecret';
