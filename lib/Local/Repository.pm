@@ -184,7 +184,7 @@ sub _local_test_tempdir {
     say ' ==> Local::Test::TempDir';
 
     my $ltt_in_t  = path('t')->child('lib/Local/Test/TempDir.pm');
-    my $ltt_in_xt = path('xt/smoke')->child('lib/Local/Test/TempDir.pm');
+    my $ltt_in_xt = path('xt')->child('lib/Local/Test/TempDir.pm');
 
     my $filename_in_t = $self->_find_local_test_tempdir( path('t')->iterator( { recurse => 1 } ) );
     my $filename_in_xt;
@@ -192,7 +192,7 @@ sub _local_test_tempdir {
         say "  => $filename_in_t";
     }
     else {
-        $filename_in_xt = $self->_find_local_test_tempdir( path('xt/smoke')->iterator( { recurse => 1 } ) );
+        $filename_in_xt = $self->_find_local_test_tempdir( path('xt')->iterator( { recurse => 1 } ) );
         if ( defined $filename_in_xt ) {
             say "  => $filename_in_xt";
         }
@@ -229,7 +229,7 @@ sub _remove_files {
     my ($self) = @_;
 
   FILE:
-    for my $file ( qw(.appveyor.yml .travis.yml), glob q{xt/(?!smoke/)*/*.t} ) {
+    for my $file ( qw(.appveyor.yml .travis.yml), glob q{xt/*/*.t} ) {
         next FILE if !-f $file;
 
         unlink $file or croak "Cannot remove file $file: $!";
