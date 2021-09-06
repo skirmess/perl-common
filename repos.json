@@ -71,6 +71,7 @@
       ]
    },
    {
+      "github_workflow_min_perl" : "5.8.8",
       "push_url" : "git@github.com:skirmess/Test-Perl-Critic-XTFiles.git",
       "repo" : "https://github.com/skirmess/Test-Perl-Critic-XTFiles.git"
    },
