@@ -39,7 +39,7 @@ our @EXPORT_OK = qw(tempdir);
             croak "Not a directory $temp_dir_base";
         }
         else {
-            remove_tree( $temp_dir_base, { keep_root => 1 } );
+            remove_tree( $temp_dir_base, { safe => 0, keep_root => 1 } );
         }
 
         return;
