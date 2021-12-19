@@ -16,6 +16,10 @@
       "repo" : "https://github.com/skirmess/App-ReportPrereqs.git"
    },
    {
+      "push_url" : "git@github.com:skirmess/Git-Background.git",
+      "repo" : "https://github.com/skirmess/Git-Background.git"
+   },
+   {
       "push_url" : "git@github.com:skirmess/App-SSH-SwitchShell.git",
       "repo" : "https://github.com/skirmess/App-SSH-SwitchShell.git"
    },
