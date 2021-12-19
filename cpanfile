@@ -8,6 +8,7 @@ requires 'JSON::PP';
 requires 'Moo';
 requires 'Moo::Role';
 requires 'Path::Tiny';
+requires 'Perl::PrereqScanner';
 requires 'Text::Template';
 requires 'Text::Trim';
 requires 'constant';
