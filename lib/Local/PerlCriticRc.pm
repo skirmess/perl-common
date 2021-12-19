@@ -193,6 +193,7 @@ sub _perl_critic_policy_default_enabled {
         'Documentation::RequirePodSections',
         'InputOutput::RequireBriefOpen',
         'Modules::ProhibitExcessMainComplexity',
+        'Modules::ProhibitMultiplePackages',
         'Modules::RequireVersionVar',
         'NamingConventions::Capitalization',
         'RegularExpressions::ProhibitComplexRegexes',
@@ -309,7 +310,6 @@ sub _perl_critic_policy_distributions {
       Perl::Critic::Policy::BuiltinFunctions::ProhibitReturnOr
       Perl::Critic::Policy::HTTPCookies
       Perl::Critic::Policy::Moo::ProhibitMakeImmutable
-      Perl::Critic::Policy::Perlsecret
       Perl::Critic::Policy::TryTiny::RequireBlockTermination
       Perl::Critic::Policy::TryTiny::RequireUse
       Perl::Critic::Policy::ValuesAndExpressions::PreventSQLInjection
