@@ -13,7 +13,7 @@ use File::Spec::Functions qw(catdir);
 
 # Support Exporter < 5.57
 require Exporter;
-our @ISA       = qw(Exporter);
+our @ISA       = qw(Exporter);    ## no critic (ClassHierarchies::ProhibitExplicitISA)
 our @EXPORT_OK = qw(tempdir);
 
 {
