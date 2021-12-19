@@ -8,7 +8,7 @@ our $VERSION = '0.001';
 
 use Carp qw(croak);
 use Cwd qw(getcwd);
-use File::Path qw(remove_tree);
+use File::Path 2.07 qw(remove_tree);
 use File::Spec::Functions qw(catdir);
 
 # Support Exporter < 5.57
