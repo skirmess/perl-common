@@ -16,6 +16,7 @@
       "repo" : "https://github.com/skirmess/App-ReportPrereqs.git"
    },
    {
+      "github_workflow_min_perl" : "5.10.0",
       "push_url" : "git@github.com:skirmess/Git-Background.git",
       "repo" : "https://github.com/skirmess/Git-Background.git"
    },
