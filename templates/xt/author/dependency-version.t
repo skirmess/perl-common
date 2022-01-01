@@ -14,6 +14,9 @@ Test::RequiredMinimumDependencyVersion->new(
         # Unknown constructor arguments are ignored rather than fatal
         'Class::Tiny' => '1',
 
+        # API change to be based on Future
+        'Git::Background' => '0.002',
+
         # the redefine sub needs 0.14
         'Test::MockModule' => '0.14',
 
