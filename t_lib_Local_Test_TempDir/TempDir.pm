@@ -22,8 +22,15 @@ our @EXPORT_OK = qw(tempdir);
     sub _init {
         return if defined $temp_dir_base;
 
-        my $root_dir = getcwd();
-        croak "Cannot get cwd: $!" if !defined $root_dir;
+        my $root_dir;
+        if ( exists $ENV{LOCAL_TEST_TEMPDIR_BASEDIR} ) {
+            $root_dir = $ENV{LOCAL_TEST_TEMPDIR_BASEDIR};
+            croak "env variables LOCAL_TEST_TEMPDIR_BASEDIR doesn't point to a valid directory: $root_dir" if !-d $root_dir;
+        }
+        else {
+            $root_dir = getcwd();
+            croak "Cannot get cwd: $!" if !defined $root_dir;
+        }
 
         $temp_dir_base = catdir( $root_dir, 'tmp' );
         if ( !-d $temp_dir_base ) {
