@@ -15,7 +15,7 @@ Test::RequiredMinimumDependencyVersion->new(
         'Class::Tiny' => '1',
 
         # API change to be based on Future
-        'Git::Background' => '0.002',
+        'Git::Background' => '0.003',
 
         # the redefine sub needs 0.14
         'Test::MockModule' => '0.14',
