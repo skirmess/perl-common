@@ -97,12 +97,6 @@ sub create {
         push @test, $self->job_cpanm_installdeps($type);
         push @test, q{};
 
-        push @test, $self->job_cpanm_install_reportprereqs($type);
-        push @test, q{};
-
-        push @test, $self->job_reportprereqs($type);
-        push @test, q{};
-
         push @test, $self->job_perl_MakefilePL($type);
         push @test, q{};
 
@@ -113,6 +107,12 @@ sub create {
         push @test, q{};
 
         push @test, $self->job_prove_xt($type);
+        push @test, q{};
+
+        push @test, $self->job_cpanm_install_reportprereqs($type);
+        push @test, q{};
+
+        push @test, $self->job_reportprereqs($type);
         push @test, q{};
 
         push @test, $self->job_upload_artifact($type);
@@ -271,6 +271,8 @@ sub job_cpanm_install_reportprereqs {
           PATH: /usr/local/bin:/usr/bin
 EOF
     }
+
+    push @result, '        if: always()';
 
     chomp @result;
     return @result;
@@ -717,6 +719,8 @@ sub job_reportprereqs {
           PATH: /usr/local/bin:/usr/bin
 EOF
     }
+
+    push @result, '        if: always()';
 
     chomp @result;
     return @result;
