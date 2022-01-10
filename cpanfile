@@ -147,7 +147,6 @@ on develop => sub {
     requires 'Perl::Critic::Policy::Modules::ProhibitConditionalUseStatements';
     requires 'Perl::Critic::Policy::Modules::ProhibitEvilModules';
     requires 'Perl::Critic::Policy::Modules::ProhibitModuleShebang';
-    requires 'Perl::Critic::Policy::Modules::ProhibitMultiplePackages';
     requires 'Perl::Critic::Policy::Modules::ProhibitPOSIXimport';
     requires 'Perl::Critic::Policy::Modules::ProhibitUseQuotedVersion';
     requires 'Perl::Critic::Policy::Modules::RequireBarewordIncludes';
@@ -166,7 +165,6 @@ on develop => sub {
     requires 'Perl::Critic::Policy::Moose::RequireMakeImmutable';
     requires 'Perl::Critic::Policy::NamingConventions::ProhibitAmbiguousNames';
     requires 'Perl::Critic::Policy::Objects::ProhibitIndirectSyntax';
-    requires 'Perl::Critic::Policy::Perlsecret';
     requires 'Perl::Critic::Policy::References::ProhibitDoubleSigils';
     requires 'Perl::Critic::Policy::RegularExpressions::ProhibitCaptureWithoutTest';
     requires 'Perl::Critic::Policy::RegularExpressions::ProhibitEscapedMetacharacters';
