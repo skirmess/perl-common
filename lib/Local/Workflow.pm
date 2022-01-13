@@ -239,9 +239,14 @@ sub job_cpanm_installdeps {
     else {
         push @result, '      - name: cpanm --installdeps --notest .';
         push @result, '        run: |';
-        push @result, '          mv cpanfile .cpanfile.disabled';
+
+        if ( $type eq 'strawberry' ) {
+            push @result, '          rm -Force cpanfile';
+        }
+        else {
+            push @result, '          rm -f cpanfile';
+        }
         push @result, '          ${{ steps.perl.outputs.bin }} ${{ steps.installsitebin.outputs.path }}' . ( $type eq 'strawberry' ? q{\\} : q{/} ) . 'cpanm --verbose --installdeps --notest .';
-        push @result, '          mv .cpanfile.disabled cpanfile';
     }
 
     push @result, '        working-directory: ${{ github.event.repository.name }}';
@@ -710,7 +715,7 @@ sub job_reportprereqs {
 
     my @result;
     push @result, '      - name: report-prereqs';
-    push @result, '        run: ${{ steps.perl.outputs.bin }} ${{ steps.installsitebin.outputs.path }}' . ( $type eq 'strawberry' ? q{\\} : q{/} ) . 'report-prereqs' . ( $type eq 'author' ? ' --with-develop' : q{} );
+    push @result, '        run: ${{ steps.perl.outputs.bin }} ${{ steps.installsitebin.outputs.path }}' . ( $type eq 'strawberry' ? q{\\} : q{/} ) . 'report-prereqs' . ( $type eq 'author' ? ' --with-develop' : ' --meta MYMETA.json' );
     push @result, '        working-directory: ${{ github.event.repository.name }}';
 
     if ( $type eq 'cygwin' ) {
