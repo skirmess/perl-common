@@ -13,7 +13,7 @@ with 'Local::Role::Template';
 use Carp;
 use CPAN::Meta::YAML ();
 use HTTP::Tiny       ();
-use Path::Tiny qw(path);
+use Path::Tiny       qw(path);
 use Text::Trim;
 
 use namespace::autoclean 0.09;
@@ -194,6 +194,7 @@ sub _perl_critic_policy_default_enabled {
         'InputOutput::RequireBriefOpen',
         'Modules::ProhibitExcessMainComplexity',
         'Modules::ProhibitMultiplePackages',
+        'Modules::RequireExplicitPackage',
         'Modules::RequireVersionVar',
         'NamingConventions::Capitalization',
         'RegularExpressions::ProhibitComplexRegexes',
@@ -224,7 +225,6 @@ sub _perl_critic_policy_default_enabled {
         'Lax::ProhibitStringyEval::ExceptForRequire',
         'Lax::RequireConstantOnLeftSideOfEquality::ExceptEq',
         'Lax::RequireEndWithTrueConst',
-        'Lax::RequireExplicitPackage::ExceptForPragmata',
 
         # Perl::Critic::More
         'CodeLayout::RequireASCII',
