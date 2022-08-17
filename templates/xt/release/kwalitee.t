@@ -14,7 +14,7 @@ use Test::More 0.88;
 use XT::Util;
 
 my @tests = @{ __CONFIG__()->{tests} || [] };
-if ( !any { $_ =~ m{ \A -? has_license_in_source_file \z }xsm } @tests ) {
+if ( !any { m{ \A -? has_license_in_source_file \z }xsm } @tests ) {
     push @tests, '-has_license_in_source_file';
 }
 
