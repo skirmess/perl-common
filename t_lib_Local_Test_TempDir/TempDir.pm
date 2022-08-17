@@ -1,8 +1,13 @@
-package Local::Test::TempDir;
+# vim: ts=4 sts=4 sw=4 et: syntax=perl
+#
+# !!! RUN "dzil build" TO UPDATE LICENSE !!!
+#
 
 use 5.006;
 use strict;
 use warnings;
+
+package Local::Test::TempDir;
 
 our $VERSION = '0.001';
 
@@ -77,5 +82,3 @@ our @EXPORT_OK = qw(tempdir);
 }
 
 1;
-
-# vim: ts=4 sts=4 sw=4 et: syntax=perl
