@@ -11,7 +11,7 @@ use Moo;
 use Carp qw(croak);
 use File::pushd;
 use Git::Wrapper;
-use JSON::PP qw(decode_json);
+use JSON::PP   qw(decode_json);
 use Path::Tiny qw(path);
 
 use Local::PerlCriticRc;
