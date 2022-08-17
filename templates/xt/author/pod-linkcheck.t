@@ -1,10 +1,12 @@
 #!perl
 
-# {{ $generated }}
+# vim: ts=4 sts=4 sw=4 et: syntax=perl
 
 use 5.006;
 use strict;
 use warnings;
+
+# {{ $generated }}
 
 # CPAN is used by Test::Pod::LinkCheck but is not a dependency. The
 # require on CPAN is only here for dzil to pick it up and add it as a
