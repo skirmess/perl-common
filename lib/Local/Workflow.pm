@@ -846,8 +846,6 @@ name: test
 on:
   push:
   pull_request:
-  schedule:
-    - cron:  '5 7 11 * *'
 
 jobs:
   matrix:
