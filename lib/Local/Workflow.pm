@@ -640,15 +640,6 @@ sub job_matrix {
               libperl-dev
               make
               wget
-          - distribution: 'openSUSE-Leap-15.2'
-            packages: >-
-              gcc
-              gcc-c++
-              git
-              make
-              perl-IO-Socket-SSL
-              perl-Net-SSLeay
-              which
           - distribution: 'Ubuntu-16.04'
             packages: >-
               g++
