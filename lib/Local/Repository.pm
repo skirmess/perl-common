@@ -161,6 +161,70 @@ sub _create_github_workflow {
     return;
 }
 
+sub _find_local_test_exception {
+    my ( $self, $it ) = @_;
+
+  FILE:
+    while ( defined( my $file = $it->() ) ) {
+        my $filename = $file->stringify;
+        next if !-f $filename;
+        next if $filename !~ m{ \Q.t\E $ }xsm;
+
+        my $prereqs = Perl::PrereqScanner->new->scan_file($filename)->as_string_hash;
+
+        return $filename if exists $prereqs->{'Local::Test::Exception'};
+    }
+
+    return;
+}
+
+sub _local_test_exception {
+    my ($self) = @_;
+
+    say ' ==> Local::Test::Exception';
+
+    my $ltt_in_t  = path('t')->child('lib/Local/Test/Exception.pm');
+    my $ltt_in_xt = path('xt')->child('lib/Local/Test/Exception.pm');
+
+    my $filename_in_t = $self->_find_local_test_exception( path('t')->iterator( { recurse => 1 } ) );
+    my $filename_in_xt;
+    if ( defined $filename_in_t ) {
+        say "  => $filename_in_t";
+    }
+    else {
+        $filename_in_xt = $self->_find_local_test_exception( path('xt')->iterator( { recurse => 1 } ) );
+        if ( defined $filename_in_xt ) {
+            say "  => $filename_in_xt";
+        }
+    }
+
+    if ( defined $filename_in_t ) {
+        say "  => creating $ltt_in_t from template";
+        $ltt_in_t->parent->mkpath;
+        path( $self->common_dir )->child('t_lib_Local_Test_Exception/Exception.pm')->copy($ltt_in_t);
+    }
+    else {
+        if ( $ltt_in_t->is_file ) {
+            say "  => unlinking $ltt_in_t";
+            $ltt_in_t->remove;
+        }
+    }
+
+    if ( defined $filename_in_xt ) {
+        say "  => creating $ltt_in_xt from template";
+        $ltt_in_xt->parent->mkpath;
+        path( $self->common_dir )->child('t_lib_Local_Test_Exception/Exception.pm')->copy($ltt_in_xt);
+    }
+    else {
+        if ( $ltt_in_xt->is_file ) {
+            say "  => unlinking $ltt_in_xt";
+            $ltt_in_xt->remove;
+        }
+    }
+
+    return;
+}
+
 sub _find_local_test_tempdir {
     my ( $self, $it ) = @_;
 
@@ -253,6 +317,7 @@ sub update_project {
 
     $self->_copy_files_from_submodule_to_project;
 
+    $self->_local_test_exception;
     $self->_local_test_tempdir;
 
     return;

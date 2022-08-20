@@ -15,6 +15,7 @@ my @modules = qw(
   Local::Update
   Local::Workflow
   bin/update.pl
+  t_lib_Local_Test_Exception/Exception.pm
   t_lib_Local_Test_TempDir/TempDir.pm
 );
 
