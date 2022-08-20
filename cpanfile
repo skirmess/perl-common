@@ -138,6 +138,7 @@ on develop => sub {
     requires 'Perl::Critic::Policy::InputOutput::RequireCheckedSyscalls';
     requires 'Perl::Critic::Policy::InputOutput::RequireEncodingWithUTF8Layer';
     requires 'Perl::Critic::Policy::Lax::ProhibitComplexMappings::LinesNotStatements';
+    requires 'Perl::Critic::Policy::Lax::RequireExplicitPackage::ExceptForPragmata';
     requires 'Perl::Critic::Policy::Miscellanea::ProhibitFormats';
     requires 'Perl::Critic::Policy::Miscellanea::ProhibitTies';
     requires 'Perl::Critic::Policy::Miscellanea::ProhibitUnrestrictedNoCritic';
@@ -152,7 +153,6 @@ on develop => sub {
     requires 'Perl::Critic::Policy::Modules::RequireBarewordIncludes';
     requires 'Perl::Critic::Policy::Modules::RequireEndWithOne';
     requires 'Perl::Critic::Policy::Modules::RequireExplicitInclusion';
-    requires 'Perl::Critic::Policy::Modules::RequireExplicitPackage';
     requires 'Perl::Critic::Policy::Modules::RequireFilenameMatchesPackage';
     requires 'Perl::Critic::Policy::Modules::RequireNoMatchVarsWithUseEnglish';
     requires 'Perl::Critic::Policy::Modules::RequirePerlVersion';

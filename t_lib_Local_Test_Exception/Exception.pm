@@ -21,7 +21,7 @@ sub exception(&) {
 
     my $e;
     {
-        local $@;
+        local $@;    ## no critic (Variables::RequireInitializationForLocalVars)
         if ( !eval { $code->(); 1; } ) {
             $e = $@;
         }

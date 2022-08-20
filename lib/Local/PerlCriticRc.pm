@@ -200,6 +200,7 @@ sub _perl_critic_policy_default_enabled {
         'RegularExpressions::ProhibitComplexRegexes',
         'RegularExpressions::ProhibitEnumeratedClasses',
         'Subroutines::ProhibitExcessComplexity',
+        'Subroutines::ProhibitSubroutinePrototypes',
         'Subroutines::RequireArgUnpacking',
         'ValuesAndExpressions::ProhibitConstantPragma',
         'ValuesAndExpressions::ProhibitLeadingZeros',
