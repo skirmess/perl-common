@@ -28,8 +28,8 @@ on test => sub {
 };
 
 on develop => sub {
-    requires 'CPAN';
     requires 'JSON::PP';
+    requires 'MetaCPAN::Client';
     requires 'Path::Tiny';
     requires 'Perl::Critic';
     requires 'Perl::Critic::MergeProfile';
@@ -185,7 +185,6 @@ on develop => sub {
     requires 'Perl::Critic::Policy::Subroutines::ProhibitNestedSubs';
     requires 'Perl::Critic::Policy::Subroutines::ProhibitQualifiedSubDeclarations';
     requires 'Perl::Critic::Policy::Subroutines::ProhibitReturnSort';
-    requires 'Perl::Critic::Policy::Subroutines::ProhibitSubroutinePrototypes';
     requires 'Perl::Critic::Policy::Subroutines::ProhibitUnusedPrivateSubroutines';
     requires 'Perl::Critic::Policy::Subroutines::ProtectPrivateSubs';
     requires 'Perl::Critic::Policy::Subroutines::RequireFinalReturn';

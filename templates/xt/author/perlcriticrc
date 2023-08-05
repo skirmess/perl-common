@@ -57,6 +57,7 @@ allow_in_main_unless_in_subroutine = 1
 
 [ErrorHandling::RequireCheckingReturnValueOfEval]
 [InputOutput::ProhibitBacktickOperators]
+[InputOutput::ProhibitBarewordDirHandles]
 [InputOutput::ProhibitBarewordFileHandles]
 [InputOutput::ProhibitExplicitStdin]
 [InputOutput::ProhibitInteractiveTest]
