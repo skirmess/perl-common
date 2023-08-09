@@ -140,6 +140,7 @@ sub job_actions_setup_cygwin {
             gcc-g++
             git
             libcrypt-devel
+            libnsl-devel
             libssl-devel
             make
             perl
